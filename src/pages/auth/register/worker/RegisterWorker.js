@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import styles from "./Login.module.css";
-import logo from "../../../assets/img/Group 978 1.png";
-import logo1 from "../../../assets/img/Group 980 1.png";
+import styles from "../Register.module.css";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import logo from "../../../../assets/img/Group 978 1.png";
+import logo1 from "../../../../assets/img/Group 980 1.png";
 
-class Login extends Component {
+class RegisterWorker extends Component {
   render() {
     return (
       <>
@@ -27,7 +27,7 @@ class Login extends Component {
             <Col sm={6} className={styles.colBottom}>
               <img alt="" src={logo1} className={styles.logo1} />
               <h1 className={styles.title}>Halo, Pewpeople</h1>
-              <h1 className={styles.title1}>Login</h1>
+              <h1 className={styles.title1}>Sign Up</h1>
               <p className={styles.subTitle}>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
                 euismod ipsum et dui rhoncus auctor.
@@ -36,11 +36,29 @@ class Login extends Component {
                 Lorom ipsum dolor si amet uegas anet.
               </p>
               <Form className={styles.mainForm}>
+                <Form.Group controlId="formBasicName">
+                  <Form.Label className={styles.label}>Nama</Form.Label>
+                  <Form.Control
+                    type="text"
+                    placeholder="Masukan nama panjang"
+                    className={styles.control}
+                  />
+                </Form.Group>
                 <Form.Group controlId="formBasicEmail">
-                  <Form.Label className={styles.label}>Email</Form.Label>
+                  <Form.Label className={styles.label1}>Email</Form.Label>
                   <Form.Control
                     type="email"
                     placeholder="Masukan alamat email"
+                    className={styles.control}
+                  />
+                </Form.Group>
+                <Form.Group controlId="formBasicPhone">
+                  <Form.Label className={styles.label1}>
+                    No handphone
+                  </Form.Label>
+                  <Form.Control
+                    type="number"
+                    placeholder="Masukan no handphone"
                     className={styles.control}
                   />
                 </Form.Group>
@@ -52,17 +70,25 @@ class Login extends Component {
                     className={styles.control}
                   />
                 </Form.Group>
+                <Form.Group controlId="formBasicConPass">
+                  <Form.Label className={styles.label1}>
+                    Konfirmasi kata Sandi
+                  </Form.Label>
+                  <Form.Control
+                    type="password"
+                    placeholder="Masukan konfirmasi kata sandi"
+                    className={styles.control}
+                  />
+                </Form.Group>
               </Form>
-              <Link to="#" className={styles.forgotPass}>
-                Lupa kata sandi ?
-              </Link>
+
               <Button block className={styles.btnSubmit}>
-                Masuk
+                Daftar
               </Button>
               <p className={styles.register}>
-                Anda belum punya akun?{" "}
+                Anda sudah punya akun?{" "}
                 <Link to="#" className={styles.onReg}>
-                  Daftar disini
+                  Masuk disini
                 </Link>{" "}
               </p>
             </Col>
@@ -73,4 +99,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default RegisterWorker;
