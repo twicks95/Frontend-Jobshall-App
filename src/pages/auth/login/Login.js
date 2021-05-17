@@ -6,6 +6,7 @@ class Login extends Component {
     return (
       <>
         <h1 className={styles.mainText}>Halaman Login</h1>
+        <h2>development</h2>
       </>
     );
   }
