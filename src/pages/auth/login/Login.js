@@ -5,7 +5,8 @@ class Login extends Component {
   render() {
     return (
       <>
-        <h1 className={styles.mainText}>Halaman Login12321312</h1>
+        <h1 className={styles.mainText}>Halaman Login</h1>
+        <h2>test branch</h2>
       </>
     );
   }
