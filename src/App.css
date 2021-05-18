@@ -17,5 +17,6 @@
 
 .btn-primary,
 .btn-outline-primary {
+  border-radius: 5px;
   border: 1px solid #5e50a1 !important;
 }
