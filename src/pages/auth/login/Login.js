@@ -53,7 +53,7 @@ class Login extends Component {
                   />
                 </Form.Group>
               </Form>
-              <Link to="#" className={styles.forgotPass}>
+              <Link to="reset-password" className={styles.forgotPass}>
                 Lupa kata sandi ?
               </Link>
               <Button block className={styles.btnSubmit}>
@@ -61,7 +61,7 @@ class Login extends Component {
               </Button>
               <p className={styles.register}>
                 Anda belum punya akun?{" "}
-                <Link to="#" className={styles.onReg}>
+                <Link to="/register-worker" className={styles.onReg}>
                   Daftar disini
                 </Link>{" "}
               </p>
