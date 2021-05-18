@@ -87,7 +87,7 @@ class RegisterWorker extends Component {
               </Button>
               <p className={styles.register}>
                 Anda sudah punya akun?{" "}
-                <Link to="#" className={styles.onReg}>
+                <Link to="/login" className={styles.onReg}>
                   Masuk disini
                 </Link>{" "}
               </p>
