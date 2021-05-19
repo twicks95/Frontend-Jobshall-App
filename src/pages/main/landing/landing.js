@@ -77,6 +77,18 @@ class Landing extends Component {
                 <HiCheckCircle />
                 Lorem ipsum dolor sit amet
               </p>
+              <p>
+                <HiCheckCircle />
+                Lorem ipsum dolor sit amet
+              </p>
+              <p>
+                <HiCheckCircle />
+                Lorem ipsum dolor sit amet
+              </p>
+              <p>
+                <HiCheckCircle />
+                Lorem ipsum dolor sit amet
+              </p>
             </div>
           </section>
         </div>
