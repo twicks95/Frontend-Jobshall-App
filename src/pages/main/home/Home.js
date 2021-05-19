@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import styles from "./Home.module.css";
 import imgDummy from "../../../assets/img/Ellipse 326.png";
 import ReactPaginate from "react-paginate";
+import Footer from "../../../components/Footer/Footer";
 import {
   Container,
   Form,
+  // NavDropdown,
   Dropdown,
   Button,
   Card,
@@ -40,13 +42,14 @@ class Home extends Component {
           skills: ["PHP", "JS", "Python"],
         },
         {
-          name: "Rifki",
+          name: "Rifqi",
           field: "Web developer",
           type: "Freelance",
           location: "lorem ipsum",
           skills: ["PHP", "JS", "Python", "Golang"],
         },
       ],
+      seacrh: "",
     };
   }
   render() {
@@ -65,6 +68,24 @@ class Home extends Component {
 
                 <Button className={styles.btn1}>Search</Button>
               </Form.Group>
+
+              {/* <NavDropdown
+                title="Kategori"
+                id="basic-nav-dropdown"
+                className={styles.dropdownMain}
+              >
+                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.2">
+                  Another action
+                </NavDropdown.Item>
+                <NavDropdown.Item href="#action/3.3">
+                  Something
+                </NavDropdown.Item>
+                <NavDropdown.Divider />
+                <NavDropdown.Item href="#action/3.4">
+                  Separated link
+                </NavDropdown.Item>
+              </NavDropdown> */}
               <Dropdown className={styles.dropdownMain}>
                 <Dropdown.Toggle
                   variant="success"
@@ -144,6 +165,7 @@ class Home extends Component {
               activeClassName={styles.active}
             />
           </Container>
+          <Footer />
         </Container>
       </>
     );
