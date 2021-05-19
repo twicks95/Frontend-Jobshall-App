@@ -17,5 +17,7 @@
 
 .btn-primary,
 .btn-outline-primary {
+  font-weight: 700;
+  border-radius: 4px;
   border: 1px solid #5e50a1 !important;
 }
