@@ -1,0 +1,21 @@
+.navbar {
+  background-color: #ffffff !important;
+  padding: 42px 120px !important;
+}
+
+.logo {
+  width: 127px;
+}
+
+@media (min-width: 1200px) {
+  .navbar {
+    padding: inherit 150px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .navbar {
+    padding-left: 5% !important;
+    padding-right: 5% !important;
+  }
+}

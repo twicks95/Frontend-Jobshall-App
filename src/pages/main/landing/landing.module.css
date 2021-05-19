@@ -1,4 +1,76 @@
-.mainText {
-  background-color: blue;
-  text-align: center;
+.contentWrapper {
+  padding: 70px 120px;
 }
+
+.greyBox {
+  width: 102%;
+  height: 102%;
+  position: absolute;
+  background-color: #e2e5ed;
+  transform: rotate(-15deg);
+  z-index: -99;
+}
+
+.imageContainer {
+  position: relative;
+}
+
+.imageContainer::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 27%;
+  height: 27%;
+  left: -12%;
+  bottom: -6%;
+  background-color: #5e50a1;
+}
+
+.imageContainer::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  left: 8%;
+  bottom: -10%;
+  background-color: #fbb017;
+}
+
+.dotDecoration {
+  position: absolute;
+  left: 30px;
+  bottom: 40px;
+}
+
+.heroImg {
+  width: 100%;
+  object-fit: cover;
+}
+
+/* .leftHero h1,
+.leftHero p {
+  width: 490px;
+} */
+
+.leftHero p {
+  margin: 20px 0px 55px;
+}
+
+.leftHero {
+  padding-right: 12%;
+}
+
+.heroCTAButton {
+  width: 210px;
+  height: 63px;
+}
+
+/* .tick {
+  content: "";
+  display: inline-block;
+  height: 24px;
+  width: 24px;
+  border-radius: 50%;
+  background-color: #5e50a1;
+} */
