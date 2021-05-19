@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
+import "./App.css";
+
 import Landing from "./pages/main/landing/landing";
 import RegisterWorker from "./pages/auth/register/worker/RegisterWorker";
 import RegisterRecruiter from "./pages/auth/register/recruiter/RegisterRecruiter";
