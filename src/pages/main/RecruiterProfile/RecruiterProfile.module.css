@@ -43,7 +43,7 @@
   align-items: center;
 }
 
-.detailProfile h3 {
+.detailProfile h2 {
   font-weight: 600;
   font-size: 22px;
 }
@@ -71,7 +71,7 @@
   width: fit-content;
 }
 
-.detailProfile h4,
+.detailProfile h3,
 .detailProfile p,
 .detailProfile span,
 .socialAccount .account {
