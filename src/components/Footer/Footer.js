@@ -1,7 +1,7 @@
 import React from "react";
 
 import styles from "./Footer.module.css";
-import Logo from "../../assets/images/peworld-white.png";
+import Logo from "../../assets/img/Group 978 1.png";
 
 const Footer = (props) => {
   return (
