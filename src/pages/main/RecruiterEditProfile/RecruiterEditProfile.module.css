@@ -1,0 +1,107 @@
+input[type="file"] {
+  display: none;
+}
+
+.container {
+  position: relative;
+  padding: 100px 120px;
+  border: 1px solid red;
+  background-color: #e5e5e5;
+}
+
+.container::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  width: 100%;
+  height: 410px;
+  background-color: #5e50a1;
+}
+
+.content {
+  position: relative;
+  z-index: 99 !important;
+}
+
+.profilePreview {
+  width: 100%;
+  padding: 50px 40px;
+  background-color: #ffffff;
+}
+
+.profilePreview h3,
+.profilePreview span,
+.profilePreview p {
+  font-size: 14px;
+}
+
+.profilePreview span,
+.profilePreview p {
+  color: #9ea0a5;
+}
+
+.profilePreview h3 {
+  margin-bottom: 10px;
+}
+
+.profilePreview p {
+  margin-top: 12px;
+}
+
+.profilePreview span img {
+  margin-right: 12px;
+}
+
+.profilePreview h2 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.profilePicture img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.editPictureButton {
+  cursor: pointer;
+  text-align: center;
+  margin: 25px 0px;
+}
+
+.editPictureButton .editIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+}
+
+.editPictureButton span {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.actionButton {
+  margin-top: 18px;
+}
+
+.actionButton button {
+  height: 50px;
+}
+
+.form {
+  padding: 50px 40px;
+  background-color: #ffffff;
+  z-index: 99;
+}
+
+.form h3 {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.profilePreview,
+.form {
+  border-radius: 8px;
+}
