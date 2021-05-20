@@ -1,13 +1,13 @@
 import React, { Component } from "react";
 import styles from "./WorkerEditProfile.module.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
-import imgDummy from "../../../../assets/img/Ellipse 326.png";
-import Footer from "../../../../components/Footer/Footer";
-import editSkill from "../../../../assets/img/edit 1.png";
-import delSkill from "../../../../assets/img/delete 1.png";
-import upload from "../../../../assets/img/Vector.png";
-import setImg from "../../../../assets/img/Group.png";
-import sizeImg from "../../../../assets/img/expand 2.png";
+import imgDummy from "../../../assets/img/Ellipse 326.png";
+import Footer from "../../../components/Footer/Footer";
+import editSkill from "../../../assets/img/edit 1.png";
+import delSkill from "../../../assets/img/delete 1.png";
+import upload from "../../../assets/img/Vector.png";
+import setImg from "../../../assets/img/Group.png";
+import sizeImg from "../../../assets/img/expand 2.png";
 
 class WorkerEditProfile extends Component {
   constructor() {

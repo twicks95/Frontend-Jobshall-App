@@ -60,7 +60,7 @@
   cursor: pointer;
 }
 .editText::before {
-  content: url("../../../../assets/img/edit\ \(1\)\ 1.png");
+  content: url("../../../assets/img/edit\ \(1\)\ 1.png");
   margin-right: 6px;
 }
 .profileName {
@@ -93,7 +93,7 @@
   color: #9ea0a5;
 }
 .profileLoc::before {
-  content: url("../../../../assets/img/map-pin\ \(4\)\ 1.png");
+  content: url("../../../assets/img/map-pin\ \(4\)\ 1.png");
   margin-right: 13px;
 }
 .profilePhone {
@@ -104,7 +104,7 @@
   color: #9ea0a5;
 }
 .profilePhone::before {
-  content: url("../../../../assets/img/Vector\ \(1\).png");
+  content: url("../../../assets/img/Vector\ \(1\).png");
   margin-right: 12.33px;
 }
 .profileDesc {

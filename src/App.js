@@ -12,11 +12,11 @@ import ConfirmPassword from "./pages/main/user/password/ConfirmPassword";
 import PassLogin from "./pages/main/user/password/PassLogin";
 import Request from "./pages/main/user/password/Request";
 import Home from "./pages/main/home/Home";
-import WorkerEditProfile from "./pages/main/profile/WorkerEditProfile/WorkerEditProfile";
+import WorkerEditProfile from "./pages/main/WorkerEditProfile/WorkerEditProfile";
 import Chat from "./pages/main/chat/Chat";
 import Experience from "./pages/main/experience/Experience";
 import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
-import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
+// import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 import Portofolio from "./pages/main/portfolio/Portfolio";
 
 class App extends Component {
@@ -42,11 +42,11 @@ class App extends Component {
           <Route path="/portofolio" exact component={Portofolio} />
           <Route path="/" exact component={Landing} />
           <Route path="/recruiter/profile" exact component={RecruiterProfile} />
-          <Route
+          {/* <Route
             path="/recruiter/edit"
             exact
             component={RecruiterEditProfile}
-          />
+          /> */}
         </Switch>
       </Router>
     );
