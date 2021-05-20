@@ -79,8 +79,7 @@ class Home extends Component {
     }
   };
   handleProfile = () => {
-    console.log("work");
-    // this.props.history.push("");
+    this.props.history.push("/experience");
   };
   render() {
     // console.log(this.state.sort);
