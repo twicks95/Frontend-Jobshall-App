@@ -50,9 +50,40 @@ class Home extends Component {
         },
       ],
       seacrh: "",
+      sort: "",
     };
   }
+  changeTextSearch = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+  handleSort = (event) => {
+    // console.log(event.target.name);
+    switch (event.target.name) {
+      case "sortName":
+        this.setState({ sort: "worker_name ASC" });
+        break;
+      case "sortSkills":
+        this.setState({ sort: "worker_skills ASC" });
+        break;
+      case "sortLoc":
+        this.setState({ sort: "worker_location ASC" });
+        break;
+      case "sortType1":
+        this.setState({ sort: "worker_type=freelance" });
+        break;
+      case "sortType2":
+        this.setState({ sort: "worker_type=fulltime" });
+        break;
+      default:
+        break;
+    }
+  };
+  handleProfile = () => {
+    console.log("work");
+    // this.props.history.push("");
+  };
   render() {
+    // console.log(this.state.sort);
     const totalPage = 5;
     return (
       <>
@@ -63,29 +94,14 @@ class Home extends Component {
                 <Form.Control
                   placeholder="Search for any skill"
                   className={styles.mainControl}
+                  name="search"
+                  value={this.state.search}
+                  onChange={(event) => this.changeTextSearch(event)}
                 />
                 <img alt="" src={seacrh} className={styles.imgSearch} />
 
                 <Button className={styles.btn1}>Search</Button>
               </Form.Group>
-
-              {/* <NavDropdown
-                title="Kategori"
-                id="basic-nav-dropdown"
-                className={styles.dropdownMain}
-              >
-                <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Another action
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Something
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  Separated link
-                </NavDropdown.Item>
-              </NavDropdown> */}
               <Dropdown className={styles.dropdownMain}>
                 <Dropdown.Toggle
                   variant="success"
@@ -95,19 +111,39 @@ class Home extends Component {
                   Kategori
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                  <Dropdown.Item className={styles.listDropdown}>
+                  <Dropdown.Item
+                    className={styles.listDropdown}
+                    name="sortName"
+                    onClick={(event) => this.handleSort(event)}
+                  >
                     Sortir berdasarkan Nama
                   </Dropdown.Item>
-                  <Dropdown.Item className={styles.listDropdown}>
+                  <Dropdown.Item
+                    className={styles.listDropdown}
+                    name="sortSkills"
+                    onClick={(event) => this.handleSort(event)}
+                  >
                     Sortir berdasarkan Skill
                   </Dropdown.Item>
-                  <Dropdown.Item className={styles.listDropdown}>
+                  <Dropdown.Item
+                    className={styles.listDropdown}
+                    name="sortLoc"
+                    onClick={(event) => this.handleSort(event)}
+                  >
                     Sortir berdasarkan Lokasi
                   </Dropdown.Item>
-                  <Dropdown.Item className={styles.listDropdown}>
+                  <Dropdown.Item
+                    className={styles.listDropdown}
+                    name="sortType1"
+                    onClick={(event) => this.handleSort(event)}
+                  >
                     Sortir berdasarkan Freelance
                   </Dropdown.Item>
-                  <Dropdown.Item className={styles.listDropdown}>
+                  <Dropdown.Item
+                    className={styles.listDropdown}
+                    name="sortType2"
+                    onClick={(event) => this.handleSort(event)}
+                  >
                     Sortir berdasarkan Fulltime
                   </Dropdown.Item>
                 </Dropdown.Menu>
@@ -142,7 +178,10 @@ class Home extends Component {
                         </Card.Body>
                       </Col>
                       <Col sm={3} className={styles.colButton}>
-                        <Button className={styles.btnProfile}>
+                        <Button
+                          className={styles.btnProfile}
+                          onClick={this.handleProfile}
+                        >
                           Lihat Profile
                         </Button>
                       </Col>
