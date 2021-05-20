@@ -14,6 +14,7 @@ import Request from "./pages/main/user/password/Request";
 import Home from "./pages/main/home/Home";
 import WorkerEditProfile from "./pages/main/profile/WorkerEditProfile/WorkerEditProfile";
 import Experience from "./pages/main/experience/Experience";
+import Portofolio from "./pages/main/portfolio/Portfolio";
 
 class App extends Component {
   render() {
@@ -34,6 +35,7 @@ class App extends Component {
           <Route path="/home" exact component={Home} />
           <Route path="/worker/edit" exact component={WorkerEditProfile} />
           <Route path="/experience" exact component={Experience} />
+          <Route path="/portofolio" exact component={Portofolio} />
           <Route path="/" exact component={Landing} />
         </Switch>
       </Router>

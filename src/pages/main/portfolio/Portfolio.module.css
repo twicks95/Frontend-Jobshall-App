@@ -1,9 +1,12 @@
 @media (max-width: 512px) {
-  .date {
-    font-size: 12px !important;
-  }
   .link2 {
-    margin: 0px;
+    margin-left: 0px !important;
+    padding: 12px 12px 12px 0px;
+  }
+
+  .portImg {
+    margin: 0 auto;
+    margin-bottom: 14px;
   }
   .cardOne {
     margin-bottom: 50px;
@@ -164,7 +167,25 @@
   padding: 18px 30px;
   background: #ffffff;
   border-radius: 8px;
+  border: 0.5px solid lavenderblush;
 }
+/* .link1 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 56px;
+  color: #1f2a36;
+  text-decoration: none;
+}
+.link2 {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 56px;
+  color: #9ea0a5;
+  margin-left: 30px;
+  text-decoration: none;
+} */
 .link1 {
   font-style: normal;
   font-weight: 600;
@@ -174,7 +195,9 @@
 
   text-decoration: none;
 }
-
+.nav1 {
+  padding-right: 30px;
+}
 .link2 {
   font-style: normal;
   font-weight: 600;
@@ -184,53 +207,28 @@
   margin-right: 30px;
   text-decoration: none !important;
 }
-.underline {
+.underline1 {
   width: 100%;
   height: 4px;
   border-radius: 2px;
   background-color: #5e50a1;
 }
-.cardExp {
-  border-bottom: 1px solid #e2e5ed;
+.cardPort {
+  border: 1px solid white;
+  margin-bottom: 30px;
 }
-.cardExpMain {
-  border: none;
-  margin-top: 46px;
+.portImg {
+  width: 219px;
+  height: 148px;
 }
-.position {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 27px;
-  color: #1f2a36;
-  margin: 0;
-}
-.name {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 18px;
-  line-height: 25px;
-  color: #46505c;
-  margin: 0;
-}
-.date {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 22px;
-  color: #9ea0a5;
-}
-.desc1 {
-  margin-top: 16px;
+.portName {
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 24px;
   color: #1f2a36;
+  text-align: center;
 }
-.infoExp {
-  padding: 20px;
-}
-.imgExp {
-  padding: 20px;
+.rowPort {
+  margin-top: 24px;
 }
