@@ -1,0 +1,49 @@
+@media (max-width: 512px) {
+  .cardTwo {
+    margin-bottom: 200px !important;
+  }
+}
+.main {
+  background: #eef2f7;
+  padding: 0px;
+}
+.mainRow {
+  padding-top: 50px;
+}
+.cardOne {
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 20px 20px 241px 20px;
+  border: white solid 1px;
+  margin-bottom: 20px;
+}
+.title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1f2a36;
+}
+.mainImg {
+  width: 142px;
+  height: 126px;
+  margin: 0 auto;
+  margin-top: 126px;
+  margin-bottom: 12px;
+}
+.text {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1f2a36;
+  text-align: center;
+}
+.cardTwo {
+  height: 615px;
+  background: #ffffff;
+  border-radius: 4px;
+  padding: 20px 20px 241px 20px;
+  border: white solid 1px;
+  margin-bottom: 667px;
+}

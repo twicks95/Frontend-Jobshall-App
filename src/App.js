@@ -12,6 +12,8 @@ import ConfirmPassword from "./pages/main/user/password/ConfirmPassword";
 import PassLogin from "./pages/main/user/password/PassLogin";
 import Request from "./pages/main/user/password/Request";
 import Home from "./pages/main/home/Home";
+import WorkerEditProfile from "./pages/main/profile/WorkerEditProfile/WorkerEditProfile";
+import Chat from "./pages/main/chat/Chat";
 
 class App extends Component {
   render() {
@@ -30,6 +32,8 @@ class App extends Component {
           <Route path="/req-pass" exact component={Request} />
           <Route path="/login" exact component={Login} />
           <Route path="/home" exact component={Home} />
+          <Route path="/worker/edit" exact component={WorkerEditProfile} />
+          <Route path="/chat" exact component={Chat} />
           <Route path="/" exact component={Landing} />
         </Switch>
       </Router>

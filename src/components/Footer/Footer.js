@@ -8,8 +8,8 @@ const Footer = (props) => {
     <footer className={`${styles.footer}`}>
       <img src={Logo} alt="logo" className={`${styles.logo}`} />
       <p className={`${styles.footerText}`}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod
-        ipsum et dui rhoncus auctor.
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+        <br /> In euismod ipsum et dui rhoncus auctor.
       </p>
       <hr className={`m-0 ${styles.separator}`} />
       <div className="d-flex flex-column flex-md-row justify-content-between">
