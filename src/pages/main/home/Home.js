@@ -14,7 +14,6 @@ import {
   Col,
 } from "react-bootstrap";
 import seacrh from "../../../assets/img/search (1) 1.png";
-import Footer from "../../../components/Footer/Footer";
 
 class Home extends Component {
   constructor() {
