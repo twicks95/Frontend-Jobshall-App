@@ -13,11 +13,8 @@ import PassLogin from "./pages/main/user/password/PassLogin";
 import Request from "./pages/main/user/password/Request";
 import Home from "./pages/main/home/Home";
 import WorkerEditProfile from "./pages/main/profile/WorkerEditProfile/WorkerEditProfile";
-<<<<<<< HEAD
 import Chat from "./pages/main/chat/Chat";
-=======
 import Experience from "./pages/main/experience/Experience";
->>>>>>> alfin-experience
 
 class App extends Component {
   render() {
