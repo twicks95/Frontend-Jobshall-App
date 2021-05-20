@@ -6,6 +6,7 @@ import "./App.css";
 import Landing from "./pages/main/landing/landing";
 import Register from "./pages/auth/register/Register";
 import Login from "./pages/auth/login/Login";
+import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 
 class App extends Component {
   render() {
@@ -15,6 +16,11 @@ class App extends Component {
           <Route path="/" exact component={Register} />
           <Route path="/login" exact component={Login} />
           <Route path="/landing" exact component={Landing} />
+          <Route
+            path="/recruiter/edit"
+            exact
+            component={RecruiterEditProfile}
+          />
         </Switch>
       </Router>
     );
