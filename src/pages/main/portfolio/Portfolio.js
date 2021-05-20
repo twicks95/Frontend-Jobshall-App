@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styles from "./Experience.module.css";
+import styles from "./Portfolio.module.css";
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import Footer from "../../../components/Footer/Footer";
 import profileImg from "../../../assets/img/Ellipse 326.png";
@@ -7,10 +7,10 @@ import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
-import Suit from "../../../assets/img/suitcase 2.png";
+import port from "../../../assets/img/Rectangle 637.png";
 import { Link } from "react-router-dom";
 
-class Experience extends Component {
+class Portofolio extends Component {
   constructor() {
     super();
     this.state = {
@@ -42,31 +42,25 @@ class Experience extends Component {
       dataPort: [
         {
           port_name: "Reminder App",
-          port_image: "../../../assets/img/Ellipse 326.png",
-        },
-      ],
-
-      dataExp: [
-        {
-          position: "Engineer",
-          company_name: "Tokopedia",
-          start_date: "July 2019",
-          end_date: "January 2020",
-          total: "6 months",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at.",
         },
         {
-          position: "CEO",
-          company_name: "Shopee",
-          start_date: "July 2019",
-          end_date: "January 2020",
-          total: "6 months",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at.",
+          port_name: "Social media app",
+        },
+        {
+          port_name: "Project management web",
+        },
+        {
+          port_name: "Reminder App",
+        },
+        {
+          port_name: "Social media app",
+        },
+        {
+          port_name: "Project management web",
         },
       ],
-
-      isExp: true,
-      isPort: false,
+      isExp: false,
+      isPort: true,
     };
   }
   render() {
@@ -157,10 +151,10 @@ class Experience extends Component {
                         }
                       >
                         Portofolio
+                        <div className={styles.underline1}>&nbsp;</div>
                       </Link>
                     </Nav.Item>
-
-                    <Nav.Item className={styles.nav1}>
+                    <Nav.Item>
                       <Link
                         to="/experience"
                         className={
@@ -168,35 +162,26 @@ class Experience extends Component {
                         }
                       >
                         Pengalaman Kerja
-                        <div className={styles.underline}>&nbsp;</div>
                       </Link>
                     </Nav.Item>
                   </Nav>
-                  <Card className={styles.cardExpMain}>
-                    {this.state.dataExp.map((item, index) => {
-                      return (
-                        <Row key={index} className={styles.cardExp}>
-                          <Col sm={2} className={styles.imgExp}>
-                            <img alt="" src={Suit} />
+                  <Card.Body>
+                    <Row className={styles.rowPort}>
+                      {this.state.dataPort.map((item, index) => {
+                        console.log(index);
+                        return (
+                          <Col sm={4} key={index}>
+                            <Card className={styles.cardPort}>
+                              <Card.Img src={port} className={styles.portImg} />
+                              <Card.Text className={styles.portName}>
+                                {item.port_name}
+                              </Card.Text>
+                            </Card>
                           </Col>
-                          <Col sm={9} className={styles.infoExp}>
-                            <h1 className={styles.position}>{item.position}</h1>
-                            <p className={styles.name}>{item.company_name}</p>
-                            <Row>
-                              <Col sm={5} className={styles.date}>
-                                {item.start_date} - {item.end_date}
-                              </Col>
-                              <Col sm={3} className={styles.date}>
-                                {item.total}
-                              </Col>
-                            </Row>
-                            <p className={styles.desc1}>{item.desc}</p>
-                          </Col>
-                          {/* <hr /> */}
-                        </Row>
-                      );
-                    })}
-                  </Card>
+                        );
+                      })}
+                    </Row>
+                  </Card.Body>
                 </Card>
               </Col>
             </Row>
@@ -208,4 +193,4 @@ class Experience extends Component {
   }
 }
 
-export default Experience;
+export default Portofolio;

@@ -17,6 +17,7 @@ import Chat from "./pages/main/chat/Chat";
 import Experience from "./pages/main/experience/Experience";
 import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
 import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
+import Portofolio from "./pages/main/portfolio/Portfolio";
 
 class App extends Component {
   render() {
@@ -38,6 +39,7 @@ class App extends Component {
           <Route path="/worker/edit" exact component={WorkerEditProfile} />
           <Route path="/chat" exact component={Chat} />
           <Route path="/experience" exact component={Experience} />
+          <Route path="/portofolio" exact component={Portofolio} />
           <Route path="/" exact component={Landing} />
           <Route path="/recruiter/profile" exact component={RecruiterProfile} />
           <Route
