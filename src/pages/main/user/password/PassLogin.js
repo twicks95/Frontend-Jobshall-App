@@ -1,11 +1,14 @@
 import React, { Component } from "react";
-import styles from "./Login.module.css";
-import logo from "../../../assets/img/Group 978 1.png";
-import logo1 from "../../../assets/img/Group 980 1.png";
+import styles from "./Password.module.css";
+import logo from "../../../../assets/img/Group 978 1.png";
+import logo1 from "../../../../assets/img/Group 980 1.png";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
-class Login extends Component {
+class PassLogin extends Component {
+  handlePage = () => {
+    this.props.history.push("/req-pass");
+  };
   render() {
     return (
       <>
@@ -26,15 +29,13 @@ class Login extends Component {
             </Col>
             <Col sm={6} className={styles.colBottom}>
               <img alt="" src={logo1} className={styles.logo1} />
-              <h1 className={styles.title}>Halo, Pewpeople</h1>
-              <h1 className={styles.title1}>Login</h1>
+              <h1 className={styles.title}>Please login with your account</h1>
+              <h1 className={styles.title1}>Reset password</h1>
               <p className={styles.subTitle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                euismod ipsum et dui rhoncus auctor.
+                We have an an email containing a password reset instruction
+                toyour email. please check your email.
               </p>
-              <p className={styles.subTitle1}>
-                Lorom ipsum dolor si amet uegas anet.
-              </p>
+              <p className={styles.subTitle1}>Please login with your account</p>
               <Form className={styles.mainForm}>
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label className={styles.label}>Email</Form.Label>
@@ -53,18 +54,14 @@ class Login extends Component {
                   />
                 </Form.Group>
               </Form>
-              <Link to="reset-password" className={styles.forgotPass}>
-                Lupa kata sandi ?
-              </Link>
-              <Button block className={styles.btnSubmit}>
-                Masuk
+
+              <Button
+                block
+                className={styles.btnSubmit}
+                onClick={this.handlePage}
+              >
+                Reset password
               </Button>
-              <p className={styles.register}>
-                Anda belum punya akun?{" "}
-                <Link to="/register-worker" className={styles.onReg}>
-                  Daftar disini
-                </Link>{" "}
-              </p>
             </Col>
           </Row>
         </Container>
@@ -73,4 +70,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default PassLogin;
