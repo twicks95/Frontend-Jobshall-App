@@ -81,8 +81,10 @@ class Home extends Component {
   handleProfile = () => {
     this.props.history.push("/experience");
   };
+  handleSearch = () => {
+    console.log("This for Search");
+  };
   render() {
-    // console.log(this.state.sort);
     const totalPage = 5;
     return (
       <>
@@ -99,7 +101,9 @@ class Home extends Component {
                 />
                 <img alt="" src={seacrh} className={styles.imgSearch} />
 
-                <Button className={styles.btn1}>Search</Button>
+                <Button className={styles.btn1} onClick={this.handleSearch}>
+                  Search
+                </Button>
               </Form.Group>
               <Dropdown className={styles.dropdownMain}>
                 <Dropdown.Toggle
