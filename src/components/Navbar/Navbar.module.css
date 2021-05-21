@@ -4,7 +4,31 @@
 }
 
 .logo {
-  width: 127px;
+  width: 100%;
+}
+
+.navLink {
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  color: #1f2a36;
+}
+
+.navLink:hover {
+  color: #5e50a1;
+}
+
+.avatar img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.dropdownIcon a {
+  padding-right: 0;
+  color: #5e50a1;
 }
 
 @media (min-width: 1200px) {
