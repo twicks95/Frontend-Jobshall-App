@@ -34,11 +34,14 @@ class Login extends Component {
       .then((result) => {
         // console.log(this.props.auth.data.token);
         localStorage.setItem("token", this.props.auth.data.token);
+        localStorage.setItem("userId", this.props.auth.data.worker_id);
         // localStorage.setItem("userId", this.props.auth.data.user_id);
         if (this.props.auth.data.length > 0) {
           alert(`${this.props.auth.msg}`);
         } else {
-          this.props.history.push("/worker/edit");
+          this.props.history.push(
+            `/worker/edit/${this.props.auth.data.worker_id}`
+          );
         }
       })
       .catch((error) => {

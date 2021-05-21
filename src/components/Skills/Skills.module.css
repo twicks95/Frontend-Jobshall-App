@@ -1,0 +1,53 @@
+.cardSkill {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 36px 30px 27px 30px;
+  margin-bottom: 31px;
+}
+.btnSaveSkill {
+  background: #fbb017;
+  border-radius: 4px;
+  border: #fbb017 solid 1px !important;
+  width: 80px;
+  height: 50px;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 19px;
+  color: #ffffff;
+}
+.btnSaveSkill:hover {
+  background: #faa015;
+}
+.cardSkills {
+  background: rgba(251, 176, 23, 0.6);
+  border: 1px solid #fbb017;
+  box-sizing: border-box;
+  border-radius: 4px;
+  height: 28px;
+  width: 125px;
+  margin-top: 35px;
+  margin-bottom: 69px;
+}
+.nameSkills {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  color: #ffffff;
+  padding: 4px;
+}
+.editSkill {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+.delSkill {
+  width: 10px;
+  height: 10px;
+  cursor: pointer;
+}
+.mainRow {
+  flex-direction: row;
+  flex-wrap: nowrap;
+}

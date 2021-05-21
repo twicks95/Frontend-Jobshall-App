@@ -7,10 +7,10 @@ export const getSkills = (worker_id) => {
   };
 };
 
-export const createSkill = (worker_id, skill) => {
+export const createSkill = (skill) => {
   return {
     type: "CREATE_SKILL",
-    payload: axiosApiInstances.post(`skill/${worker_id}`, skill),
+    payload: axiosApiInstances.post(`skill/`, skill),
   };
 };
 
