@@ -69,14 +69,19 @@
   padding-right: 12%;
 }
 
-.CTAButton {
+.CTAButton1,
+.CTAButton2 {
   width: 210px;
   height: 63px;
 }
 
-.CTAButton:last-child {
+.CTAButton2 {
   font-weight: 700;
   color: #796eaf;
+}
+
+.CTAButton2:hover {
+  color: #5e50a1;
 }
 
 .row2,

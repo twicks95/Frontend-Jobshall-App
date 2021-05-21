@@ -35,7 +35,7 @@ class Landing extends Component {
                 Pilih talenta terbaik kami dan beri tawaran untuk bekerja dan
                 jadi bagian tim proyek yang anda rencanakan.
               </p>
-              <Button className={`${styles.CTAButton}`}>
+              <Button className={`${styles.CTAButton1}`}>
                 Mulai dari sekarang
               </Button>
             </div>
@@ -235,7 +235,7 @@ class Landing extends Component {
             className={`d-flex align-items-center justify-content-between ${styles.bottomRectangle}`}
           >
             <p className="ms-5">Eksplorasi atau jadi tallent di Jobshall</p>
-            <Button variant="light" className={`me-5 ${styles.CTAButton}`}>
+            <Button variant="light" className={`me-5 ${styles.CTAButton2}`}>
               Mulai dari sekarang
             </Button>
             {/* <svg
