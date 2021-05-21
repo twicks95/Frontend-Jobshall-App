@@ -26,52 +26,55 @@ class Landing extends Component {
       <>
         <NavbarComponent isLanding={this.state.isLanding} />
         <div className={`${styles.contentWrapper}`}>
-          <section className={`d-flex ${styles.hero}`}>
-            <div
-              className={`d-flex flex-column justify-content-center ${styles.leftHero}`}
-            >
-              <h1>Talenta terbaik negeri untuk perubahan revolusi 4.0</h1>
-              <p>
-                Pilih talenta terbaik kami dan beri tawaran untuk bekerja dan
-                jadi bagian tim proyek yang anda rencanakan.
-              </p>
-              <Button className={`${styles.CTAButton1}`}>
-                Mulai dari sekarang
-              </Button>
-            </div>
-            <div
-              className={`d-flex justify-content-center ${styles.imagePart}`}
-            >
-              <div className={`d-flex align-items-center`}>
-                <div className={`${styles.imageContainer}`}>
-                  <div className={`${styles.greyBox1}`}></div>
-                  <img
-                    src={DotDecoration}
-                    alt="decoration"
-                    className={`${styles.dotDecoration}`}
-                  />
-                  <img
-                    src={HeroImage}
-                    alt="hero"
-                    className={`${styles.heroImg}`}
-                  />
-                </div>
-              </div>
-            </div>
-          </section>
-          <section className={`d-flex ${styles.hero}`}></section>
-          <Row className={`${styles.row2}`}>
+          <Row className={`${styles.row1}`}>
             <Col sm={6}>
+              <div
+                className={`d-flex flex-column justify-content-center ${styles.textSide1}`}
+              >
+                <h1>Talenta terbaik negeri untuk perubahan revolusi 4.0</h1>
+                <p>
+                  Pilih talenta terbaik kami dan beri tawaran untuk bekerja dan
+                  jadi bagian tim proyek yang anda rencanakan.
+                </p>
+                <Button className={`${styles.CTAButton1}`}>
+                  Mulai dari sekarang
+                </Button>
+              </div>
+            </Col>
+            <Col sm={6} className="d-none d-sm-block">
               <div
                 className={`d-flex justify-content-center ${styles.imagePart}`}
               >
                 <div className={`d-flex align-items-center`}>
-                  <div className={`${styles.imageContainer}`}>
+                  <div className={`${styles.imageContainer1}`}>
+                    <div className={`${styles.greyBox1}`}></div>
+                    <img
+                      src={DotDecoration}
+                      alt="decoration"
+                      className={`${styles.dotDecoration1}`}
+                    />
+                    <img
+                      src={HeroImage}
+                      alt="hero"
+                      className={`${styles.heroImg}`}
+                    />
+                  </div>
+                </div>
+              </div>
+            </Col>
+          </Row>
+          <Row className={`${styles.row2}`}>
+            <Col sm={6} className="p-5">
+              <div
+                className={`d-flex justify-content-center ${styles.imagePart}`}
+              >
+                <div className={`d-flex align-items-center`}>
+                  <div className={`${styles.imageContainer2}`}>
                     <div className={`${styles.greyBox2}`}></div>
                     <img
                       src={DotDecoration}
                       alt="decoration"
-                      className={`${styles.dotDecoration}`}
+                      className={`${styles.dotDecoration2}`}
                     />
                     <img
                       src={LandingImage1}
@@ -82,9 +85,9 @@ class Landing extends Component {
                 </div>
               </div>
             </Col>
-            <Col sm={6}>
+            <Col sm={6} className="ps-sm-5">
               <div
-                className={`d-flex flex-column justify-content-center ${styles.leftHero}`}
+                className={`d-flex flex-column justify-content-center ${styles.textSide2}`}
               >
                 <h2>Kenapa harus mencari tallent di peworld</h2>
 
@@ -123,10 +126,10 @@ class Landing extends Component {
               </div>
             </Col>
           </Row>
-          <Row className={`${styles.row2}`}>
-            <Col sm={6}>
+          <Row className={`${styles.row3}`}>
+            <Col sm={6} className="pe-5">
               <div
-                className={`d-flex flex-column justify-content-center ${styles.leftHero}`}
+                className={`d-flex flex-column justify-content-center ${styles.textSide3}`}
               >
                 <h2>Skill Tallent</h2>
                 <p>
@@ -205,17 +208,17 @@ class Landing extends Component {
                 </Row>
               </div>
             </Col>
-            <Col sm={6}>
+            <Col sm={6} className="p-5">
               <div
                 className={`d-flex justify-content-center ${styles.imagePart}`}
               >
                 <div className={`d-flex align-items-center`}>
-                  <div className={`${styles.imageContainer}`}>
+                  <div className={`${styles.imageContainer3}`}>
                     <div className={`${styles.greyBox1}`}></div>
                     <img
                       src={DotDecoration}
                       alt="decoration"
-                      className={`${styles.dotDecoration}`}
+                      className={`${styles.dotDecoration3}`}
                     />
                     <img
                       src={LandingImage2}
@@ -232,10 +235,12 @@ class Landing extends Component {
             <Col></Col>
           </Row>
           <div
-            className={`d-flex align-items-center justify-content-between ${styles.bottomRectangle}`}
+            className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.bottomRectangle}`}
           >
-            <p className="ms-5">Eksplorasi atau jadi tallent di Jobshall</p>
-            <Button variant="light" className={`me-5 ${styles.CTAButton2}`}>
+            <p className="m-0">
+              Eksplore atau jadilah talent yang paling dicari
+            </p>
+            <Button variant="light" className={`${styles.CTAButton2}`}>
               Mulai dari sekarang
             </Button>
             {/* <svg
