@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import styles from "../Register.module.css";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
+import { connect } from "react-redux";
+import { registerRecruiter } from "../../../../redux/actions/auth";
 
 class RegisterRecruiter extends Component {
   constructor() {
@@ -18,6 +20,8 @@ class RegisterRecruiter extends Component {
         recruiterPassword: "",
         recruiterConPass: "",
       },
+      samePass: false,
+      isError: false,
     };
   }
   changeText = (event) => {
@@ -27,12 +31,31 @@ class RegisterRecruiter extends Component {
         [event.target.name]: event.target.value,
       },
     });
-    if (this.state.form.workerConfirm === event.target.value.workerPassword) {
-      console.log("work");
+  };
+  handleRegister = (event) => {
+    event.preventDefault();
+    console.log(this.state.form);
+    if (
+      this.state.form.recruiterPassword === this.state.form.recruiterConPass
+    ) {
+      this.setState({ samePass: false });
+      this.props
+        .registerRecruiter(this.state.form)
+        .then((result) => {
+          this.props.history.push("/login");
+          // localStorage.setItem("token", this.props.auth.data.token);
+        })
+        .catch((error) => {
+          this.setState({ isError: true });
+          setTimeout(() => {
+            this.setState({ isError: false });
+          }, 5000);
+        });
     } else {
-      console.log("Salah");
+      this.setState({ samePass: true, isError: true });
     }
   };
+
   render() {
     const {
       recruiterName,
@@ -158,13 +181,25 @@ class RegisterRecruiter extends Component {
                 </Form.Group>
               </Form>
 
-              <Button block className={styles.btnSubmit}>
+              <Button
+                block
+                className={styles.btnSubmit}
+                onClick={(event) => this.handleRegister(event)}
+              >
                 Daftar
               </Button>
-
+              {this.state.isError && (
+                <Alert variant="danger" className={styles.mainAlert}>
+                  {this.state.samePass ? (
+                    <p className={styles.alert}>Password must be same</p>
+                  ) : (
+                    <p className={styles.alert}>{this.props.auth.msg}</p>
+                  )}
+                </Alert>
+              )}
               <p className={styles.register}>
                 Anda sudah punya akun?{" "}
-                <Link to="#" className={styles.onReg}>
+                <Link to="/login" className={styles.onReg}>
                   Masuk disini
                 </Link>{" "}
               </p>
@@ -176,4 +211,10 @@ class RegisterRecruiter extends Component {
   }
 }
 
-export default RegisterRecruiter;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+const mapDispatchToProps = { registerRecruiter };
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterRecruiter);

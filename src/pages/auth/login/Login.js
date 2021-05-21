@@ -2,10 +2,10 @@ import React, { Component } from "react";
 import styles from "./Login.module.css";
 import logo from "../../../assets/img/Group 978 1.png";
 import logo1 from "../../../assets/img/Group 980 1.png";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import { connect } from "react-redux";
-// import { login } from "../../../redux/actions/auth";
+import { connect } from "react-redux";
+import { login } from "../../../redux/actions/auth";
 
 class Login extends Component {
   constructor() {
@@ -15,6 +15,7 @@ class Login extends Component {
         Email: "",
         Password: "",
       },
+      isError: false,
     };
   }
   changeText = (event) => {
@@ -28,20 +29,29 @@ class Login extends Component {
   handleLogin = (event) => {
     event.preventDefault();
     // console.log(this.state.form);
-    this.props.login(this.state.form).then((result) => {
-      // console.log(this.props.auth.data.token);
-      localStorage.setItem("token", this.props.auth.data.token);
-      // localStorage.setItem("userId", this.props.auth.data.user_id);
-      if (this.props.auth.data.length > 0) {
-        alert(`${this.props.auth.msg}`);
-      } else {
-        this.props.history.push("/home");
-      }
-    });
+    this.props
+      .login(this.state.form)
+      .then((result) => {
+        // console.log(this.props.auth.data.token);
+        localStorage.setItem("token", this.props.auth.data.token);
+        // localStorage.setItem("userId", this.props.auth.data.user_id);
+        if (this.props.auth.data.length > 0) {
+          alert(`${this.props.auth.msg}`);
+        } else {
+          this.props.history.push("/worker/edit");
+        }
+      })
+      .catch((error) => {
+        this.setState({ isError: true });
+        setTimeout(() => {
+          this.setState({ isError: false });
+        }, 5000);
+      });
   };
   render() {
     const { Email, Password } = this.state.form;
     console.log(this.state.form);
+    console.log(this.props);
     return (
       <>
         <Container>
@@ -97,9 +107,18 @@ class Login extends Component {
               <Link to="reset-password" className={styles.forgotPass}>
                 Lupa kata sandi ?
               </Link>
-              <Button block className={styles.btnSubmit}>
+              <Button
+                block
+                className={styles.btnSubmit}
+                onClick={(event) => this.handleLogin(event)}
+              >
                 Masuk
               </Button>
+              {this.state.isError && (
+                <Alert variant="danger" className={styles.mainAlert}>
+                  <p className={styles.alert}>{this.props.auth.msg}</p>
+                </Alert>
+              )}
               <p className={styles.register}>
                 Anda belum punya akun?{" "}
                 <Link to="/register-worker" className={styles.onReg}>
@@ -114,11 +133,11 @@ class Login extends Component {
   }
 }
 
-// const mapStateToProps = (state) => ({
-//   auth: state.auth,
-// });
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-// const mapDispatchToProps = { login };
+const mapDispatchToProps = { login };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Login);
-export default Login;
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+// export default Login;
