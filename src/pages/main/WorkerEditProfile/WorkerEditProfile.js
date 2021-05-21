@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./WorkerEditProfile.module.css";
 import { Container, Row, Col, Card, Button, Form } from "react-bootstrap";
 import imgDummy from "../../../assets/img/Ellipse 326.png";
+import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import editSkill from "../../../assets/img/edit 1.png";
 import delSkill from "../../../assets/img/delete 1.png";
@@ -45,6 +46,7 @@ class WorkerEditProfile extends Component {
     return (
       <>
         <Container fluid className={styles.mainBackground}>
+          <NavbarComponent />
           <Container>
             <Row className={styles.mainRow}>
               <Col sm={4}>

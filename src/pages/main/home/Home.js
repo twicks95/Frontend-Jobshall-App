@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./Home.module.css";
 import imgDummy from "../../../assets/img/Ellipse 326.png";
 import ReactPaginate from "react-paginate";
+import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import {
   Container,
@@ -89,6 +90,7 @@ class Home extends Component {
     const totalPage = 5;
     return (
       <>
+        <NavbarComponent />
         <Container fluid className={styles.main}>
           <Container>
             <h1 className={styles.mainNav}>Top Jobs</h1>

@@ -20,7 +20,7 @@ import WorkerEditProfile from "./pages/main/WorkerEditProfile/WorkerEditProfile"
 import Chat from "./pages/main/chat/Chat";
 import Experience from "./pages/main/experience/Experience";
 import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
-// import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
+import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 import Portofolio from "./pages/main/portfolio/Portfolio";
 
 class App extends Component {
@@ -56,11 +56,11 @@ class App extends Component {
                 exact
                 component={RecruiterProfile}
               />
-              {/* <Route
-            path="/recruiter/edit"
-            exact
-            component={RecruiterEditProfile}
-          /> */}
+              <Route
+                path="/recruiter/edit"
+                exact
+                component={RecruiterEditProfile}
+              />
             </Switch>
           </Router>
         </PersistGate>

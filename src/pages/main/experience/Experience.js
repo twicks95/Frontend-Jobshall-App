@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import styles from "./Experience.module.css";
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
+import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
@@ -72,6 +73,7 @@ class Experience extends Component {
   render() {
     return (
       <>
+        <NavbarComponent />
         <Container fluid className={styles.main}>
           <Container>
             <Row>
