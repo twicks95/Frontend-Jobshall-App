@@ -58,8 +58,8 @@ class RecruiterProfile extends Component {
               <img src={image} alt="avatar" />
             </div>
             <div className={`${styles.detailProfile}`}>
-              <h3>{recruiterCompany}</h3>
-              <h4>{recruiterCompanyField}</h4>
+              <h2>{recruiterCompany}</h2>
+              <h3>{recruiterCompanyField}</h3>
               <span>
                 <img src={PinLocation} alt="map-pin" />
                 {recruiterDomicile}

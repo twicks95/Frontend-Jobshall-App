@@ -1,0 +1,296 @@
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
+
+@media (max-width: 512px) {
+  .btn1 {
+    right: 23px !important;
+  }
+  .dropdown {
+    left: 120px !important;
+    border: solid white !important;
+  }
+  .mainControl {
+    font-size: 10px !important;
+  }
+  .colImg {
+    padding-left: 130px !important;
+  }
+  .cardTitle {
+    text-align: center;
+  }
+  .cardType {
+    text-align: center;
+  }
+  .cardLocation {
+    text-align: center;
+  }
+  .cardSkill {
+    text-align: center;
+    justify-content: center;
+    margin: 0 auto;
+    margin-bottom: 5px;
+  }
+  .colButton {
+    padding-left: 110px !important;
+  }
+  .skillRow {
+    margin: 0 auto;
+    text-align: center;
+    justify-content: center;
+  }
+  .pagination {
+    margin: 0 auto !important;
+  }
+  .pagination > li > a {
+    margin: 10px !important;
+  }
+}
+.pagination {
+  margin: 15px auto;
+  margin-top: 50px !important;
+  display: flex;
+  list-style: none;
+  outline: none;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 120px !important;
+}
+.pagination > .active > a {
+  background-color: white !important;
+  border-color: #dedede;
+  color: #9ea0a5;
+}
+.pagination > li > a {
+  width: 57px !important;
+  height: 58px !important;
+  border: 1px solid #dedede !important;
+  padding: 5px 10px;
+  outline: none;
+  cursor: pointer;
+  margin: 1px !important;
+  border-radius: unset;
+  background-color: white !important;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 28px;
+  color: #ffffff;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  background-color: white !important;
+  border-color: #47ccde;
+  outline: none;
+}
+.pagination > li > a,
+.pagination > li > span {
+  color: #9ea0a5 !important;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span,
+.pagination > li:last-child > a,
+.pagination > li:last-child > span {
+  border-radius: unset;
+}
+.skillRow {
+  margin: 0 auto;
+}
+.main {
+  background: #e5e5e5;
+  height: 100%;
+  padding: 50px 0px 0px 0px;
+}
+.mainControl {
+  height: 70px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9ea0a5;
+  background: #ffffff;
+  box-shadow: 0px 1px 20px rgba(197, 197, 197, 0.25);
+  border-radius: 8px;
+  padding: 25px;
+}
+.imgSearch {
+  position: absolute;
+  top: 71px;
+  right: 400px;
+}
+.btn1 {
+  position: absolute;
+  top: 58px;
+  right: 140px;
+  background: #5e50a1;
+  border-radius: 4px;
+  width: 121px;
+  height: 54px;
+  border: #5e50a1;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+}
+.btn1:hover {
+  position: absolute;
+  top: 58px;
+  right: 140px;
+  background: #5f40b7;
+  border-radius: 4px;
+  width: 121px;
+  height: 54px;
+  border: #5e50a1;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+}
+.dropdown {
+  position: absolute;
+  background-color: #ffffff;
+  border: #ffffff;
+  height: 50px;
+  border-radius: 0px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #9ea0a5;
+  border-left: #9ea0a5 1px solid;
+}
+.dropdown:hover {
+  position: absolute;
+  background-color: #5e50a1;
+  height: 50px;
+  border-radius: 0px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #9ea0a5;
+  border-left: #9ea0a5 1px solid;
+}
+
+.dropdownMain {
+  position: absolute;
+  top: 60px;
+  right: 380px;
+}
+.listDropdown {
+  font-family: " Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1f2a36;
+  padding: 20px;
+  margin-right: 68px;
+}
+.userCard {
+  background: #ffffff;
+  box-shadow: 0px 1px 20px rgba(197, 197, 197, 0.25);
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 50px;
+}
+.colImg {
+  padding: 50px;
+}
+.colButton {
+  padding: 70px;
+}
+.btnProfile {
+  width: 148px;
+  height: 54px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+  background: #5e50a1;
+  border-radius: 4px;
+  border: #5e50a1;
+}
+.btnProfile:hover {
+  width: 148px;
+  height: 54px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+  background: #5f40b7;
+  border-radius: 4px;
+  border: #5f40b7;
+}
+.cardTitle {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 56px;
+  color: #1f2a36;
+  margin: 0;
+}
+.cardType {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9ea0a5;
+  margin-bottom: 6px;
+}
+.cardLocation {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #9ea0a5;
+}
+.cardLocation::before {
+  content: url("../../../assets/img/map-pin\ \(4\)\ 1.png");
+  margin-right: 11px;
+}
+.cardSkill {
+  background: rgba(251, 176, 23, 0.6);
+  border: 1px solid #fbb017;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 20px;
+  text-align: center;
+  color: #ffffff;
+  width: 70px;
+  height: 28px;
+  padding: 3px;
+}
+.mainCardUser {
+  border: white 1px solid;
+  border-bottom: 2px solid #f2f3f4;
+}
