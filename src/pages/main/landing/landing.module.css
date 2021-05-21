@@ -2,13 +2,21 @@
   padding: 70px 120px;
 }
 
-.greyBox {
+.greyBox1,
+.greyBox2 {
   width: 102%;
   height: 102%;
   position: absolute;
   background-color: #e2e5ed;
-  transform: rotate(-15deg);
   z-index: -99;
+}
+
+.greyBox1 {
+  transform: rotate(-15deg);
+}
+
+.greyBox2 {
+  transform: rotate(15deg);
 }
 
 .imageContainer {
@@ -61,16 +69,36 @@
   padding-right: 12%;
 }
 
-.heroCTAButton {
+.CTAButton {
   width: 210px;
   height: 63px;
 }
 
-/* .tick {
-  content: "";
-  display: inline-block;
-  height: 24px;
-  width: 24px;
+.CTAButton:last-child {
+  font-weight: 700;
+  color: #796eaf;
+}
+
+.row2,
+.row3 {
+  margin-top: 20%;
+}
+
+.tickIcon {
   border-radius: 50%;
+}
+
+.bottomRectangle {
+  position: relative;
+  width: 100%;
+  padding: 8% 67px;
+  border-radius: 40px 8px;
   background-color: #5e50a1;
-} */
+}
+
+.bottomRectangle p {
+  width: 50%;
+  font-weight: 600;
+  font-size: 32px;
+  color: #ffffff;
+}
