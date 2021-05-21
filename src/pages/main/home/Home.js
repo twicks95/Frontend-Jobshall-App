@@ -49,7 +49,7 @@ class Home extends Component {
           skills: ["PHP", "JS", "Python", "Golang"],
         },
       ],
-      seacrh: "",
+      search: "",
       sort: "",
     };
   }
@@ -85,6 +85,7 @@ class Home extends Component {
     console.log("This for Search");
   };
   render() {
+    console.log(this.state.sort);
     const totalPage = 5;
     return (
       <>

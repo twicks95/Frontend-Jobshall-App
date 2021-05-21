@@ -6,6 +6,12 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 
 class ResetPassword extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {},
+    };
+  }
   handlePage = () => {
     this.props.history.push("/confirm-password");
   };

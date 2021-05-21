@@ -6,7 +6,44 @@ import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
 
 class RegisterRecruiter extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        recruiterName: "",
+        recruiterEmail: "",
+        recruiterCompany: "",
+        recruiterFieldCompany: "",
+        recruiterPhone: "",
+        recruiterPassword: "",
+        recruiterConPass: "",
+      },
+    };
+  }
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
+    if (this.state.form.workerConfirm === event.target.value.workerPassword) {
+      console.log("work");
+    } else {
+      console.log("Salah");
+    }
+  };
   render() {
+    const {
+      recruiterName,
+      recruiterEmail,
+      recruiterCompany,
+      recruiterFieldCompany,
+      recruiterPhone,
+      recruiterPassword,
+      recruiterConPass,
+    } = this.state.form;
+    console.log(this.state.form);
     return (
       <>
         <Container>
@@ -42,6 +79,9 @@ class RegisterRecruiter extends Component {
                     type="text"
                     placeholder="Masukan nama panjang"
                     className={styles.control}
+                    name="recruiterName"
+                    value={recruiterName}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
@@ -50,6 +90,9 @@ class RegisterRecruiter extends Component {
                     type="email"
                     placeholder="Masukan alamat email"
                     className={styles.control}
+                    name="recruiterEmail"
+                    value={recruiterEmail}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicCompany">
@@ -58,6 +101,9 @@ class RegisterRecruiter extends Component {
                     type="text"
                     placeholder="Masukan nama perusahaan"
                     className={styles.control}
+                    name="recruiterCompany"
+                    value={recruiterCompany}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicField">
@@ -68,6 +114,9 @@ class RegisterRecruiter extends Component {
                     type="text"
                     placeholder="Bidang perusahaan anda"
                     className={styles.control}
+                    name="recruiterFieldCompany"
+                    value={recruiterFieldCompany}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPhone">
@@ -78,6 +127,9 @@ class RegisterRecruiter extends Component {
                     type="number"
                     placeholder="Masukan no handphone"
                     className={styles.control}
+                    name="recruiterPhone"
+                    value={recruiterPhone}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPass">
@@ -86,6 +138,9 @@ class RegisterRecruiter extends Component {
                     type="password"
                     placeholder="Masukan kata sandi"
                     className={styles.control}
+                    name="recruiterPassword"
+                    value={recruiterPassword}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicConPass">
@@ -96,6 +151,9 @@ class RegisterRecruiter extends Component {
                     type="password"
                     placeholder="Masukan konfirmasi kata sandi"
                     className={styles.control}
+                    name="recruiterConPass"
+                    value={recruiterConPass}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
               </Form>

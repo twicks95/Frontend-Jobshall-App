@@ -4,9 +4,44 @@ import logo from "../../../assets/img/Group 978 1.png";
 import logo1 from "../../../assets/img/Group 980 1.png";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+// import { connect } from "react-redux";
+// import { login } from "../../../redux/actions/auth";
 
 class Login extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        Email: "",
+        Password: "",
+      },
+    };
+  }
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
+  handleLogin = (event) => {
+    event.preventDefault();
+    // console.log(this.state.form);
+    this.props.login(this.state.form).then((result) => {
+      // console.log(this.props.auth.data.token);
+      localStorage.setItem("token", this.props.auth.data.token);
+      // localStorage.setItem("userId", this.props.auth.data.user_id);
+      if (this.props.auth.data.length > 0) {
+        alert(`${this.props.auth.msg}`);
+      } else {
+        this.props.history.push("/home");
+      }
+    });
+  };
   render() {
+    const { Email, Password } = this.state.form;
+    console.log(this.state.form);
     return (
       <>
         <Container>
@@ -41,7 +76,10 @@ class Login extends Component {
                   <Form.Control
                     type="email"
                     placeholder="Masukan alamat email"
+                    name="Email"
+                    value={Email}
                     className={styles.control}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPass">
@@ -49,7 +87,10 @@ class Login extends Component {
                   <Form.Control
                     type="password"
                     placeholder="Masukan kata sandi"
+                    name="Password"
+                    value={Password}
                     className={styles.control}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
               </Form>
@@ -73,4 +114,11 @@ class Login extends Component {
   }
 }
 
+// const mapStateToProps = (state) => ({
+//   auth: state.auth,
+// });
+
+// const mapDispatchToProps = { login };
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Login);
 export default Login;

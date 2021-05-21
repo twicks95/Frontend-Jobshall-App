@@ -6,7 +6,36 @@ import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
 
 class RegisterWorker extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        workerName: "",
+        workerEmail: "",
+        workerPhone: "",
+        workerPassword: "",
+        workerConfirm: "",
+      },
+    };
+  }
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
+    if (this.state.form.workerConfirm === event.target.value.workerPassword) {
+      console.log("work");
+    } else {
+      console.log("Salah");
+    }
+  };
   render() {
+    const { workerName, workerEmail, workerPhone, workerPassword } =
+      this.state.form;
+    console.log(this.state.form);
+
     return (
       <>
         <Container>
@@ -42,6 +71,9 @@ class RegisterWorker extends Component {
                     type="text"
                     placeholder="Masukan nama panjang"
                     className={styles.control}
+                    name="workerName"
+                    value={workerName}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
@@ -50,6 +82,9 @@ class RegisterWorker extends Component {
                     type="email"
                     placeholder="Masukan alamat email"
                     className={styles.control}
+                    name="workerEmail"
+                    value={workerEmail}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPhone">
@@ -60,6 +95,9 @@ class RegisterWorker extends Component {
                     type="number"
                     placeholder="Masukan no handphone"
                     className={styles.control}
+                    name="workerPhone"
+                    value={workerPhone}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPass">
@@ -68,6 +106,9 @@ class RegisterWorker extends Component {
                     type="password"
                     placeholder="Masukan kata sandi"
                     className={styles.control}
+                    name="workerPassword"
+                    value={workerPassword}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicConPass">
@@ -78,6 +119,9 @@ class RegisterWorker extends Component {
                     type="password"
                     placeholder="Masukan konfirmasi kata sandi"
                     className={styles.control}
+                    name="workerConfirm"
+                    value={this.state.workerConfirm}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
               </Form>
