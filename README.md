@@ -1,4 +1,4 @@
-﻿<h1 align='center'>React JS - #nama_projek</h1>
+﻿<h1 align='center'>React JS - JobShall </h1>
   <p align="center">
     <a href="link_deploy">View Demo</a>
     ·
@@ -22,11 +22,11 @@
 
 1. <a href="https://nodejs.org/en/download/">Node Js</a>
 2. Node_modules `npm install` or `yarn install`
-3. Backend API #nama_projek [`here`](https://github.com/arkbootcamp/week4-web9-beginerBackend)
+3. Backend API JobShall [`here`](https://github.com/twicks95/backend-jobshall-app.git)
 
 ## Getting Started
 
-1. Download this Project or you can type `git clone #link_git`
+1. Download this Project or you can type `git clone https://github.com/twicks95/frontend-jobshall-app.git`
 2. Open app's directory in CMD or Terminal
 3. Type `npm install` or `yarn install`
 4. Add .env file at root folder project
