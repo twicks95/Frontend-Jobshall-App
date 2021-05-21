@@ -199,3 +199,11 @@
   color: #fba010;
   border: #fba010;
 }
+.alert {
+  text-align: center;
+}
+.mainAlert {
+  height: 50px;
+  padding-top: 10px;
+  margin-top: 12px;
+}

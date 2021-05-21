@@ -1,12 +1,62 @@
 import React, { Component } from "react";
 import styles from "../Register.module.css";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
+import { connect } from "react-redux";
+import { registerWorker } from "../../../../redux/actions/auth";
 
 class RegisterWorker extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        workerName: "",
+        workerEmail: "",
+        workerPhone: "",
+        workerPassword: "",
+        workerConfirm: "",
+      },
+      samePass: false,
+      isError: false,
+    };
+  }
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
+  handleRegister = (event) => {
+    event.preventDefault();
+    console.log(this.state.form);
+    if (this.state.form.workerPassword === this.state.form.workerConfirm) {
+      this.setState({ samePass: false });
+      this.props
+        .registerWorker(this.state.form)
+        .then((result) => {
+          this.props.history.push("/login");
+          // localStorage.setItem("token", this.props.auth.data.token);
+        })
+        .catch((error) => {
+          this.setState({ isError: true });
+          setTimeout(() => {
+            this.setState({ isError: false });
+          }, 5000);
+        });
+    } else {
+      this.setState({ samePass: true, isError: true });
+    }
+  };
+
   render() {
+    const { workerName, workerEmail, workerPhone, workerPassword } =
+      this.state.form;
+    console.log(this.props);
+
     return (
       <>
         <Container>
@@ -42,6 +92,9 @@ class RegisterWorker extends Component {
                     type="text"
                     placeholder="Masukan nama panjang"
                     className={styles.control}
+                    name="workerName"
+                    value={workerName}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicEmail">
@@ -50,6 +103,9 @@ class RegisterWorker extends Component {
                     type="email"
                     placeholder="Masukan alamat email"
                     className={styles.control}
+                    name="workerEmail"
+                    value={workerEmail}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPhone">
@@ -60,6 +116,9 @@ class RegisterWorker extends Component {
                     type="number"
                     placeholder="Masukan no handphone"
                     className={styles.control}
+                    name="workerPhone"
+                    value={workerPhone}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPass">
@@ -68,6 +127,9 @@ class RegisterWorker extends Component {
                     type="password"
                     placeholder="Masukan kata sandi"
                     className={styles.control}
+                    name="workerPassword"
+                    value={workerPassword}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicConPass">
@@ -78,13 +140,30 @@ class RegisterWorker extends Component {
                     type="password"
                     placeholder="Masukan konfirmasi kata sandi"
                     className={styles.control}
+                    name="workerConfirm"
+                    value={this.state.workerConfirm}
+                    onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
               </Form>
 
-              <Button block className={styles.btnSubmit}>
+              <Button
+                block
+                className={styles.btnSubmit}
+                onClick={(event) => this.handleRegister(event)}
+              >
                 Daftar
               </Button>
+              {this.state.isError && (
+                <Alert variant="danger" className={styles.mainAlert}>
+                  {this.state.samePass ? (
+                    <p className={styles.alert}>Password must be same</p>
+                  ) : (
+                    <p className={styles.alert}>{this.props.auth.msg}</p>
+                  )}
+                </Alert>
+              )}
+
               <p className={styles.register}>
                 Anda sudah punya akun?{" "}
                 <Link to="/login" className={styles.onReg}>
@@ -98,5 +177,10 @@ class RegisterWorker extends Component {
     );
   }
 }
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default RegisterWorker;
+const mapDispatchToProps = { registerWorker };
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterWorker);

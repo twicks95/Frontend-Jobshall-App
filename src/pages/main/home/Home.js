@@ -49,7 +49,7 @@ class Home extends Component {
           skills: ["PHP", "JS", "Python", "Golang"],
         },
       ],
-      seacrh: "",
+      search: "",
       sort: "",
     };
   }
@@ -79,12 +79,13 @@ class Home extends Component {
     }
   };
   handleProfile = () => {
-    this.props.history.push("/experience");
+    this.props.history.push("/portofolio");
   };
   handleSearch = () => {
     console.log("This for Search");
   };
   render() {
+    console.log(this.state.sort);
     const totalPage = 5;
     return (
       <>
