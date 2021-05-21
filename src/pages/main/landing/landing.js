@@ -1,9 +1,13 @@
 import React, { Component } from "react";
-import { Button, Col, Row } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import styles from "./landing.module.css";
 
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
+
+import Recruiter1 from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
+import Recruiter2 from "../../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
+import Recruiter3 from "../../../assets/images/e0330952e672d8d40924c01d226e2f96.jpg";
 
 import DotDecoration from "../../../assets/decorations/dots.svg";
 import HeroImage from "../../../assets/images/hero-img.jpg";
@@ -230,10 +234,56 @@ class Landing extends Component {
               </div>
             </Col>
           </Row>
-          <Row>
+          <div className={`text-center ${styles.recruiterOpinion}`}>
             <h2>Their opinion about jobshall</h2>
-            <Col></Col>
-          </Row>
+            <Row className={`${styles.cards}`}>
+              <Col>
+                <Card className={`align-items-center ${styles.card}`}>
+                  <Card.Img variant="top" src={Recruiter1} />
+                  <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Card Subtitle
+                    </Card.Subtitle>
+                    <Card.Text>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card className={`align-items-center ${styles.card}`}>
+                  <Card.Img variant="top" src={Recruiter3} />
+                  <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Card Subtitle
+                    </Card.Subtitle>
+                    <Card.Text>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card className={`align-items-center ${styles.card}`}>
+                  <Card.Img variant="top" src={Recruiter2} />
+                  <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      Card Subtitle
+                    </Card.Subtitle>
+                    <Card.Text>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </div>
           <div
             className={`d-flex flex-column flex-lg-row align-items-center justify-content-between ${styles.bottomRectangle}`}
           >

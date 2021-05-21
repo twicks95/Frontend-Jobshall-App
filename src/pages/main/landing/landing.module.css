@@ -97,6 +97,10 @@
   object-fit: cover;
 }
 
+.textSide h1 {
+  font-size: 44px;
+}
+
 .textSide1 p {
   margin: 20px 0px 55px;
 }
@@ -124,8 +128,10 @@
 .bottomRectangle p,
 .textSide1 h1,
 .textSide2 h2,
-.textSide3 h2 {
+.textSide3 h2,
+.recruiterOpinion h2 {
   font-weight: 600;
+  font-size: 36px;
 }
 
 .textSide1 p,
@@ -166,6 +172,30 @@
 
 .tickIcon {
   border-radius: 50%;
+}
+
+.recruiterOpinion {
+  margin-bottom: 232px;
+}
+
+.recruiterOpinion h2 {
+  margin-bottom: 52px;
+}
+
+.cards img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 6px solid rgba(251, 176, 23, 0.37);
+  object-fit: cover;
+}
+
+.card {
+  width: 80%;
+  padding: 8% 10%;
+  border-radius: 16px;
+  border-style: none;
+  box-shadow: 0px 8px 16px rgba(197, 197, 197, 0.25);
 }
 
 .bottomRectangle {
