@@ -10,7 +10,7 @@ class NavbarComponent extends Component {
     super(props);
 
     this.state = {
-      isLoggedIn: true,
+      isLoggedIn: false,
     };
   }
 
@@ -18,58 +18,31 @@ class NavbarComponent extends Component {
     const { isLoggedIn } = this.state;
     const { isLanding } = this.props;
     if (isLanding && isLoggedIn) {
-      return (
-        <div className="d-flex">
-          <Button variant="outline-primary" className="me-3">
-            Masuk
-          </Button>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
-              Daftar
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Sebagai Tallent</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Sebagai Recruiter</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-      );
+      return <p>Landing loggedIn</p>;
     } else if (!isLanding && isLoggedIn) {
-      return (
-        <div className="d-flex">
-          <Button variant="outline-primary" className="me-3">
-            Masuk
-          </Button>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
-              Daftar
-            </Dropdown.Toggle>
-
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Sebagai Tallent</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Sebagai Recruiter</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
-      );
+      return <div></div>;
     } else {
       return (
-        <div className="d-flex">
-          <Button variant="outline-primary" className="me-3">
-            Masuk
-          </Button>
-          <Dropdown>
-            <Dropdown.Toggle variant="primary" id="dropdown-basic">
-              Daftar
-            </Dropdown.Toggle>
+        <>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Button variant="outline-primary" className="me-2">
+              Masuk
+            </Button>
+            <Dropdown>
+              <Dropdown.Toggle variant="primary" id="dropdown-basic">
+                Daftar
+              </Dropdown.Toggle>
 
-            <Dropdown.Menu>
-              <Dropdown.Item href="#/action-1">Sebagai Tallent</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Sebagai Recruiter</Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </div>
+              <Dropdown.Menu>
+                <Dropdown.Item href="#/action-1">Sebagai Tallent</Dropdown.Item>
+                <Dropdown.Item href="#/action-2">
+                  Sebagai Recruiter
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </Navbar.Collapse>
+        </>
       );
     }
   };
