@@ -13,18 +13,35 @@ class WorkerEditProfile extends Component {
   constructor() {
     super();
     this.state = {
-      data: {
-        name: "Louis Tomlinson",
-        field: "Web Developer",
-        type: "Freelancer",
-        location: "Bogor, Jawa Barat",
-        phone: "0812 - 3456 - 789",
-        desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at.",
-        skills: ["Python"],
+      formWorker: {
+        workerName: "",
+        workerDomicile: "",
+        workerStatus: "",
+        workerJobDesk: "",
+        workerPhone: "",
+        workerEmail: "",
+        workerPassword: "",
+        workerInstagram: "",
+        workerGithub: "",
+        workerGitlab: "",
+        workerDescription: "",
       },
     };
   }
   render() {
+    const {
+      workerName,
+      workerDomicile,
+      // workerStatus,
+      workerJobDesk,
+      // workerPhone,
+      // workerEmail,
+      // workerPassword,
+      workerInstagram,
+      workerGithub,
+      workerGitlab,
+      workerDescription,
+    } = this.state.formWorker;
     return (
       <>
         <Container fluid className={styles.mainBackground}>
@@ -41,7 +58,7 @@ class WorkerEditProfile extends Component {
                     <Card.Title className={styles.editText}>Edit</Card.Title>
                   </Card.Body>
                   <Card.Body>
-                    <h1 className={styles.profileName}>
+                    {/* <h1 className={styles.profileName}>
                       {this.state.data.name}
                     </h1>
                     <p className={styles.profileField}>
@@ -54,7 +71,7 @@ class WorkerEditProfile extends Component {
                     <p className={styles.profilePhone}>
                       {this.state.data.phone}
                     </p>
-                    <p className={styles.profileDesc}>{this.state.data.desc}</p>
+                    <p className={styles.profileDesc}>{this.state.data.desc}</p> */}
                   </Card.Body>
                 </Card>
                 <Button className={styles.btnBack}>Kembali</Button>
@@ -74,6 +91,9 @@ class WorkerEditProfile extends Component {
                             type="text"
                             placeholder="Masukan nama lengkap"
                             className={styles.everyControl}
+                            name="workerName"
+                            value={workerName}
+                            onChange={(event) => this.changeText(event)}
                           />
                         </Form.Group>
 
@@ -85,6 +105,9 @@ class WorkerEditProfile extends Component {
                             type="text"
                             placeholder="Masukan job desk"
                             className={styles.everyControl}
+                            name="workerJobDesk"
+                            value={workerJobDesk}
+                            onChange={(event) => this.changeText(event)}
                           />
                         </Form.Group>
                       </Form.Row>
@@ -97,6 +120,9 @@ class WorkerEditProfile extends Component {
                           type="text"
                           placeholder="Masukan domisili"
                           className={styles.everyControl}
+                          name="workerDomicile"
+                          value={workerDomicile}
+                          onChange={(event) => this.changeText(event)}
                         />
                       </Form.Group>
 
@@ -110,6 +136,9 @@ class WorkerEditProfile extends Component {
                               type="text"
                               placeholder="Masukan Username IG"
                               className={styles.everyControl}
+                              name="workerInstagram"
+                              value={workerInstagram}
+                              onChange={(event) => this.changeText(event)}
                             />
                           </Form.Group>
                         </Col>
@@ -122,6 +151,9 @@ class WorkerEditProfile extends Component {
                               type="text"
                               placeholder="Masukan Username Github"
                               className={styles.everyControl}
+                              name="workerGithub"
+                              value={workerGithub}
+                              onChange={(event) => this.changeText(event)}
                             />
                           </Form.Group>
                         </Col>
@@ -134,6 +166,9 @@ class WorkerEditProfile extends Component {
                               type="text"
                               placeholder="Masukan Username Gitlab"
                               className={styles.everyControl}
+                              name="workerGitlab"
+                              value={workerGitlab}
+                              onChange={(event) => this.changeText(event)}
                             />
                           </Form.Group>
                         </Col>
@@ -147,6 +182,9 @@ class WorkerEditProfile extends Component {
                           type="text"
                           placeholder="Tuliskan deskripsi singkat"
                           className={styles.controlArea}
+                          name="workerDescription"
+                          value={workerDescription}
+                          onChange={(event) => this.changeText(event)}
                         />
                       </Form.Group>
                       <Button className={styles.btnSave}>Simpan</Button>
@@ -172,9 +210,9 @@ class WorkerEditProfile extends Component {
                     <Card className={styles.cardSkills}>
                       <Row>
                         <Col xs={7}>
-                          <p className={styles.nameSkills}>
+                          {/* <p className={styles.nameSkills}>
                             {this.state.data.skills}
-                          </p>
+                          </p> */}
                         </Col>
                         <Col xs={1} className={styles.colEdit}>
                           <img

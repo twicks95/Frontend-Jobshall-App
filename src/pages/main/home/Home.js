@@ -91,6 +91,7 @@ class Home extends Component {
       <>
         <Container fluid className={styles.main}>
           <Container>
+            <h1 className={styles.mainNav}>Top Jobs</h1>
             <Form>
               <Form.Group>
                 <Form.Control

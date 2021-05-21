@@ -46,6 +46,13 @@
     margin: 10px !important;
   }
 }
+.mainNav {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 20px;
+  color: #ffffff;
+}
 .pagination {
   margin: 15px auto;
   margin-top: 50px !important;
@@ -102,9 +109,10 @@
   margin: 0 auto;
 }
 .main {
-  background: #e5e5e5;
+  background: #5e50a1;
+  height: 86px !important;
   height: 100%;
-  padding: 50px 0px 0px 0px;
+  padding: 30px 0px 33px 0px;
 }
 .mainControl {
   height: 70px;
@@ -118,16 +126,17 @@
   box-shadow: 0px 1px 20px rgba(197, 197, 197, 0.25);
   border-radius: 8px;
   padding: 25px;
+  margin-top: 100px;
 }
 .imgSearch {
   position: absolute;
-  top: 71px;
+  top: 175px;
   right: 400px;
 }
 .btn1 {
   position: absolute;
-  top: 58px;
-  right: 140px;
+  top: 158px;
+  right: 128px;
   background: #5e50a1;
   border-radius: 4px;
   width: 121px;
@@ -142,9 +151,9 @@
   color: #ffffff;
 }
 .btn1:hover {
-  position: absolute;
+  /* position: absolute;
   top: 58px;
-  right: 140px;
+  right: 140px; */
   background: #5f40b7;
   border-radius: 4px;
   width: 121px;
@@ -174,7 +183,6 @@
   border-left: #9ea0a5 1px solid;
 }
 .dropdown:hover {
-  position: absolute;
   background-color: #5e50a1;
   height: 50px;
   border-radius: 0px;
@@ -190,7 +198,7 @@
 
 .dropdownMain {
   position: absolute;
-  top: 60px;
+  top: 160px;
   right: 380px;
 }
 .listDropdown {
