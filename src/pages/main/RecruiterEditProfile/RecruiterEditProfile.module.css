@@ -96,6 +96,10 @@ input[type="file"] {
   z-index: 99;
 }
 
+.form div {
+  margin-bottom: 32px;
+}
+
 .form h3 {
   font-weight: 600;
   font-size: 22px;
@@ -104,4 +108,10 @@ input[type="file"] {
 .profilePreview,
 .form {
   border-radius: 8px;
+}
+
+@media (max-width: 576px) {
+  .container {
+    padding: 100px 5%;
+  }
 }

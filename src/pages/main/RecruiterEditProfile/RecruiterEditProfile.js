@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Button, Col, Form, Row } from "react-bootstrap";
 import styles from "./RecruiterEditProfile.module.css";
 
+import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
 
 import ProfilePicture from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
@@ -34,6 +35,7 @@ class RecruiterEditProfile extends Component {
   render() {
     return (
       <>
+        <NavbarComponent />
         <main className={`${styles.container}`}>
           <Form onSubmit={this.handleSubmit} className={`${styles.editForm}`}>
             <Row md={2} className={`${styles.content}`}>
