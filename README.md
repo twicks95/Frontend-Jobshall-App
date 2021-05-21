@@ -43,11 +43,11 @@ REACT_APP_ENDPOINT = [Backend API]
 - [React](https://reactjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 
-## License - untuk project individu
+## License
 
 © [Bagus Tri Harjanto](https://github.com/bagusth15/)
 
-## Team - untuk project team
+## Team
 
 > All Members of Default Team
 
