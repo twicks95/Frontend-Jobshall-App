@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import styles from "./RecruiterProfile.module.css";
 
+import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
 
 import ProfilePicture from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
@@ -52,6 +53,7 @@ class RecruiterProfile extends Component {
     } = this.state.data[0];
     return (
       <>
+        <NavbarComponent />
         <main className={`${styles.container}`}>
           <div className={`${styles.mainProfile}`}>
             <div className={`${styles.topStripe}`}>
