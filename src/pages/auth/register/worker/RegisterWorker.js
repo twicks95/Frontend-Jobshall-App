@@ -45,10 +45,13 @@ class RegisterWorker extends Component {
           this.setState({ isError: true });
           setTimeout(() => {
             this.setState({ isError: false });
-          }, 5000);
+          }, 3000);
         });
     } else {
       this.setState({ samePass: true, isError: true });
+      setTimeout(() => {
+        this.setState({ samePass: false, isError: false });
+      }, 3000);
     }
   };
 
