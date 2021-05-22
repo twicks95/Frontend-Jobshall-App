@@ -23,12 +23,14 @@ class NavbarComponent extends Component {
   }
 
   componentDidMount = () => {
-    if (this.props.auth.data.role === "worker") {
-      const { worker_id } = this.props.auth.data;
-      this.props.getWorkerById(worker_id);
-    } else {
-      const { recruiter_id } = this.props.auth.data;
-      this.props.getRecruiterById(recruiter_id);
+    if (this.props.auth.data.role) {
+      if (this.props.auth.data.role === "worker") {
+        const { worker_id } = this.props.auth.data;
+        this.props.getWorkerById(worker_id);
+      } else {
+        const { recruiter_id } = this.props.auth.data;
+        this.props.getRecruiterById(recruiter_id);
+      }
     }
   };
 
@@ -154,7 +156,7 @@ class NavbarComponent extends Component {
     if (this.props.auth.data.role === "recruiter") {
       this.props.history.push("/recruiter/profile");
     } else {
-      this.props.history.push("/worker/profile");
+      this.props.history.push("/portofolio");
     }
   };
 
