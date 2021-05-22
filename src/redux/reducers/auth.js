@@ -19,7 +19,7 @@ const auth = (state = initialState, action) => {
         data: action.payload.data.data,
         isLoading: false,
         isError: false,
-        msg: action.payload,
+        msg: action.payload.data.msg,
       };
     case "LOGIN_REJECTED":
       return {

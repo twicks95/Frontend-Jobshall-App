@@ -5,7 +5,7 @@
 }
 
 .footerText {
-  /* width: 381px; */
+  width: 40%;
   margin-top: 30px;
 }
 
@@ -28,6 +28,8 @@
   }
 }
 
-/* @media (max-width: 768px) {
-  
-} */
+@media (max-width: 768px) {
+  .footerText {
+    width: 100%;
+  }
+}

@@ -28,7 +28,7 @@ const recruiter = (state = initialState, action) => {
         recruiter: action.payload.data.data,
         isGetRecruiterByIdLoading: true,
         isGetRecruiterByIdError: false,
-        getMsg: action.payload,
+        getMsg: action.payload.data.msg,
       };
     case "GET_RECRUITER_BY_ID_REJECTED":
       return {
@@ -36,7 +36,7 @@ const recruiter = (state = initialState, action) => {
         recruiter: [],
         isGetRecruiterByIdLoading: false,
         isGetRecruiterByIdError: true,
-        getRecruiterMsg: action.payload.response.data.msg,
+        getMsg: action.payload.response.data.msg,
       };
     case "UPDATE_RECRUITER_DATA_PENDING":
       return {
