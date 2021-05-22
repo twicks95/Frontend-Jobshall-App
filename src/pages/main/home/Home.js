@@ -13,48 +13,53 @@ import {
   Card,
   Row,
   Col,
+  OverlayTrigger,
+  Popover,
 } from "react-bootstrap";
 import seacrh from "../../../assets/img/search (1) 1.png";
+import { connect } from "react-redux";
+import { getWorkers } from "../../../redux/actions/worker";
+import { getSkills } from "../../../redux/actions/skill";
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      data: [
-        {
-          name: "Teguh",
-          field: "Web developer",
-          type: "Freelance",
-          location: "lorem ipsum",
-          skills: ["PHP", "JS", "Python"],
-        },
-        {
-          name: "Alfin",
-          field: "Web developer",
-          type: "Freelance",
-          location: "lorem ipsum",
-          skills: ["PHP", "JS", "Python"],
-        },
-        {
-          name: "Ricky",
-          field: "Web developer",
-          type: "Freelance",
-          location: "lorem ipsum",
-          skills: ["PHP", "JS", "Python"],
-        },
-        {
-          name: "Rifqi",
-          field: "Web developer",
-          type: "Freelance",
-          location: "lorem ipsum",
-          skills: ["PHP", "JS", "Python", "Golang"],
-        },
-      ],
+      data: [],
       search: "",
-      sort: "",
+      sort: "worker_id ASC",
+      page: 1,
+      limit: 5,
+      pagination: {},
     };
   }
+  componentDidMount() {
+    this.allWorkers();
+    // this.getDataSkills();
+  }
+  allWorkers = () => {
+    const { search, sort, page, limit } = this.state;
+
+    this.props.getWorkers(page, limit, search, sort).then((res) => {
+      this.setState({ data: res.action.payload.data.data });
+    });
+  };
+  allWorkersSort = () => {
+    const { sort } = this.state;
+
+    this.props.getWorkers(sort).then((res) => {
+      this.setState({ data: res.action.payload.data.data });
+    });
+  };
+  handlePageClick = (event) => {
+    console.log(event);
+    const selectedPage = event.selected + 1;
+    this.setState({ page: selectedPage }, () => {
+      this.allWorkers();
+    });
+  };
   changeTextSearch = (event) => {
+    this.allWorkers();
     this.setState({ [event.target.name]: event.target.value });
   };
   handleSort = (event) => {
@@ -62,32 +67,41 @@ class Home extends Component {
     switch (event.target.name) {
       case "sortName":
         this.setState({ sort: "worker_name ASC" });
+        this.allWorkers();
         break;
       case "sortSkills":
-        this.setState({ sort: "worker_skills ASC" });
+        this.setState({ sort: `worker_skills ASC` });
+        this.allWorkers();
         break;
       case "sortLoc":
-        this.setState({ sort: "worker_location ASC" });
+        this.setState({ sort: "worker_domicile ASC" });
+        this.allWorkers();
         break;
       case "sortType1":
-        this.setState({ sort: "worker_type=freelance" });
+        this.setState({ sort: "worker_status='freelance'" });
+        this.allWorkersSort(this.state.sort);
         break;
       case "sortType2":
-        this.setState({ sort: "worker_type=fulltime" });
+        this.setState({ sort: "worker_status='fulltime'" });
+        this.allWorkersSort(this.state.sort);
         break;
       default:
         break;
     }
   };
-  handleProfile = () => {
-    this.props.history.push("/portofolio");
+  handleProfile = (id) => {
+    // console.log(id);
+    localStorage.setItem("workerId", id);
+    this.props.history.push(`/portofolio/${id}`);
   };
-  handleSearch = () => {
-    console.log("This for Search");
+  handleSearch = (event) => {
+    this.allWorkers();
+    this.changeTextSearch(event);
   };
   render() {
-    console.log(this.state.sort);
-    const totalPage = 5;
+    console.log(this.state.data);
+
+    // const totalPage = this.props.worker.pagination;
     return (
       <>
         <NavbarComponent />
@@ -103,9 +117,13 @@ class Home extends Component {
                   value={this.state.search}
                   onChange={(event) => this.changeTextSearch(event)}
                 />
+
                 <img alt="" src={seacrh} className={styles.imgSearch} />
 
-                <Button className={styles.btn1} onClick={this.handleSearch}>
+                <Button
+                  className={styles.btn1}
+                  onClick={(event) => this.handleSearch(event)}
+                >
                   Search
                 </Button>
               </Form.Group>
@@ -157,22 +175,28 @@ class Home extends Component {
               </Dropdown>
             </Form>
             <Card className={styles.userCard}>
-              {this.state.data.map((item, index) => {
-                return (
-                  <Card key={index} className={styles.mainCardUser}>
-                    <Row>
-                      <Col className={styles.colImg} sm={2}>
-                        <Card.Img variant="left" src={imgDummy} />
-                      </Col>
-                      <Col sm={7}>
-                        <Card.Body>
-                          <h1 className={styles.cardTitle}>{item.name}</h1>
-                          <p className={styles.cardType}>
-                            {item.field} - {item.type}
-                          </p>
-                          <p className={styles.cardLocation}>{item.location}</p>
-                          <Row className={styles.skillRow}>
-                            {item.skills.map((item, index) => {
+              {this.state.data.length > 0 ? (
+                this.state.data.map((item, index) => {
+                  // console.log(item);
+                  return (
+                    <Card key={index} className={styles.mainCardUser}>
+                      <Row>
+                        <Col className={styles.colImg} sm={2}>
+                          <Card.Img variant="left" src={imgDummy} />
+                        </Col>
+                        <Col sm={7}>
+                          <Card.Body>
+                            <h1 className={styles.cardTitle}>
+                              {item.worker_name}
+                            </h1>
+                            <p className={styles.cardType}>
+                              {item.worker_job_desk} - {item.worker_status}
+                            </p>
+                            <p className={styles.cardLocation}>
+                              {item.worker_domicile}
+                            </p>
+                            <Row className={styles.skillRow}>
+                              {/* {item.skills.map((item, index) => {
                               return (
                                 <Col xs={3} key={index}>
                                   <Card className={styles.cardSkill}>
@@ -180,29 +204,35 @@ class Home extends Component {
                                   </Card>
                                 </Col>
                               );
-                            })}
-                          </Row>
-                        </Card.Body>
-                      </Col>
-                      <Col sm={3} className={styles.colButton}>
-                        <Button
-                          className={styles.btnProfile}
-                          onClick={this.handleProfile}
-                        >
-                          Lihat Profile
-                        </Button>
-                      </Col>
-                    </Row>
-                  </Card>
-                );
-              })}
+                            })} */}
+                            </Row>
+                          </Card.Body>
+                        </Col>
+                        <Col sm={3} className={styles.colButton}>
+                          <Button
+                            className={styles.btnProfile}
+                            onClick={() => this.handleProfile(item.worker_id)}
+                          >
+                            Lihat Profile
+                          </Button>
+                        </Col>
+                      </Row>
+                    </Card>
+                  );
+                })
+              ) : (
+                <Card.Body>
+                  <h1 className={styles.title}>Name not found</h1>
+                </Card.Body>
+              )}
             </Card>
+
             <ReactPaginate
-              previousLabel={"<"}
-              nextLabel={">"}
+              previousLabel={"prev"}
+              nextLabel={"next"}
               breakLabel={"..."}
               breakClassName={"break-me"}
-              pageCount={totalPage}
+              pageCount={this.props.worker.pagination.totalPage}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={this.handlePageClick}
@@ -218,4 +248,9 @@ class Home extends Component {
   }
 }
 
-export default Home;
+const mapStateToProps = (state) => ({
+  worker: state.worker,
+  skill: state.skill,
+});
+const mapDispatchToProps = { getWorkers, getSkills };
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

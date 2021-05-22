@@ -4,7 +4,7 @@ export const getWorkers = (page, limit, search, sort) => {
   return {
     type: "GET_WORKERS",
     payload: axiosApiInstances.get(
-      `worker?search=${search}&sort=${sort}&page=${page}&limit=${limit}`
+      `worker?page=${page}&limit=${limit}&search=${search}&sort=${sort}`
     ),
   };
 };

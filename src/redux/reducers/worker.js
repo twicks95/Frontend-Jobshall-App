@@ -1,6 +1,7 @@
 const initialState = {
   worker: [],
   workers: [],
+  pagination: {},
 
   isGetWorkersLoading: false,
   isGetWorkersError: false,
@@ -34,6 +35,7 @@ const worker = (state = initialState, action) => {
         isGetWorkersLoading: true,
         isGetWorkersError: false,
         getWorkersMsg: action.payload,
+        pagination: action.payload.data.pagination,
       };
     case "GET_WORKERS_REJECTED":
       return {

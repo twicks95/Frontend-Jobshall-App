@@ -52,8 +52,8 @@ class App extends Component {
                 component={WorkerEditProfile}
               />
               <Route path="/chat" exact component={Chat} />
-              <Route path="/experience" exact component={Experience} />
-              <Route path="/portofolio" exact component={Portofolio} />
+              <Route path="/experience/:id" exact component={Experience} />
+              <Route path="/portofolio/:id" exact component={Portofolio} />
               <Route path="/" exact component={Landing} />
               <Route
                 path="/recruiter/profile"

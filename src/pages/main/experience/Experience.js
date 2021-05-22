@@ -10,6 +10,8 @@ import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
 import Suit from "../../../assets/img/suitcase 2.png";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getExperiences } from "../../../redux/actions/experience";
 
 class Experience extends Component {
   constructor() {
@@ -69,6 +71,10 @@ class Experience extends Component {
       isExp: true,
       isPort: false,
     };
+  }
+  componentDidMount() {
+    const id = localStorage.getItem("userId");
+    this.props.getExperiences(id);
   }
   render() {
     return (
@@ -153,7 +159,7 @@ class Experience extends Component {
                   <Nav>
                     <Nav.Item className={styles.nav1}>
                       <Link
-                        to="/portofolio"
+                        to={`/portofolio/${localStorage.getItem("workerId")}`}
                         className={
                           this.state.isPort ? styles.link1 : styles.link2
                         }
@@ -164,7 +170,7 @@ class Experience extends Component {
 
                     <Nav.Item className={styles.nav1}>
                       <Link
-                        to="/experience"
+                        to={`/experience/${localStorage.getItem("workerId")}`}
                         className={
                           this.state.isExp ? styles.link1 : styles.link2
                         }
@@ -210,4 +216,8 @@ class Experience extends Component {
   }
 }
 
-export default Experience;
+const mapStateToProps = (state) => ({
+  experience: state.experience,
+});
+const mapDispatchToProps = { getExperiences };
+export default connect(mapStateToProps, mapDispatchToProps)(Experience);

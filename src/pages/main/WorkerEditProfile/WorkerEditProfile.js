@@ -79,7 +79,7 @@ class WorkerEditProfile extends Component {
       idExp: "",
       isDelete: false,
       isDeleteExp: false,
-      isCreate: false,
+      isCreateSkill: false,
       isCreateExp: false,
       show: false,
       setShow: false,
@@ -209,7 +209,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     // console.log(id);
     this.props.createSkill(this.state.formSkill).then((res) => {
-      this.setState({ show: true, isCreate: true });
+      this.setState({ show: true, isCreateSkill: true });
       this.getSkillId(localStorage.getItem("userId"));
       this.resetDataSkills(event);
     });
@@ -505,7 +505,7 @@ class WorkerEditProfile extends Component {
                             ? "Success Delete Skill"
                             : this.state.isUpdateWorker
                             ? `Success Update Profile, ${worker_name}`
-                            : this.state.isCreate
+                            : this.state.isCreateSkill
                             ? "Success Create Data Skill"
                             : this.state.isCreateExp
                             ? "Success Create Experience Work"
