@@ -53,7 +53,7 @@ const experience = (state = initialState, action) => {
         ...state,
         isCreateExperienceLoading: false,
         isCreateExperienceError: false,
-        createMsg: action.payload.response.data.msg,
+        createMsg: action.payload.data.msg,
       };
     case "CREATE_EXPERIENCE_REJECTED":
       return {

@@ -1,8 +1,8 @@
 .cardSkill {
   background: #ffffff;
   border-radius: 8px;
-  padding: 36px 30px 27px 30px;
-  margin-bottom: 31px;
+  /* padding: 36px 30px 27px 30px; */
+  /* margin-bottom: 31px; */
 }
 .btnSaveSkill {
   background: #fbb017;
@@ -35,7 +35,6 @@
   font-size: 12px;
   line-height: 20px;
   color: #ffffff;
-  padding: 4px;
 }
 .editSkill {
   width: 10px;
@@ -48,6 +47,5 @@
   cursor: pointer;
 }
 .mainRow {
-  flex-direction: row;
-  flex-wrap: nowrap;
+  flex-direction: row !important;
 }

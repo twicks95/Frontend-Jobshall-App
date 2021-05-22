@@ -21,8 +21,19 @@ import {
   updateWorkerData,
   getWorkers,
 } from "../../../redux/actions/worker";
-import { createSkill, getSkills } from "../../../redux/actions/skill";
+import {
+  createSkill,
+  getSkills,
+  updateSkill,
+  deleteSkill,
+} from "../../../redux/actions/skill";
+import {
+  getExperiences,
+  createExperience,
+  deleteExperience,
+} from "../../../redux/actions/experience";
 import { connect } from "react-redux";
+import CardExperience from "../../../components/CardExperience/CardExperience";
 
 class WorkerEditProfile extends Component {
   constructor() {
@@ -38,22 +49,51 @@ class WorkerEditProfile extends Component {
         workerGitlab: "",
         workerInstagram: "",
         workerDescription: "",
-        workerImage: null,
+        image: null,
       },
       formSkill: {
+        workerId: localStorage.getItem("userId"),
         skillName: "",
+        skillId: "",
       },
-      dataWorker: "",
-      dataSkills: "",
+      formExperience: {
+        workerId: localStorage.getItem("userId"),
+        experienceCompany: "",
+        experiencePosition: "",
+        experienceDateStart: "",
+        experienceDateEnd: "",
+        experienceDescription: "",
+      },
+      formPortofolio: {
+        workerId: localStorage.getItem("userId"),
+        portfolioName: "",
+        portfolioLink: "",
+        image: null,
+      },
+      dataWorker: {},
+      dataSkills: [],
+      itemSkills: {},
+      dataExperience: [],
+      idSkill: "",
       id: "",
+      idExp: "",
+      isDelete: false,
+      isDeleteExp: false,
+      isCreate: false,
+      isCreateExp: false,
       show: false,
       setShow: false,
+      isUpdate: false,
+      isUpdateWorker: false,
+      isUpdateSkill: false,
+      isUpdateExp: false,
     };
   }
   componentDidMount() {
     const id = localStorage.getItem("userId");
     this.getWorkerId(id);
     this.getSkillId(id);
+    this.getExperienceId(id);
   }
   getWorkerId = (id) => {
     this.props.getWorkerById(id).then((res) => {
@@ -65,7 +105,15 @@ class WorkerEditProfile extends Component {
   getSkillId = (id) => {
     this.props.getSkills(id).then((res) => {
       console.log(res);
-      this.setState({ dataSkills: res.action.payload.data.data });
+      this.setState({
+        dataSkills: res.action.payload.data.data,
+        itemSkills: res.action.payload.data.data[0],
+      });
+    });
+  };
+  getExperienceId = (id) => {
+    this.props.getExperiences(id).then((res) => {
+      this.setState({ dataExperience: res.action.payload.data.data });
     });
   };
   changeText = (event) => {
@@ -84,7 +132,14 @@ class WorkerEditProfile extends Component {
       },
     });
   };
-
+  changeTextExp = (event) => {
+    this.setState({
+      formExperience: {
+        ...this.state.formExperience,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
   updateDataWorker = (event) => {
     const { id } = this.props.match.params;
     event.preventDefault();
@@ -104,7 +159,7 @@ class WorkerEditProfile extends Component {
       this.state.formWorker.workerDescription
     );
     this.props.updateWorkerData(id, formData).then((res) => {
-      this.setState({ show: true });
+      this.setState({ show: true, isUpdateWorker: true });
       this.getWorkerId(id);
       this.resetDataWorker(event);
     });
@@ -126,19 +181,110 @@ class WorkerEditProfile extends Component {
       },
     });
   };
+  resetDataSkills = (event) => {
+    event.preventDefault();
+    this.setState({
+      formSkill: {
+        workerId: localStorage.getItem("userId"),
+        skillName: "",
+      },
+    });
+  };
+  resetDataExp = (event) => {
+    event.preventDefault();
+    this.setState({
+      formExperience: {
+        workerId: localStorage.getItem("userId"),
+        experienceCompany: "",
+        experiencePosition: "",
+        experienceDateStart: "",
+        experienceDateEnd: "",
+        experienceDescription: "",
+      },
+    });
+    this.setState({ isUpdateExp: false });
+  };
   createSkill = (event) => {
     // const { id } = this.props.match.params;
     event.preventDefault();
     // console.log(id);
-    this.props.createSkill(this.state.formSkill.skillName).then((res) => {
-      console.log(res);
+    this.props.createSkill(this.state.formSkill).then((res) => {
+      this.setState({ show: true, isCreate: true });
+      this.getSkillId(localStorage.getItem("userId"));
+      this.resetDataSkills(event);
+    });
+  };
+  updateSkill = (event) => {
+    this.setState({ isUpdate: false });
+    const { idSkill, formSkill } = this.state;
+    event.preventDefault();
+    this.props.updateSkill(idSkill, formSkill).then((res) => {
+      this.setState({ show: true, isUpdateSkill: true, isUpdate: false });
+      this.getSkillId(localStorage.getItem("userId"));
+      this.resetDataSkills(event);
+    });
+  };
+  updateExp = () => {
+    console.log("work");
+  };
+  deleteSkill = (id) => {
+    this.props.deleteSkill(id).then((res) => {
+      this.getSkillId(this.state.idSkill);
+      this.setState({ show: true, isDelete: true });
+    });
+    // console.log("work");
+  };
+  deleteExp = () => {
+    const { idExp } = this.state;
+    console.log(idExp);
+    this.props.deleteExperience(idExp).then((res) => {
+      this.getExperienceId(localStorage.getItem("userId"));
+      this.setState({ show: true, isDeleteExp: true });
+    });
+  };
+  createExp = (event) => {
+    event.preventDefault();
+    // console.log("work");
+    this.props.createExperience(this.state.formExperience).then((res) => {
+      this.setState({ show: true, isCreateExp: true });
+      this.getExperienceId(localStorage.getItem("userId"));
+      this.resetDataExp(event);
     });
   };
   handleClose = () => {
     this.setState({ show: false });
   };
+  handleSetUpdate = (data) => {
+    // console.log(data);
+    // const { worker_id, skill_name } = this.state.itemSkills;
+    this.setState({
+      isUpdate: true,
+      idSkill: data.skill_id,
+      formSkill: {
+        workerId: data.worker_id,
+        skillName: data.skill_name,
+        skillId: data.skill_id,
+      },
+    });
+  };
+  handleSetUpdateExp = (data) => {
+    // console.log(data);
+    // console.log("work");
+    this.setState({
+      isUpdateExp: true,
+      idExp: data.experience_id,
+      formExperience: {
+        workerId: localStorage.getItem("userId"),
+        experienceCompany: data.experience_company,
+        experiencePosition: data.experience_position,
+        experienceDateStart: data.experience_date_start.slice(0, 10),
+        experienceDateEnd: data.experience_date_end.slice(0, 10),
+        experienceDescription: "",
+      },
+    });
+  };
   render() {
-    console.log(this.state.formSkills);
+    console.log(this.state.idExp);
     console.log(this.props);
     const { skillName } = this.state.formSkill;
     const {
@@ -350,10 +496,24 @@ class WorkerEditProfile extends Component {
                       </Button>
                       <Modal show={this.state.show} onHide={this.handleClose}>
                         <Modal.Header>
-                          <Modal.Title>JobShall</Modal.Title>
+                          <Modal.Title className={styles.title}>
+                            JobShall
+                          </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          Success Update Profile, {worker_name}
+                          {this.state.isDelete
+                            ? "Success Delete Skill"
+                            : this.state.isUpdateWorker
+                            ? `Success Update Profile, ${worker_name}`
+                            : this.state.isCreate
+                            ? "Success Create Data Skill"
+                            : this.state.isCreateExp
+                            ? "Success Create Experience Work"
+                            : this.state.isDeleteExp
+                            ? "Success Delete Experience Work"
+                            : this.state.isUpdateSkill
+                            ? "Success Update Skill"
+                            : "hai"}
                         </Modal.Body>
                       </Modal>
                     </Form>
@@ -377,13 +537,30 @@ class WorkerEditProfile extends Component {
                       <Col sm={2}>
                         <Button
                           className={styles.btnSaveSkill}
-                          onClick={(event) => this.createSkill(event)}
+                          onClick={
+                            this.state.isUpdate
+                              ? (event) => this.updateSkill(event)
+                              : (event) => this.createSkill(event)
+                          }
                         >
-                          Simpan
+                          {this.state.isUpdate ? "Update" : "Simpan"}
                         </Button>
                       </Col>
                     </Row>
-                    <CardSkills dataSkills={this.state.dataSkills} />
+                    <Row classNamr={styles.rowSkill}>
+                      {this.state.dataSkills.map((item, index) => {
+                        return (
+                          <Col xs={5}>
+                            <CardSkills
+                              data={item}
+                              setUpdate={this.handleSetUpdate.bind(this)}
+                              updateSkill={this.updateSkill.bind(this)}
+                              deleteSkill={this.deleteSkill.bind(this)}
+                            />
+                          </Col>
+                        );
+                      })}
+                    </Row>
                   </Form>
                 </Card>
                 <Card className={styles.cardExp}>
@@ -402,6 +579,9 @@ class WorkerEditProfile extends Component {
                             type="text"
                             placeholder="PT Apa Saja"
                             className={styles.everyControl}
+                            name="experienceCompany"
+                            value={this.state.formExperience.experienceCompany}
+                            onChange={(event) => this.changeTextExp(event)}
                           />
                         </Form.Group>
                         <Form.Group>
@@ -411,6 +591,11 @@ class WorkerEditProfile extends Component {
                           <Form.Control
                             type="date"
                             className={styles.everyControl}
+                            name="experienceDateStart"
+                            value={
+                              this.state.formExperience.experienceDateStart
+                            }
+                            onChange={(event) => this.changeTextExp(event)}
                           />
                         </Form.Group>
                       </Col>
@@ -423,6 +608,9 @@ class WorkerEditProfile extends Component {
                             type="text"
                             placeholder="Web Developer"
                             className={styles.everyControl}
+                            name="experiencePosition"
+                            value={this.state.formExperience.experiencePosition}
+                            onChange={(event) => this.changeTextExp(event)}
                           />
                         </Form.Group>
                         <Form.Group>
@@ -432,6 +620,9 @@ class WorkerEditProfile extends Component {
                           <Form.Control
                             type="date"
                             className={styles.everyControl}
+                            name="experienceDateEnd"
+                            value={this.state.formExperience.experienceDateEnd}
+                            onChange={(event) => this.changeTextExp(event)}
                           />
                         </Form.Group>
                       </Col>
@@ -445,14 +636,64 @@ class WorkerEditProfile extends Component {
                         type="text"
                         placeholder="Tuliskan deskripsi singkat"
                         className={styles.controlAreaExp}
+                        name="experienceDescription"
+                        value={this.state.formExperience.experienceDescription}
+                        onChange={(event) => this.changeTextExp(event)}
                       />
                     </Form.Group>
                   </Form>
                   <hr />
-                  <Button className={styles.btnAdd}>
-                    Tambah pengalaman kerja
-                  </Button>
+                  {this.state.isUpdateExp ? (
+                    <Row>
+                      <Col xs={4}>
+                        <Button
+                          className={styles.btnAdd1}
+                          onClick={(event) => this.createExp(event)}
+                        >
+                          Update pengalaman kerja
+                        </Button>
+                      </Col>
+                      <Col xs={4}>
+                        <Button
+                          className={styles.btnAdd2}
+                          onClick={(event) => this.resetDataExp(event)}
+                        >
+                          Batal
+                        </Button>
+                      </Col>
+                      <Col xs={4}>
+                        <Button
+                          className={styles.btnAdd3}
+                          onClick={(event) => this.deleteExp(event)}
+                        >
+                          Delete
+                        </Button>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <Button
+                      className={styles.btnAdd}
+                      onClick={(event) => this.createExp(event)}
+                    >
+                      Tambah pengalaman kerja
+                    </Button>
+                  )}
+
                   <hr />
+                  <Row className={styles.mainRowExp}>
+                    {this.state.dataExperience.map((item, index) => {
+                      return (
+                        <Col key={index} xs={6}>
+                          <CardExperience
+                            data={item}
+                            setUpdateExp={this.handleSetUpdateExp.bind(this)}
+                            updateExp={this.updateExp.bind(this)}
+                            // deleteExp={this.deleteExp.bind(this)}
+                          />
+                        </Col>
+                      );
+                    })}
+                  </Row>
                 </Card>
                 <Card className={styles.cardPort}>
                   <Card.Title>Portofolio</Card.Title>
@@ -466,6 +707,7 @@ class WorkerEditProfile extends Component {
                         type="text"
                         placeholder="Masukan nama aplikasi"
                         className={styles.everyControl}
+                        name="portofolioName"
                       />
                     </Form.Group>
                     <Form.Group>
@@ -476,6 +718,7 @@ class WorkerEditProfile extends Component {
                         type="text"
                         placeholder="Masukan link repository"
                         className={styles.everyControl}
+                        name="portofolioLink"
                       />
                     </Form.Group>
                     <Form.Group>
@@ -541,6 +784,7 @@ class WorkerEditProfile extends Component {
 const mapStateToProps = (state) => ({
   worker: state.worker,
   skill: state.skill,
+  experience: state.experience,
 });
 
 const mapDispatchToProps = {
@@ -549,5 +793,10 @@ const mapDispatchToProps = {
   getWorkers,
   createSkill,
   getSkills,
+  getExperiences,
+  updateSkill,
+  deleteSkill,
+  createExperience,
+  deleteExperience,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(WorkerEditProfile);
