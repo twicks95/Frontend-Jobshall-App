@@ -42,9 +42,13 @@ class NavbarComponent extends Component {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-5">
-              <Link to="/home" className={`${styles.navLink}`}>
-                Home
-              </Link>
+              {this.props.auth.data.role === "recruiter" ? (
+                <Link to="/home" className={`${styles.navLink}`}>
+                  Home
+                </Link>
+              ) : (
+                <Link></Link>
+              )}
             </Nav>
             <Nav className="ms-auto">
               <Button
