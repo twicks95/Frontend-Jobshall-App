@@ -1,4 +1,245 @@
-.mainText {
-  background-color: blue;
-  text-align: center;
+.contentWrapper {
+  padding: 70px 120px;
+}
+
+.greyBox1,
+.greyBox2 {
+  width: 102%;
+  height: 102%;
+  position: absolute;
+  background-color: #e2e5ed;
+  z-index: -99;
+}
+
+.greyBox1 {
+  transform: rotate(-15deg);
+}
+
+.greyBox2 {
+  transform: rotate(15deg);
+}
+
+.imageContainer1,
+.imageContainer2,
+.imageContainer3 {
+  position: relative;
+}
+
+.imageContainer1::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 27%;
+  height: 27%;
+  left: -12%;
+  bottom: -6%;
+  background-color: #5e50a1;
+}
+
+.imageContainer1::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 10%;
+  height: 10%;
+  left: 8%;
+  bottom: -10%;
+  background-color: #fbb017;
+}
+
+.imageContainer2::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 20%;
+  height: 29%;
+  left: -8%;
+  top: -12%;
+  background-color: #5e50a1;
+}
+
+.imageContainer3::before {
+  content: "";
+  display: inline-block;
+  position: absolute;
+  width: 20%;
+  height: 29%;
+  right: -8%;
+  top: -14%;
+  background-color: #fbb017;
+}
+
+.dotDecoration1 {
+  position: absolute;
+  left: 8%;
+  bottom: 12%;
+  height: 35%;
+}
+
+.dotDecoration2 {
+  position: absolute;
+  left: -4%;
+  bottom: -20%;
+  width: 25%;
+  transform: rotate(90deg);
+}
+
+.dotDecoration3 {
+  position: absolute;
+  right: 3%;
+  bottom: -12%;
+  width: 19%;
+  transform: rotate(90deg);
+}
+
+.heroImg {
+  width: 100%;
+  object-fit: cover;
+}
+
+.textSide h1 {
+  font-size: 44px;
+}
+
+.textSide1 p {
+  margin: 20px 0px 55px;
+}
+
+.textSide1 {
+  padding-right: 12%;
+}
+
+.textSide2 h2 {
+  margin-bottom: 36px;
+}
+
+.textSide2 p:not(:last-child) {
+  margin-bottom: 30px;
+}
+
+.textSide3 h2 + p {
+  margin: 12px 0px 30px 0px;
+}
+
+.textSide3 .tallentSkills p {
+  margin-bottom: 30px;
+}
+
+.bottomRectangle p,
+.textSide1 h1,
+.textSide2 h2,
+.textSide3 h2,
+.recruiterOpinion h2 {
+  font-weight: 600;
+  font-size: 36px;
+}
+
+.textSide1 p,
+.textSide2 p,
+.textSide3 p:first-child {
+  color: #46505c;
+}
+
+.textSide1 h1,
+.textSide2 h2,
+.textSide3 h2 {
+  color: #1f2a36;
+}
+
+.CTAButton1,
+.CTAButton2 {
+  width: 210px;
+  height: 63px;
+}
+
+.CTAButton2 {
+  font-weight: 700;
+  color: #796eaf;
+}
+
+.CTAButton2:hover {
+  color: #5e50a1;
+}
+
+.row2,
+.row3 {
+  margin-top: 20%;
+}
+
+.row3 {
+  margin-bottom: 20%;
+}
+
+.tickIcon {
+  border-radius: 50%;
+}
+
+.recruiterOpinion {
+  margin-bottom: 232px;
+}
+
+.recruiterOpinion h2 {
+  margin-bottom: 52px;
+}
+
+.cards img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: 6px solid rgba(251, 176, 23, 0.37);
+  object-fit: cover;
+}
+
+.card {
+  width: 80%;
+  padding: 8% 10%;
+  border-radius: 16px;
+  border-style: none;
+  box-shadow: 0px 8px 16px rgba(197, 197, 197, 0.25);
+}
+
+.bottomRectangle {
+  position: relative;
+  width: 100%;
+  padding: 5% 8%;
+  border-radius: 40px 8px;
+  background-color: #5e50a1;
+}
+
+.bottomRectangle p {
+  width: 50%;
+  font-size: 32px;
+  color: #ffffff;
+}
+
+@media (max-width: 576px) {
+  .contentWrapper {
+    padding: 70px 5%;
+  }
+}
+
+@media (max-width: 768px) {
+  .CTAButton1,
+  .CTAButton2 {
+    width: 180px;
+    height: 52px;
+    font-size: 12px;
+  }
+
+  .bottomRectangle p {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .bottomRectangle {
+    padding: 10% 8%;
+  }
+
+  .bottomRectangle p {
+    width: 100%;
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px !important;
+  }
 }

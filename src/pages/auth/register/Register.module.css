@@ -1,4 +1,210 @@
-.mainText {
-  background-color: blue;
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@media (max-width: 512px) {
+  .mainImg {
+    display: none;
+  }
+  .colBottom {
+    padding: 16px !important;
+  }
+  .btnSubmit {
+    width: 343px !important;
+  }
+  .subTitle {
+    display: none;
+  }
+  .subTitle1 {
+    display: block !important;
+  }
+  .title {
+    display: none;
+  }
+  .title1 {
+    display: block !important;
+    font-family: "Open Sans", sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 44px;
+    color: #1f2a36;
+  }
+  .logo1 {
+    display: block !important;
+  }
+}
+.mainImg {
+  background-image: url("../../../assets/img/true-agency-o4UhdLv5jbQ-unsplash\ 1.png");
+  padding: 0;
+  background-repeat: no-repeat;
+}
+/* .layer {
+  background-color: #5e50a1;
+  opacity: 0.8;
+  width: 100%;
+  height: 100%;
+} */
+.layer {
+  position: relative;
+  height: 822px;
+  width: 100%;
+  background-color: #5e50a1;
+  opacity: 0.8;
+}
+
+.main {
+  padding: 12px;
+}
+.coverText {
+  position: absolute;
+  top: 0;
+  padding: 47px 45.88px;
+}
+.logo {
+  width: 86px;
+  height: 24px;
+}
+.logo1 {
+  width: 86px;
+  height: 24px;
+  display: none;
+  margin-bottom: 35px;
+}
+.subText {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 44px;
+  line-height: 70px;
+  color: #ffffff;
+  margin-top: 175px;
+  margin-left: 18.9px;
+}
+.colBottom {
+  padding: 90px 10px 180px 65px;
+}
+.title {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 44px;
+  color: #1f2a36;
+}
+.title1 {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 44px;
+  color: #1f2a36;
+  display: none;
+}
+.subTitle {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+  color: #46505c;
+  margin-top: 16px;
+}
+.subTitle1 {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 25px;
+  color: #46505c;
+  margin-top: 16px;
+  display: none;
+}
+.label {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9ea0a5;
+}
+.label1 {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 16px;
+  color: #9ea0a5;
+  margin-top: 32px;
+}
+.mainForm {
+  margin-top: 56px;
+}
+.control {
+  background: #ffffff;
+  border: 1px solid #e2e5ed;
+  box-sizing: border-box;
+  border-radius: 4px;
+  height: 50px;
+}
+
+.forgotPass {
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  text-decoration: none;
+  float: right;
+  margin: 24px 0px;
+  color: #1f2a36;
+}
+.btnSubmit {
+  width: 100%;
+  height: 50px;
+  background: #fbb017;
+  border-radius: 4px;
+  border: #fbb017 !important;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: 700;
+  font-size: 16px;
+  color: #ffffff;
+  margin-top: 52px;
+}
+.btnSubmit:hover {
+  width: 100%;
+  height: 50px;
+  background: #fba010;
+  border-radius: 4px;
+  border: #fba010;
+}
+.register {
   text-align: center;
+  margin-top: 28px;
+  font-family: "Open Sans", sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 22px;
+  color: #1f2a36;
+}
+.onReg {
+  color: #fbb017;
+  text-decoration: none;
+}
+.onReg:hover {
+  color: #fba010;
+  border: #fba010;
+}
+.forgotPass:hover {
+  color: #fba010;
+  border: #fba010;
+}
+.alert {
+  text-align: center;
+}
+.mainAlert {
+  height: 50px;
+  padding-top: 10px;
+  margin-top: 12px;
 }
