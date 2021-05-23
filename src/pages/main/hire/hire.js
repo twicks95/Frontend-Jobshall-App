@@ -78,7 +78,7 @@ class Portofolio extends Component {
               <Col sm={4}>
                 <Card className={styles.cardOne}>
                   <Card.Img
-                    src={profileImg}
+                    src={`http://localhost:3001/api/${this.state.data.worker_image}`}
                     variant="top"
                     className={styles.ppImg}
                   />
@@ -152,7 +152,7 @@ class Portofolio extends Component {
                 </Card>
               </Col>
               <Col sm={8} className={styles.col2}>
-                <h5>Hubungi Lous Tomlinson</h5>
+                <h5>Hubungi {this.state.data.worker_name}</h5>
                 <h3>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
                   euismod ipsum et dui rhoncus auctor.
