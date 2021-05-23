@@ -3,12 +3,12 @@ import { Link, withRouter } from "react-router-dom";
 import { Button, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
 import { connect } from "react-redux";
-import { getWorkerById } from "../../redux/actions/worker";
 import { getRecruiterById } from "../../redux/actions/recruiter";
+import { getWorkerById } from "../../redux/actions/worker";
 
 import styles from "./Navbar.module.css";
 
-import NoProfilePicture from "../../assets/images/blank-profile-picture.jpg";
+import NoProfilePicture from "../../assets/images/defaultprofilepict.png";
 import Logo from "../../assets/images/peworld.png";
 import Bell from "../../assets/icons/bell.svg";
 import Mail from "../../assets/icons/mail.svg";
@@ -19,20 +19,29 @@ class NavbarComponent extends Component {
 
     this.state = {
       isLoggedIn: localStorage.getItem("token"),
+      // avatar: props.auth.data.role,
     };
   }
 
-  componentDidMount = () => {
-    if (this.props.auth.data.role) {
-      if (this.props.auth.data.role === "worker") {
-        const { worker_id } = this.props.auth.data;
-        this.props.getWorkerById(worker_id);
-      } else {
-        const { recruiter_id } = this.props.auth.data;
-        this.props.getRecruiterById(recruiter_id);
-      }
-    }
-  };
+  // componentDidMount() {
+  //   this.renderAvatar();
+  // }
+
+  // renderAvatar = () => {
+  //   return this.props.auth.data.role === "worker"
+  //     ? this.props.getWorkerById(this.props.auth.data.worker_id).then(() => {
+  //         return this.props.worker.worker[0].worker_image
+  //           ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
+  //           : NoProfilePicture;
+  //       })
+  //     : this.props
+  //         .getRecruiterById(this.props.auth.data.recruiter_id)
+  //         .then(() => {
+  //           return this.props.recruiter.recruiter[0].recruiter_image
+  //             ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
+  //             : NoProfilePicture;
+  //         });
+  // };
 
   renderNav = () => {
     const { isLoggedIn } = this.state;
@@ -49,7 +58,7 @@ class NavbarComponent extends Component {
                   Home
                 </Link>
               ) : (
-                <Link></Link>
+                <></>
               )}
             </Nav>
             <Nav className="ms-auto">
@@ -65,6 +74,8 @@ class NavbarComponent extends Component {
         </>
       );
     } else if (!isLanding && isLoggedIn) {
+      const { role, worker_image, recruiter_image } = this.props.auth.data;
+
       return (
         <>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -92,12 +103,10 @@ class NavbarComponent extends Component {
                 </NavDropdown>
                 <img
                   src={
-                    this.props.auth.data.role === "worker"
-                      ? this.props.worker.worker[0].worker_image
-                        ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
-                        : NoProfilePicture
-                      : this.props.recruiter.recruiter[0].recruiter_image
-                      ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
+                    role === "worker"
+                      ? `http://localhost:3001/api/${worker_image}`
+                      : role === "recruiter"
+                      ? `http://localhost:3001/api/${recruiter_image}`
                       : NoProfilePicture
                   }
                   alt="avatar"
@@ -154,18 +163,22 @@ class NavbarComponent extends Component {
 
   handleClickProfile = () => {
     if (this.props.auth.data.role === "recruiter") {
-      this.props.history.push("/recruiter/profile");
+      const { recruiter_id } = this.props.auth.data;
+      this.props.history.push(`/recruiter/profile?id=${recruiter_id}`);
     } else {
-      this.props.history.push("/portofolio");
+      const { worker_id } = this.props.auth.data;
+      this.props.history.push(`/portofolio?id=${worker_id}`);
     }
   };
 
   handleEditProfile = (e) => {
     e.preventDefault();
     if (this.props.auth.data.role === "recruiter") {
-      this.props.history.push("/recruiter/edit");
+      const { recruiter_id } = this.props.auth.data;
+      this.props.history.push(`/recruiter/edit?id=${recruiter_id}`);
     } else {
-      this.props.history.push("/worker/edit");
+      const { worker_id } = this.props.auth.data;
+      this.props.history.push(`/worker/edit?id=${worker_id}`);
     }
   };
 
@@ -189,7 +202,8 @@ class NavbarComponent extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props.recruiter.recruiter[0].recruiter_image);
+
     return (
       <Navbar
         bg="light"
