@@ -7,10 +7,10 @@ export const getExperiences = (worker_id) => {
   };
 };
 
-export const createExperience = (worker_id, data) => {
+export const createExperience = (data) => {
   return {
     type: "CREATE_EXPERIENCE",
-    payload: axiosApiInstances.post(`experience/${worker_id}`, data),
+    payload: axiosApiInstances.post(`experience/`, data),
   };
 };
 

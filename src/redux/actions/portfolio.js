@@ -7,10 +7,10 @@ export const getPortfolios = (worker_id) => {
   };
 };
 
-export const createPortfolio = (worker_id, data) => {
+export const createPortfolio = (data) => {
   return {
     type: "CREATE_PORTFOLIO",
-    payload: axiosApiInstances.post(`portfolio/${worker_id}`, data),
+    payload: axiosApiInstances.post(`portfolio/`, data),
   };
 };
 
