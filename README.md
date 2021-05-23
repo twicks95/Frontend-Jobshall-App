@@ -43,10 +43,6 @@ REACT_APP_ENDPOINT = [Backend API]
 - [React](https://reactjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 
-## License
-
-© [Bagus Tri Harjanto](https://github.com/bagusth15/)
-
 ## Team
 
 > All Members of Default Team
