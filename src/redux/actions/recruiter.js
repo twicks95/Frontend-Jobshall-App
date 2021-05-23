@@ -7,10 +7,24 @@ export const getRecruiterById = (id) => {
   };
 };
 
+export const updateRecruiterImage = (id, data) => {
+  return {
+    type: "UPDATE_RECRUITER_IMAGE",
+    payload: axiosApiInstances.patch(`recruiter/img/upload/${id}`, data),
+  };
+};
+
 export const updateRecruiterData = (id, data) => {
   return {
     type: "UPDATE_RECRUITER_DATA_BY_ID",
     payload: axiosApiInstances.patch(`recruiter/${id}`, data),
+  };
+};
+
+export const updateRecruiterPassword = (id, data) => {
+  return {
+    type: "UPDATE_RECRUITER_PASSWORD_BY_ID",
+    payload: axiosApiInstances.patch(`recruiter/password/${id}`, data),
   };
 };
 
