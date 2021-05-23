@@ -24,6 +24,11 @@ import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
 import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 import Portofolio from "./pages/main/portfolio/Portfolio";
 
+import PrivateRoute from "../src/helpers/PrivateRoute";
+import PublicRoute from "../src/helpers/PublicRoute";
+
+// import { connect } from "react-redux";
+
 class App extends Component {
   render() {
     return (
@@ -44,20 +49,43 @@ class App extends Component {
                 component={ConfirmPassword}
               />
               <Route path="/pass-login" exact component={PassLogin} />
-              <Route path="/req-pass" exact component={Request} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/home" exact component={Home} />
-              <Route path="/worker/edit" exact component={WorkerEditProfile} />
-              <Route path="/chat" exact component={Chat} />
-              <Route path="/experience" exact component={Experience} />
-              <Route path="/portofolio" exact component={Portofolio} />
+              <PublicRoute path="/req-pass" exact component={Request} />
+              <PublicRoute
+                restricted={true}
+                path="/login"
+                exact
+                component={Login}
+              />
+              <PrivateRoute
+                author="recruiter"
+                path="/home"
+                exact
+                component={Home}
+              />
+              <PrivateRoute
+                author="worker"
+                path="/worker/edit"
+                // authorized={
+                //   this.props.auth.data.role === "worker" ? true : false
+                // }
+                exact
+                component={WorkerEditProfile}
+              />
+              <PublicRoute path="/chat" exact component={Chat} />
+              <PublicRoute path="/experience" exact component={Experience} />
+              <PublicRoute path="/portofolio" exact component={Portofolio} />
               <Route path="/" exact component={Landing} />
-              <Route
+              <PrivateRoute
+                author="recruiter"
                 path="/recruiter/profile"
+                // authorized={
+                //   this.props.auth.data.role === "recruiter" ? true : false
+                // }
                 exact
                 component={RecruiterProfile}
               />
-              <Route
+              <PrivateRoute
+                author="recruiter"
                 path="/recruiter/edit"
                 exact
                 component={RecruiterEditProfile}
@@ -70,4 +98,7 @@ class App extends Component {
   }
 }
 
+// const mapStateToProps = (state) => ({ auth: state.auth });
+
+// export default connect(mapStateToProps, null)(App);
 export default App;
