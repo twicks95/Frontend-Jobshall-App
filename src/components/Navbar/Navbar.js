@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
 
+import { connect } from "react-redux";
+import { getWorkerById } from "../../redux/actions/worker";
+import { getRecruiterById } from "../../redux/actions/recruiter";
+
 import styles from "./Navbar.module.css";
 
-import Avatar from "../../assets/images/52b72a55a079dca3c59ba0db0eb236aa.jpg";
+import NoProfilePicture from "../../assets/images/blank-profile-picture.jpg";
 import Logo from "../../assets/images/peworld.png";
 import Bell from "../../assets/icons/bell.svg";
 import Mail from "../../assets/icons/mail.svg";
@@ -14,23 +18,39 @@ class NavbarComponent extends Component {
     super(props);
 
     this.state = {
-      isLoggedIn: true,
-      userRole: "recruiter",
+      isLoggedIn: localStorage.getItem("token"),
     };
   }
+
+  componentDidMount = () => {
+    if (this.props.auth.data.role) {
+      if (this.props.auth.data.role === "worker") {
+        const { worker_id } = this.props.auth.data;
+        this.props.getWorkerById(worker_id);
+      } else {
+        const { recruiter_id } = this.props.auth.data;
+        this.props.getRecruiterById(recruiter_id);
+      }
+    }
+  };
 
   renderNav = () => {
     const { isLoggedIn } = this.state;
     const { isLanding } = this.props;
+
     if (isLanding && isLoggedIn) {
       return (
         <>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="ms-5">
-              <Link to="/home" className={`${styles.navLink}`}>
-                Home
-              </Link>
+              {this.props.auth.data.role === "recruiter" ? (
+                <Link to="/home" className={`${styles.navLink}`}>
+                  Home
+                </Link>
+              ) : (
+                <Link></Link>
+              )}
             </Nav>
             <Nav className="ms-auto">
               <Button
@@ -70,11 +90,19 @@ class NavbarComponent extends Component {
                     Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
-                <img
-                  src={Avatar}
+                {/* <img
+                  src={
+                    this.props.auth.data.role === "worker"
+                      ? this.props.worker.worker[0].worker_image
+                        ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
+                        : NoProfilePicture
+                      : this.props.recruiter.recruiter[0].recruiter_image
+                      ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
+                      : NoProfilePicture
+                  }
                   alt="avatar"
                   onClick={this.handleClickProfile}
-                />
+                /> */}
               </div>
             </Nav>
           </Navbar.Collapse>
@@ -125,19 +153,19 @@ class NavbarComponent extends Component {
   };
 
   handleClickProfile = () => {
-    if (this.state.userRole === "recruiter") {
+    if (this.props.auth.data.role === "recruiter") {
       this.props.history.push("/recruiter/profile");
     } else {
-      this.props.history.push("/worker/profile");
+      this.props.history.push(`/worker/edit/${localStorage.getItem("userId")}`);
     }
   };
 
   handleEditProfile = (e) => {
     e.preventDefault();
-    if (this.state.userRole === "recruiter") {
-      this.props.history.push("/recruiter/edit");
+    if (this.props.auth.data.role === "recruiter") {
+      this.props.history.push("/recruiter/edit/");
     } else {
-      this.props.history.push("/worker/edit");
+      this.props.history.push(`/worker/edit/${localStorage.getItem("userId")}`);
     }
   };
 
@@ -161,6 +189,7 @@ class NavbarComponent extends Component {
   };
 
   render() {
+    console.log(this.props);
     return (
       <Navbar
         bg="light"
@@ -178,4 +207,15 @@ class NavbarComponent extends Component {
   }
 }
 
-export default withRouter(NavbarComponent);
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  worker: state.worker,
+  recruiter: state.recruiter,
+});
+
+const mapDispatchToProps = { getRecruiterById, getWorkerById };
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(NavbarComponent));

@@ -1,6 +1,14 @@
 import React, { Component } from "react";
 import styles from "../Register.module.css";
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
@@ -49,10 +57,13 @@ class RegisterRecruiter extends Component {
           this.setState({ isError: true });
           setTimeout(() => {
             this.setState({ isError: false });
-          }, 5000);
+          }, 3000);
         });
     } else {
       this.setState({ samePass: true, isError: true });
+      setTimeout(() => {
+        this.setState({ samePass: false, isError: false });
+      }, 3000);
     }
   };
 
@@ -186,7 +197,11 @@ class RegisterRecruiter extends Component {
                 className={styles.btnSubmit}
                 onClick={(event) => this.handleRegister(event)}
               >
-                Daftar
+                {this.props.auth.isLoading ? (
+                  <Spinner animation="border" />
+                ) : (
+                  "Daftar"
+                )}
               </Button>
               {this.state.isError && (
                 <Alert variant="danger" className={styles.mainAlert}>

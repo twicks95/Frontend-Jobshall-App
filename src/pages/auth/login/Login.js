@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import styles from "./Login.module.css";
 import logo from "../../../assets/img/Group 978 1.png";
 import logo1 from "../../../assets/img/Group 980 1.png";
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../../redux/actions/auth";
@@ -34,12 +42,20 @@ class Login extends Component {
       .then((result) => {
         // console.log(this.props.auth.data.token);
         localStorage.setItem("token", this.props.auth.data.token);
-        // localStorage.setItem("userId", this.props.auth.data.user_id);
-        if (this.props.auth.data.length > 0) {
-          alert(`${this.props.auth.msg}`);
+        if (this.props.auth.data.role === "worker") {
+          localStorage.setItem("userId", this.props.auth.data.worker_id);
+          this.props.history.push(`/`);
         } else {
-          this.props.history.push("/worker/edit");
+          localStorage.setItem("userId", this.props.auth.data.recruiter_id);
+          this.props.history.push(`/`);
         }
+
+        // localStorage.setItem("userId", this.props.auth.data.recruiter_id);
+        // // localStorage.setItem("userId", this.props.auth.data.user_id);
+        // if (this.props.auth.data.length > 0) {
+        //   alert(`${this.props.auth.msg}`);
+        // } else {
+        // }
       })
       .catch((error) => {
         this.setState({ isError: true });
@@ -112,7 +128,11 @@ class Login extends Component {
                 className={styles.btnSubmit}
                 onClick={(event) => this.handleLogin(event)}
               >
-                Masuk
+                {this.props.auth.isLoading ? (
+                  <Spinner animation="border" />
+                ) : (
+                  "Masuk"
+                )}
               </Button>
               {this.state.isError && (
                 <Alert variant="danger" className={styles.mainAlert}>
