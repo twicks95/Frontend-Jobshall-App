@@ -12,7 +12,6 @@ import {
 } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
@@ -22,7 +21,7 @@ import { getPortfolios } from "../../../redux/actions/portfolio";
 import { getWorkerById } from "../../../redux/actions/worker";
 import axiosApiInstances from "../../../utils/axios";
 
-class Portofolio extends Component {
+class Hire extends Component {
   constructor() {
     super();
     this.state = {
@@ -213,4 +212,4 @@ const mapStateToProps = (state) => ({
   worker: state.worker,
 });
 const mapDispatchToProps = { getPortfolios, getWorkerById };
-export default connect(mapStateToProps, mapDispatchToProps)(Portofolio);
+export default connect(mapStateToProps, mapDispatchToProps)(Hire);
