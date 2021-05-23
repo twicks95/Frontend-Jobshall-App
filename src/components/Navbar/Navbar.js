@@ -189,7 +189,6 @@ class NavbarComponent extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <Navbar
         bg="light"

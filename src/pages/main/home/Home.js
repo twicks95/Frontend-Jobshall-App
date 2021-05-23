@@ -28,7 +28,7 @@ class Home extends Component {
       data: [],
       data2: [],
       search: "",
-      sort: "",
+      sort: "worker_name",
       page: 1,
       limit: 5,
       pagination: {},

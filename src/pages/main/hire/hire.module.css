@@ -1,24 +1,33 @@
 @media (max-width: 512px) {
+  .link2 {
+    margin-left: 0px !important;
+    padding: 12px 12px 12px 0px;
+  }
+
+  .main {
+    padding: 40px 20px !important;
+  }
+
   .cardOne {
     display: none;
   }
-  .col2 {
-    padding: 0 50px;
-    margin-bottom: 100px;
+
+  .button {
+    margin-bottom: 40px !important;
   }
-  h2 {
-    font-size: 26px !important;
-  }
-  p {
-    margin: 20px 0 30px 0 !important ;
-    font-size: 14px !important;
-  }
+}
+
+.main {
+  padding: 0px;
+  padding-top: 120px;
+  background-color: #f5f4f7;
 }
 .cardOne {
   background: #ffffff;
   border-radius: 8px;
   border: 0.5px solid lavenderblush;
   padding: 20px;
+  margin-bottom: 183px;
 }
 .ppImg {
   width: 150px;
@@ -158,65 +167,54 @@
 
 .col2 {
   font-family: Open Sans;
-  font-style: normal;
 }
 
-.col2 h2 {
+.col2 h5 {
   font-weight: 600;
   font-size: 32px;
 }
 
-.col2 p {
-  margin-top: 50px;
-  margin-bottom: 80px;
+.col2 h3 {
+  margin-top: 30px;
+  margin-bottom: 50px;
   font-size: 18px;
 }
 
-.dropdown {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background-color: white;
-  border: 1px solid hsl(224, 23%, 91%);
-  border-radius: 4px;
-}
-
-.col2 button#dropdown-menu-align-right.btn.btn-primary {
-  background-color: red !important;
-}
-
-.col2 .btn-primary {
-  background-color: red !important;
-}
-
-.dropdownMenu {
-  display: flex;
-}
-
-.col2 .labelH5,
-.col2 .label {
+.col2 label {
   font-size: 12px;
   color: #9ea0a5;
+  margin-top: 20px;
 }
 
-.textArea {
-  background-color: white;
-  border: 2px solid #e2e5ed;
+::placeholder,
+.textDropdown {
+  font-size: 14px;
+  color: #858d96;
+}
+
+.dropdown {
+  border: 1px solid #e2e5ed;
   border-radius: 4px;
+  background-color: white;
 }
 
-.col2 .label {
+.dropdownName {
+  font-size: 14px;
+  color: #858d96;
+  background-color: white;
+}
+
+.button {
   margin-top: 40px;
-}
-
-.btnSend {
-  margin-top: 60px;
-  width: 100%;
   background: #fbb017;
   border-radius: 4px;
-  font-weight: bold;
-  font-size: 16px;
   color: #ffffff;
+  font-size: 16px;
+  width: 100%;
   padding: 10px 0;
+}
+
+.button:hover {
+  background: #e29f18;
+  color: #fff;
 }
