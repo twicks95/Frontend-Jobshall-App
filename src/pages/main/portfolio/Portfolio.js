@@ -10,60 +10,37 @@ import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
 import port from "../../../assets/img/Rectangle 637.png";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { getPortfolios } from "../../../redux/actions/portfolio";
+import { getWorkerById } from "../../../redux/actions/worker";
 
 class Portofolio extends Component {
   constructor() {
     super();
     this.state = {
-      data: [
-        {
-          name: "Louis Tomlinson",
-          field: "Web Developer",
-          type: "Freelancer",
-          location: "Purwokerto, Jawa Tengah",
-          phone: "0812 - 3456 - 789",
-          desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at.",
-          skills: [
-            "Phyton",
-            "Laravel",
-            "Golang",
-            "JavaScript",
-            "PHP",
-            "HTML",
-            "C++",
-            "Kotlin",
-            "Swift",
-          ],
-          email: "Louistommo@gmail.com",
-          ig: "@Louist91",
-          github: "@Louistommo",
-          gitlab: "@Louistommo91",
-        },
-      ],
-      dataPort: [
-        {
-          port_name: "Reminder App",
-        },
-        {
-          port_name: "Social media app",
-        },
-        {
-          port_name: "Project management web",
-        },
-        {
-          port_name: "Reminder App",
-        },
-        {
-          port_name: "Social media app",
-        },
-        {
-          port_name: "Project management web",
-        },
-      ],
+      data: {},
+
+      dataPort: [],
       isExp: false,
       isPort: true,
     };
   }
+  componentDidMount() {
+    const id = localStorage.getItem("workerId");
+    this.getPort(id);
+    this.getWorkerId(id);
+  }
+  getPort = (id) => {
+    console.log(id);
+    this.props.getPortfolios(id).then((res) => {
+      this.setState({ dataPort: res.action.payload.data.data });
+    });
+  };
+  getWorkerId = (id) => {
+    this.props.getWorkerById(id).then((res) => {
+      this.setState({ data: res.action.payload.data.data[0] });
+    });
+  };
   render() {
     return (
       <>
@@ -79,67 +56,72 @@ class Portofolio extends Component {
                     className={styles.ppImg}
                   />
 
-                  {this.state.data.map((item, index) => {
-                    return (
-                      <Card.Body key={index}>
-                        <div className={styles.title}>{item.name}</div>
-                        <div className={styles.field}>{item.field}</div>
-                        <div className={styles.type}>{item.type}</div>
-                        <div className={styles.loc}>{item.location}</div>
-                        <div className={styles.phone}>{item.phone}</div>
-                        <div className={styles.desc}>{item.desc}</div>
-                        <Button className={styles.btnHire}>Hire</Button>
-                        <h1 className={styles.title2}>Skills</h1>
-                        <div className={styles.skills}>
-                          {item.skills.map((item, index) => {
-                            return (
-                              <Badge
-                                variant="primary"
-                                className={styles.badge}
-                                key={index}
-                              >
-                                {item}
-                              </Badge>
-                            );
-                          })}
+                  <Card.Body>
+                    <div className={styles.title}>
+                      {this.state.data.worker_name}
+                    </div>
+                    <div className={styles.field}>
+                      {this.state.data.worker_job_desk}
+                    </div>
+                    <div className={styles.type}>
+                      {this.state.data.worker_status}
+                    </div>
+                    <div className={styles.loc}>
+                      {this.state.data.worker_domicile}
+                    </div>
+                    <div className={styles.phone}>
+                      {this.state.data.worker_phone}
+                    </div>
+                    <div className={styles.desc}>
+                      {this.state.data.worker_description}
+                    </div>
+                    <Button className={styles.btnHire}>Hire</Button>
+                    <h1 className={styles.title2}>Skills</h1>
+                    <div className={styles.skills}>
+                      {/* {this.state.data.skills.map((item, index) => {
+                        return (
                           <Badge
                             variant="primary"
                             className={styles.badge}
-                          ></Badge>{" "}
+                            key={index}
+                          >
+                            {item}
+                          </Badge>
+                        );
+                      })} */}
+                      <Badge variant="primary" className={styles.badge}></Badge>{" "}
+                    </div>
+                    <Row>
+                      <Col xs={1}>
+                        <img alt="" src={email} className={styles.imgBottom} />
+                        <img alt="" src={ig} className={styles.imgBottom1} />
+                        <img
+                          alt=""
+                          src={github}
+                          className={styles.imgBottom2}
+                        />
+                        <img
+                          alt=""
+                          src={gitlab}
+                          className={styles.imgBottom3}
+                        />
+                      </Col>
+                      <Col className={styles.colMargin}>
+                        <div className={styles.email}>
+                          {this.state.data.worker_email}
                         </div>
-                        <Row>
-                          <Col xs={1}>
-                            <img
-                              alt=""
-                              src={email}
-                              className={styles.imgBottom}
-                            />
-                            <img
-                              alt=""
-                              src={ig}
-                              className={styles.imgBottom1}
-                            />
-                            <img
-                              alt=""
-                              src={github}
-                              className={styles.imgBottom2}
-                            />
-                            <img
-                              alt=""
-                              src={gitlab}
-                              className={styles.imgBottom3}
-                            />
-                          </Col>
-                          <Col className={styles.colMargin}>
-                            <div className={styles.email}>{item.email}</div>
-                            <div className={styles.ig}>{item.ig}</div>
-                            <div className={styles.github}>{item.github}</div>
-                            <div className={styles.gitlab}>{item.gitlab}</div>
-                          </Col>
-                        </Row>
-                      </Card.Body>
-                    );
-                  })}
+                        <div className={styles.ig}>
+                          {this.state.data.worker_instagram}
+                        </div>
+                        <div className={styles.github}>
+                          {this.state.data.worker_github}
+                        </div>
+                        <div className={styles.gitlab}>
+                          {this.state.data.worker_gitlab}
+                        </div>
+                      </Col>
+                    </Row>
+                  </Card.Body>
                 </Card>
               </Col>
               <Col sm={8}>
@@ -176,7 +158,7 @@ class Portofolio extends Component {
                             <Card className={styles.cardPort}>
                               <Card.Img src={port} className={styles.portImg} />
                               <Card.Text className={styles.portName}>
-                                {item.port_name}
+                                {item.portfolio_name}
                               </Card.Text>
                             </Card>
                           </Col>
@@ -195,4 +177,9 @@ class Portofolio extends Component {
   }
 }
 
-export default Portofolio;
+const mapStateToProps = (state) => ({
+  experience: state.experience,
+  worker: state.worker,
+});
+const mapDispatchToProps = { getPortfolios, getWorkerById };
+export default connect(mapStateToProps, mapDispatchToProps)(Portofolio);
