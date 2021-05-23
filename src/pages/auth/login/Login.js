@@ -43,6 +43,7 @@ class Login extends Component {
       .login(this.state.form)
       .then((result) => {
         localStorage.setItem("token", this.props.auth.data.token);
+        localStorage.setItem("role", this.props.auth.data.role);
 
         const { role } = this.props.auth.data;
         const { getRecruiterById, getWorkerById } = this.props;
