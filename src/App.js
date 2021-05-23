@@ -20,6 +20,7 @@ import WorkerEditProfile from "./pages/main/WorkerEditProfile/WorkerEditProfile"
 import Chat from "./pages/main/chat/Chat";
 import Experience from "./pages/main/experience/Experience";
 import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
+import Hire from "./pages/main/hire/hire";
 import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 import Portofolio from "./pages/main/portfolio/Portfolio";
 
@@ -60,6 +61,7 @@ class App extends Component {
                 exact
                 component={RecruiterProfile}
               />
+              <Route path="/hire" exact component={Hire} />
               <Route
                 path="/recruiter/edit"
                 exact

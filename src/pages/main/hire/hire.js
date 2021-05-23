@@ -1,26 +1,34 @@
 import React, { Component } from "react";
-import styles from "./Portfolio.module.css";
-import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
+import styles from "./hire.module.css";
+import {
+  Card,
+  Col,
+  Container,
+  Row,
+  Button,
+  Badge,
+  Form,
+  Dropdown,
+} from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-// import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
-// import port from "../../../assets/img/Rectangle 637.png";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPortfolios } from "../../../redux/actions/portfolio";
 import { getWorkerById } from "../../../redux/actions/worker";
-import { getSkills } from "../../../redux/actions/skill";
+import axiosApiInstances from "../../../utils/axios";
 
-class Portofolio extends Component {
+class Hire extends Component {
   constructor() {
     super();
     this.state = {
       data: {},
-      dataSkill: [],
+      form: {
+        message: "",
+      },
       dataPort: [],
       isExp: false,
       isPort: true,
@@ -28,28 +36,38 @@ class Portofolio extends Component {
   }
   componentDidMount() {
     const id = localStorage.getItem("workerId");
-    this.getPort(id);
     this.getWorkerId(id);
-    this.getSkill(id);
   }
-  getPort = (id) => {
-    console.log(id);
-    this.props.getPortfolios(id).then((res) => {
-      this.setState({ dataPort: res.action.payload.data.data });
-    });
-  };
   getWorkerId = (id) => {
     this.props.getWorkerById(id).then((res) => {
       this.setState({ data: res.action.payload.data.data[0] });
     });
   };
-  getSkill = (id) => {
-    this.props.getSkills(id).then((res) => {
-      this.setState({ dataSkill: res.action.payload.data.data });
+  sendEmail = (event) => {
+    event.preventDefault();
+    const { form } = this.state;
+    axiosApiInstances
+      .post(
+        `/recruiter/send-email/?workerId=${this.state.data.worker_id}`,
+        form
+      )
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
     });
   };
   render() {
-    console.log(this.state);
     return (
       <>
         <NavbarComponent />
@@ -86,17 +104,17 @@ class Portofolio extends Component {
                     <Button className={styles.btnHire}>Hire</Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
-                      {this.state.dataSkill.map((item, index) => {
+                      {/* {this.state.data.skills.map((item, index) => {
                         return (
                           <Badge
                             variant="primary"
                             className={styles.badge}
                             key={index}
                           >
-                            {item.skill_name}
+                            {item}
                           </Badge>
                         );
-                      })}
+                      })} */}
                       <Badge variant="primary" className={styles.badge}></Badge>{" "}
                     </div>
                     <Row>
@@ -116,68 +134,69 @@ class Portofolio extends Component {
                       </Col>
                       <Col className={styles.colMargin}>
                         <div className={styles.email}>
-                          @ {this.state.data.worker_email}
+                          {this.state.data.worker_email}
                         </div>
                         <div className={styles.ig}>
-                          @ {this.state.data.worker_instagram}
+                          {this.state.data.worker_instagram}
                         </div>
                         <div className={styles.github}>
-                          @ {this.state.data.worker_github}
+                          {this.state.data.worker_github}
                         </div>
                         <div className={styles.gitlab}>
-                          @ {this.state.data.worker_gitlab}
+                          {this.state.data.worker_gitlab}
                         </div>
                       </Col>
                     </Row>
                   </Card.Body>
                 </Card>
               </Col>
-              <Col sm={8}>
-                <Card className={styles.cardTwo}>
-                  <Nav>
-                    <Nav.Item className={styles.nav1}>
-                      <Link
-                        to={`/portofolio/${localStorage.getItem("workerId")}`}
-                        className={
-                          this.state.isPort ? styles.link1 : styles.link2
-                        }
-                      >
-                        Portofolio
-                        <div className={styles.underline1}>&nbsp;</div>
-                      </Link>
-                    </Nav.Item>
-                    <Nav.Item>
-                      <Link
-                        to={`/experience/${localStorage.getItem("workerId")}`}
-                        className={
-                          this.state.isExp ? styles.link1 : styles.link2
-                        }
-                      >
-                        Pengalaman Kerja
-                      </Link>
-                    </Nav.Item>
-                  </Nav>
-                  <Card.Body>
-                    <Row className={styles.rowPort}>
-                      {this.state.dataPort.map((item, index) => {
-                        console.log(index);
-                        return (
-                          <Col sm={4} key={index}>
-                            <Card className={styles.cardPort}>
-                              <Card.Img
-                                src={`http://localhost:3001/api/${item.portfolio_image}`}
-                                className={styles.portImg}
-                              />
-                              <Card.Text className={styles.portName}>
-                                {item.portfolio_name}
-                              </Card.Text>
-                            </Card>
-                          </Col>
-                        );
-                      })}
-                    </Row>
-                  </Card.Body>
-                </Card>
+              <Col sm={8} className={styles.col2}>
+                <h5>Hubungi {this.state.data.worker_name}</h5>
+                <h3>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
+                  euismod ipsum et dui rhoncus auctor.
+                </h3>
+                <Form onSubmit={this.sendEmail}>
+                  <Form.Label className={styles.label}>
+                    Tujuan tentang pesan ini
+                  </Form.Label>
+                  <Dropdown className={styles.dropdown}>
+                    <Dropdown.Toggle
+                      variant="light"
+                      id="dropdown-basic"
+                      className={styles.dropdownName}
+                    >
+                      Project
+                    </Dropdown.Toggle>
+
+                    <Dropdown.Menu>
+                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                      <Dropdown.Item href="#/action-2">
+                        Another action
+                      </Dropdown.Item>
+                      <Dropdown.Item href="#/action-3">
+                        Something else
+                      </Dropdown.Item>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                  <Form.Group controlId="exampleForm.ControlTextarea1">
+                    <Form.Label className={styles.label}>Pesan</Form.Label>
+                    <Form.Control
+                      as="textarea"
+                      rows={10}
+                      placeholder="Deskripsikan/jelaskan lebih detail "
+                      name="message"
+                      onChange={(event) => this.changeText(event)}
+                    />
+                  </Form.Group>
+                  <Button
+                    variant="light"
+                    type="submit"
+                    className={styles.button}
+                  >
+                    Kirm
+                  </Button>
+                </Form>
               </Col>
             </Row>
           </Container>
@@ -191,7 +210,6 @@ class Portofolio extends Component {
 const mapStateToProps = (state) => ({
   experience: state.experience,
   worker: state.worker,
-  skill: state.skill,
 });
-const mapDispatchToProps = { getPortfolios, getWorkerById, getSkills };
-export default connect(mapStateToProps, mapDispatchToProps)(Portofolio);
+const mapDispatchToProps = { getPortfolios, getWorkerById };
+export default connect(mapStateToProps, mapDispatchToProps)(Hire);
