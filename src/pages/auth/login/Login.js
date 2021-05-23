@@ -2,10 +2,20 @@ import React, { Component } from "react";
 import styles from "./Login.module.css";
 import logo from "../../../assets/img/Group 978 1.png";
 import logo1 from "../../../assets/img/Group 980 1.png";
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../../redux/actions/auth";
+import { getWorkerById } from "../../../redux/actions/worker";
+import { getRecruiterById } from "../../../redux/actions/recruiter";
 
 class Login extends Component {
   constructor() {
@@ -26,19 +36,25 @@ class Login extends Component {
       },
     });
   };
+
   handleLogin = (event) => {
     event.preventDefault();
-    // console.log(this.state.form);
     this.props
       .login(this.state.form)
       .then((result) => {
-        // console.log(this.props.auth.data.token);
         localStorage.setItem("token", this.props.auth.data.token);
-        // localStorage.setItem("userId", this.props.auth.data.user_id);
-        if (this.props.auth.data.length > 0) {
-          alert(`${this.props.auth.msg}`);
+
+        const { role } = this.props.auth.data;
+        const { getRecruiterById, getWorkerById } = this.props;
+
+        if (role === "recruiter") {
+          const { recruiter_id } = this.props.auth.data;
+          getRecruiterById(recruiter_id);
+          this.props.history.push("/home");
         } else {
-          this.props.history.push("/worker/edit");
+          const { worker_id } = this.props.auth.data;
+          getWorkerById(worker_id);
+          this.props.history.push(`/portofolio?id=${worker_id}`);
         }
       })
       .catch((error) => {
@@ -48,10 +64,10 @@ class Login extends Component {
         }, 5000);
       });
   };
+
   render() {
     const { Email, Password } = this.state.form;
-    console.log(this.state.form);
-    console.log(this.props);
+
     return (
       <>
         <Container>
@@ -81,6 +97,11 @@ class Login extends Component {
                 Lorom ipsum dolor si amet uegas anet.
               </p>
               <Form className={styles.mainForm}>
+                {this.state.isError && (
+                  <Alert variant="danger" className={styles.mainAlert}>
+                    <p className={styles.alert}>{this.props.auth.msg}</p>
+                  </Alert>
+                )}
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label className={styles.label}>Email</Form.Label>
                   <Form.Control
@@ -107,17 +128,25 @@ class Login extends Component {
               <Link to="reset-password" className={styles.forgotPass}>
                 Lupa kata sandi ?
               </Link>
-              <Button
-                block
-                className={styles.btnSubmit}
-                onClick={(event) => this.handleLogin(event)}
-              >
-                Masuk
-              </Button>
-              {this.state.isError && (
-                <Alert variant="danger" className={styles.mainAlert}>
-                  <p className={styles.alert}>{this.props.auth.msg}</p>
-                </Alert>
+              {this.props.auth.data.isLoading ? (
+                <Button variant="primary" disabled className={styles.btnSubmit}>
+                  <Spinner
+                    as="span"
+                    animation="border"
+                    size="sm"
+                    role="status"
+                    aria-hidden="true"
+                  />
+                  <span className="sr-only">Loading...</span>
+                </Button>
+              ) : (
+                <Button
+                  block
+                  className={styles.btnSubmit}
+                  onClick={(event) => this.handleLogin(event)}
+                >
+                  Masuk
+                </Button>
               )}
               <p className={styles.register}>
                 Anda belum punya akun?{" "}
@@ -137,7 +166,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-const mapDispatchToProps = { login };
+const mapDispatchToProps = { login, getRecruiterById, getWorkerById };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
-// export default Login;
