@@ -31,9 +31,17 @@ import {
   getExperiences,
   createExperience,
   deleteExperience,
+  updateExperience,
 } from "../../../redux/actions/experience";
+import {
+  getPortfolios,
+  createPortfolio,
+  deletePortfolio,
+  updatePortfolio,
+} from "../../../redux/actions/portfolio";
 import { connect } from "react-redux";
 import CardExperience from "../../../components/CardExperience/CardExperience";
+import CardPort from "../../../components/CardPort/CardPort";
 
 class WorkerEditProfile extends Component {
   constructor() {
@@ -72,21 +80,28 @@ class WorkerEditProfile extends Component {
       },
       dataWorker: {},
       dataSkills: [],
+      dataPort: [],
       itemSkills: {},
       dataExperience: [],
       idSkill: "",
       id: "",
       idExp: "",
+      idPort: "",
       isDelete: false,
       isDeleteExp: false,
+      isDeletePort: false,
       isCreateSkill: false,
       isCreateExp: false,
+      isCreatePort: false,
       show: false,
       setShow: false,
       isUpdate: false,
       isUpdateWorker: false,
       isUpdateSkill: false,
       isUpdateExp: false,
+      isUpdateExp2: false,
+      isUpdatePort: false,
+      isUpdatePort2: false,
     };
   }
   componentDidMount() {
@@ -94,6 +109,7 @@ class WorkerEditProfile extends Component {
     this.getWorkerId(id);
     this.getSkillId(id);
     this.getExperienceId(id);
+    this.getPort(id);
   }
   getWorkerId = (id) => {
     this.props.getWorkerById(id).then((res) => {
@@ -116,6 +132,11 @@ class WorkerEditProfile extends Component {
       this.setState({ dataExperience: res.action.payload.data.data });
     });
   };
+  getPort = (id) => {
+    this.props.getPortfolios(id).then((res) => {
+      this.setState({ dataPort: res.action.payload.data.data });
+    });
+  };
   changeText = (event) => {
     this.setState({
       formWorker: {
@@ -136,6 +157,14 @@ class WorkerEditProfile extends Component {
     this.setState({
       formExperience: {
         ...this.state.formExperience,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
+  changeTextPort = (event) => {
+    this.setState({
+      formPortofolio: {
+        ...this.state.formPortofolio,
         [event.target.name]: event.target.value,
       },
     });
@@ -204,6 +233,18 @@ class WorkerEditProfile extends Component {
     });
     this.setState({ isUpdateExp: false });
   };
+  resetDataPort = (event) => {
+    event.preventDefault();
+    this.setState({
+      formPortofolio: {
+        workerId: localStorage.getItem("userId"),
+        portfolioName: "",
+        portfolioLink: "",
+        image: null,
+      },
+      isUpdatePort: false,
+    });
+  };
   createSkill = (event) => {
     // const { id } = this.props.match.params;
     event.preventDefault();
@@ -212,6 +253,15 @@ class WorkerEditProfile extends Component {
       this.setState({ show: true, isCreateSkill: true });
       this.getSkillId(localStorage.getItem("userId"));
       this.resetDataSkills(event);
+    });
+  };
+  createPort = (event) => {
+    const { formPortofolio } = this.state;
+    event.preventDefault();
+    this.props.createPortfolio(formPortofolio).then((res) => {
+      this.setState({ show: true, isCreatePort: true });
+      this.getPort(localStorage.getItem("userId"));
+      this.resetDataPort(event);
     });
   };
   updateSkill = (event) => {
@@ -224,22 +274,52 @@ class WorkerEditProfile extends Component {
       this.resetDataSkills(event);
     });
   };
-  updateExp = () => {
-    console.log("work");
+  updateExp = (event) => {
+    const { idExp, formExperience } = this.state;
+    this.props.updateExperience(idExp, formExperience).then((res) => {
+      this.setState({ show: true, isUpdateExp2: true, isUpdate: false });
+      this.getExperienceId(localStorage.getItem("userId"));
+      this.resetDataExp(event);
+    });
+  };
+  updatePort = (event) => {
+    event.preventDefault();
+    const { idPort } = this.state;
+    const formData = new FormData();
+    formData.append("workerId", localStorage.getItem("userId"));
+    formData.append("portfolioName", this.state.formPortofolio.portfolioName);
+    formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
+    // formData.append("image", this.state.formPortofolio.image);
+    this.props.updatePortfolio(idPort, formData).then((res) => {
+      this.setState({ show: true, isUpdatePort2: true });
+      this.getPort(localStorage.getItem("userId"));
+      this.resetDataPort(event);
+    });
   };
   deleteSkill = (id) => {
     this.props.deleteSkill(id).then((res) => {
-      this.getSkillId(this.state.idSkill);
+      this.getSkillId(localStorage.getItem("userId"));
       this.setState({ show: true, isDelete: true });
     });
     // console.log("work");
   };
-  deleteExp = () => {
+  deleteExp = (event) => {
+    event.preventDefault();
     const { idExp } = this.state;
     console.log(idExp);
     this.props.deleteExperience(idExp).then((res) => {
       this.getExperienceId(localStorage.getItem("userId"));
-      this.setState({ show: true, isDeleteExp: true });
+      this.resetDataExp(event);
+      this.setState({ show: true, isDeleteExp: true, isUpdateExp: false });
+    });
+  };
+  deletePort = (event) => {
+    event.preventDefault();
+    const { idPort } = this.state;
+    this.props.deletePortfolio(idPort).then((res) => {
+      this.getPort(localStorage.getItem("userId"));
+      this.resetDataPort(event);
+      this.setState({ show: true, isUpdatePort: false, isDeletePort: true });
     });
   };
   createExp = (event) => {
@@ -255,7 +335,7 @@ class WorkerEditProfile extends Component {
     this.setState({ show: false });
   };
   handleSetUpdate = (data) => {
-    // console.log(data);
+    console.log(data);
     // const { worker_id, skill_name } = this.state.itemSkills;
     this.setState({
       isUpdate: true,
@@ -264,6 +344,18 @@ class WorkerEditProfile extends Component {
         workerId: data.worker_id,
         skillName: data.skill_name,
         skillId: data.skill_id,
+      },
+    });
+  };
+  handleSetUpdatePort = (data) => {
+    this.setState({
+      isUpdatePort: true,
+      idPort: data.portfolio_id,
+      formPortofolio: {
+        workerId: data.worker_id,
+        portfolioName: data.portfolio_name,
+        portfolioLink: data.portfolio_link_repo,
+        image: null,
       },
     });
   };
@@ -284,8 +376,8 @@ class WorkerEditProfile extends Component {
     });
   };
   render() {
-    console.log(this.state.dataSkills);
-    console.log(this.props);
+    console.log(this.state.idPort);
+    // console.log(this.props);
     const { skillName } = this.state.formSkill;
     const {
       workerName,
@@ -509,11 +601,19 @@ class WorkerEditProfile extends Component {
                             ? "Success Create Data Skill"
                             : this.state.isCreateExp
                             ? "Success Create Experience Work"
+                            : this.state.isCreatePort
+                            ? "Success Create Portfolio"
                             : this.state.isDeleteExp
                             ? "Success Delete Experience Work"
+                            : this.state.isDeletePort
+                            ? "Success Delete Portfolio"
                             : this.state.isUpdateSkill
                             ? "Success Update Skill"
-                            : "hai"}
+                            : this.state.isUpdateExp2
+                            ? "Success Update Experience Work"
+                            : this.state.isUpdatePort2
+                            ? "Success Update Portfolio"
+                            : "Modal is Work"}
                         </Modal.Body>
                       </Modal>
                     </Form>
@@ -648,7 +748,7 @@ class WorkerEditProfile extends Component {
                       <Col xs={4}>
                         <Button
                           className={styles.btnAdd1}
-                          onClick={(event) => this.createExp(event)}
+                          onClick={(event) => this.updateExp(event)}
                         >
                           Update pengalaman kerja
                         </Button>
@@ -687,8 +787,6 @@ class WorkerEditProfile extends Component {
                           <CardExperience
                             data={item}
                             setUpdateExp={this.handleSetUpdateExp.bind(this)}
-                            updateExp={this.updateExp.bind(this)}
-                            // deleteExp={this.deleteExp.bind(this)}
                           />
                         </Col>
                       );
@@ -707,7 +805,9 @@ class WorkerEditProfile extends Component {
                         type="text"
                         placeholder="Masukan nama aplikasi"
                         className={styles.everyControl}
-                        name="portofolioName"
+                        name="portfolioName"
+                        value={this.state.formPortofolio.portfolioName}
+                        onChange={(event) => this.changeTextPort(event)}
                       />
                     </Form.Group>
                     <Form.Group>
@@ -718,7 +818,9 @@ class WorkerEditProfile extends Component {
                         type="text"
                         placeholder="Masukan link repository"
                         className={styles.everyControl}
-                        name="portofolioLink"
+                        name="portfolioLink"
+                        value={this.state.formPortofolio.portfolioLink}
+                        onChange={(event) => this.changeTextPort(event)}
                       />
                     </Form.Group>
                     <Form.Group>
@@ -770,7 +872,53 @@ class WorkerEditProfile extends Component {
                     </Form.Group>
                   </Form>
                   <hr />
-                  <Button className={styles.btnAdd}>Tambah portofolio</Button>
+                  {this.state.isUpdatePort ? (
+                    <Row>
+                      <Col xs={4}>
+                        <Button
+                          className={styles.btnAdd1}
+                          onClick={(event) => this.updatePort(event)}
+                        >
+                          Update Portfolio
+                        </Button>
+                      </Col>
+                      <Col xs={4}>
+                        <Button
+                          className={styles.btnAdd2}
+                          onClick={(event) => this.resetDataPort(event)}
+                        >
+                          Batal
+                        </Button>
+                      </Col>
+                      <Col xs={4}>
+                        <Button
+                          className={styles.btnAdd3}
+                          onClick={(event) => this.deletePort(event)}
+                        >
+                          Delete
+                        </Button>
+                      </Col>
+                    </Row>
+                  ) : (
+                    <Button
+                      className={styles.btnAdd}
+                      onClick={(event) => this.createPort(event)}
+                    >
+                      Tambah Portfolio
+                    </Button>
+                  )}
+                  <Row className={styles.mainRowPort}>
+                    {this.state.dataPort.map((item, index) => {
+                      return (
+                        <Col key={index} sm={4}>
+                          <CardPort
+                            dataPort={item}
+                            setUpdatePort={this.handleSetUpdatePort.bind(this)}
+                          />
+                        </Col>
+                      );
+                    })}
+                  </Row>
                 </Card>
               </Col>
             </Row>
@@ -785,6 +933,7 @@ const mapStateToProps = (state) => ({
   worker: state.worker,
   skill: state.skill,
   experience: state.experience,
+  portfolio: state.portfolio,
 });
 
 const mapDispatchToProps = {
@@ -798,5 +947,10 @@ const mapDispatchToProps = {
   deleteSkill,
   createExperience,
   deleteExperience,
+  updateExperience,
+  getPortfolios,
+  createPortfolio,
+  deletePortfolio,
+  updatePortfolio,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(WorkerEditProfile);

@@ -27,7 +27,7 @@ class CardExperience extends Component {
             </div>
           </div>
           <hr />
-          <p className={styles.sub3}>Description</p>
+          <p className={styles.sub3}>{this.props.data.experience_desc}</p>
         </Card>
       </>
     );

@@ -333,6 +333,11 @@
   background: #f08080 !important;
   border: #f08080 !important;
 }
+.mainRowPort {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: scroll;
+}
 .cardPort {
   padding: 30px 33px;
   padding-bottom: 158px;

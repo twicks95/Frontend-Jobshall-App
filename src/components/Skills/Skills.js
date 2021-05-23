@@ -8,7 +8,7 @@ import styles from "./Skills.module.css";
 
 class Skills extends Component {
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <>
         <Badge className={styles.cardSkills}>

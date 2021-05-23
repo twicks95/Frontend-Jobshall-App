@@ -1,9 +1,9 @@
 import axiosApiInstances from "../../utils/axios";
 
-export const getSkills = (worker_id) => {
+export const getSkills = (id) => {
   return {
     type: "GET_SKILLS",
-    payload: axiosApiInstances.get(`skill/${worker_id}`),
+    payload: axiosApiInstances.get(`skill/${id}`),
   };
 };
 

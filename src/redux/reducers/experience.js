@@ -73,7 +73,7 @@ const experience = (state = initialState, action) => {
         ...state,
         isUpdateExperienceLoading: false,
         isUpdateExperienceError: false,
-        updateMsg: action.payload.response.data.msg,
+        updateMsg: action.payload.data.msg,
       };
     case "UPDATE_EXPERIENCE_REJECTED":
       return {
