@@ -48,6 +48,9 @@ class Portofolio extends Component {
       this.setState({ dataSkill: res.action.payload.data.data });
     });
   };
+  handleHire = () => {
+    this.props.history.push("/hire");
+  };
   render() {
     console.log(this.state);
     return (
@@ -83,7 +86,12 @@ class Portofolio extends Component {
                     <div className={styles.desc}>
                       {this.state.data.worker_description}
                     </div>
-                    <Button className={styles.btnHire}>Hire</Button>
+                    <Button
+                      className={styles.btnHire}
+                      onClick={this.handleHire}
+                    >
+                      Hire
+                    </Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
                       {this.state.dataSkill.map((item, index) => {
