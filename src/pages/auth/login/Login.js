@@ -57,6 +57,13 @@ class Login extends Component {
           getWorkerById(worker_id);
           this.props.history.push(`/portofolio?id=${worker_id}`);
         }
+
+        // localStorage.setItem("userId", this.props.auth.data.recruiter_id);
+        // // localStorage.setItem("userId", this.props.auth.data.user_id);
+        // if (this.props.auth.data.length > 0) {
+        //   alert(`${this.props.auth.msg}`);
+        // } else {
+        // }
       })
       .catch((error) => {
         this.setState({ isError: true });

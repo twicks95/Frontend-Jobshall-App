@@ -21,6 +21,7 @@ import WorkerEditProfile from "./pages/main/WorkerEditProfile/WorkerEditProfile"
 import Chat from "./pages/main/chat/Chat";
 import Experience from "./pages/main/experience/Experience";
 import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
+import Hire from "./pages/main/hire/hire";
 import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 import Portofolio from "./pages/main/portfolio/Portfolio";
 
@@ -72,8 +73,16 @@ class App extends Component {
                 component={WorkerEditProfile}
               />
               <PublicRoute path="/chat" exact component={Chat} />
-              <PublicRoute path="/experience" exact component={Experience} />
-              <PublicRoute path="/portofolio" exact component={Portofolio} />
+              <PublicRoute
+                path="/experience/:id"
+                exact
+                component={Experience}
+              />
+              <PublicRoute
+                path="/portofolio/:id"
+                exact
+                component={Portofolio}
+              />
               <Route path="/" exact component={Landing} />
               <PrivateRoute
                 author="recruiter"
@@ -84,6 +93,7 @@ class App extends Component {
                 exact
                 component={RecruiterProfile}
               />
+              <Route path="/hire" exact component={Hire} />
               <PrivateRoute
                 author="recruiter"
                 path="/recruiter/edit"

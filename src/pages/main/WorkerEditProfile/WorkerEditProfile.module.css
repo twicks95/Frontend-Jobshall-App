@@ -49,6 +49,7 @@
   justify-content: center;
   margin: 0 auto;
   margin-top: 30px;
+  border-radius: 100%;
 }
 .editText {
   font-style: normal;
@@ -56,8 +57,9 @@
   font-size: 22px;
   line-height: 56px;
   color: #9ea0a5;
-  text-align: center;
+  justify-content: center;
   cursor: pointer;
+  margin-left: 100px !important;
 }
 .editText::before {
   content: url("../../../assets/img/edit\ \(1\)\ 1.png");
@@ -181,6 +183,9 @@
 .mainRow {
   padding-top: 70px;
 }
+.rowSkill {
+  flex-direction: row !important;
+}
 .cardSkill {
   background: #ffffff;
   border-radius: 8px;
@@ -232,11 +237,17 @@
 }
 .cardExp {
   padding: 30px 33px;
-  padding-bottom: 240px;
+  padding-bottom: 120px;
   margin-bottom: 44px;
   background: #ffffff;
   border-radius: 8px;
 }
+.mainRowExp {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: scroll;
+}
+
 .cardUpload {
   border-style: dashed;
   border-width: 7px;
@@ -270,10 +281,64 @@
   color: #fbb017;
   margin-top: 36px;
   margin-bottom: 31px;
+  width: 100%;
+}
+.btnAdd1 {
+  border: 1px solid #fbb017 !important;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: white !important;
+  height: 50px;
+  color: #fbb017;
+  margin-top: 36px;
+  margin-bottom: 31px;
+  width: 100%;
+  font-size: 12px;
+}
+.btnAdd2 {
+  border: 1px solid #fbb017 !important;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: white !important;
+  height: 50px;
+  color: #fbb017;
+  margin-top: 36px;
+  margin-bottom: 31px;
+  width: 100%;
+}
+.btnAdd3 {
+  border: 1px solid #fbb017 !important;
+  box-sizing: border-box;
+  border-radius: 4px;
+  background-color: white !important;
+  height: 50px;
+  color: #fbb017;
+  margin-top: 36px;
+  margin-bottom: 31px;
+  width: 100%;
 }
 .btnAdd:hover {
   color: white;
   background: #fbb017 !important;
+}
+.btnAdd1:hover {
+  color: white;
+  background: #fbb017 !important;
+}
+.btnAdd2:hover {
+  color: white;
+  background: #1e90ff !important;
+  border: #1e90ff !important;
+}
+.btnAdd3:hover {
+  color: white;
+  background: #f08080 !important;
+  border: #f08080 !important;
+}
+.mainRowPort {
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: scroll;
 }
 .cardPort {
   padding: 30px 33px;

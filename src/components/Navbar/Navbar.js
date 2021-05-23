@@ -101,7 +101,7 @@ class NavbarComponent extends Component {
                     Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
-                <img
+                {/* <img
                   src={
                     role === "worker"
                       ? `http://localhost:3001/api/${worker_image}`
@@ -111,7 +111,7 @@ class NavbarComponent extends Component {
                   }
                   alt="avatar"
                   onClick={this.handleClickProfile}
-                />
+                /> */}
               </div>
             </Nav>
           </Navbar.Collapse>
