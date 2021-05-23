@@ -26,6 +26,7 @@ class Home extends Component {
     super();
     this.state = {
       data: [],
+      data2: [],
       search: "",
       sort: "worker_id ASC",
       page: 1,
@@ -41,7 +42,18 @@ class Home extends Component {
     const { search, sort, page, limit } = this.state;
 
     this.props.getWorkers(page, limit, search, sort).then((res) => {
-      this.setState({ data: res.action.payload.data.data });
+      this.setState({
+        data: res.action.payload.data.data,
+      });
+    });
+  };
+  allWorkersSearch = () => {
+    const { search, sort, page, limit } = this.state;
+
+    this.props.getWorkers(page, limit, search, sort).then((res) => {
+      this.setState({
+        data2: res.action.payload.data.data,
+      });
     });
   };
   allWorkersSort = () => {
@@ -59,35 +71,45 @@ class Home extends Component {
     });
   };
   changeTextSearch = (event) => {
-    this.allWorkers();
+    // this.state.search === "" && this.allWorkers();
+    this.allWorkersSearch();
     this.setState({ [event.target.name]: event.target.value });
   };
+  resetSearch = (event) => {
+    event.preventDefault();
+    this.setState({ search: "" });
+  };
   handleSort = (event) => {
-    // console.log(event.target.name);
-    switch (event.target.name) {
-      case "sortName":
-        this.setState({ sort: "worker_name ASC" });
-        this.allWorkers();
-        break;
-      case "sortSkills":
-        this.setState({ sort: `worker_skills ASC` });
-        this.allWorkers();
-        break;
-      case "sortLoc":
-        this.setState({ sort: "worker_domicile ASC" });
-        this.allWorkers();
-        break;
-      case "sortType1":
-        this.setState({ sort: "worker_status='freelance'" });
-        this.allWorkersSort(this.state.sort);
-        break;
-      case "sortType2":
-        this.setState({ sort: "worker_status='fulltime'" });
-        this.allWorkersSort(this.state.sort);
-        break;
-      default:
-        break;
-    }
+    console.log(event);
+    // switch (event.target.name) {
+    //   case "sortName":
+    //     this.allWorkers();
+    //     this.setState({ sort: "worker_name ASC" });
+
+    //     break;
+    //   case "sortSkills":
+    //     this.allWorkers();
+    //     this.setState({ sort: `worker_skills ASC` });
+
+    //     break;
+    //   case "sortLoc":
+    //     this.allWorkers();
+    //     this.setState({ sort: "worker_domicile ASC" });
+
+    //     break;
+    //   case "sortType1":
+    //     this.allWorkersSort(this.state.sort);
+    //     this.setState({ sort: "worker_status='freelance'" });
+
+    //     break;
+    //   case "sortType2":
+    //     this.allWorkersSort(this.state.sort);
+    //     this.setState({ sort: "worker_status='fulltime'" });
+
+    //     break;
+    //   default:
+    //     break;
+    // }
   };
   handleProfile = (id) => {
     // console.log(id);
@@ -97,9 +119,40 @@ class Home extends Component {
   handleSearch = (event) => {
     this.allWorkers();
     this.changeTextSearch(event);
+    this.resetSearch(event);
   };
   render() {
-    console.log(this.state.data);
+    console.log(this.props);
+    const popover = (
+      <Popover id="popover-basic">
+        <Popover.Content>{this.handleSearch}</Popover.Content>
+        <Popover.Content className={styles.popover}>
+          {this.state.data2.length > 0 ? (
+            this.state.data2.map((item, index) => {
+              // console.log(item);
+              return (
+                <Card key={index} className={styles.mainCardUser}>
+                  <Card.Body>
+                    <h1 className={styles.cardTitle}>{item.worker_name}</h1>
+                    <p className={styles.cardType}>
+                      {item.worker_job_desk} - {item.worker_status}
+                    </p>
+                    <p className={styles.cardLocation}>
+                      {item.worker_domicile}
+                    </p>
+                    <Row className={styles.skillRow}></Row>
+                  </Card.Body>
+                </Card>
+              );
+            })
+          ) : (
+            <Card.Body>
+              <h1 className={styles.titlePop}>Name not found</h1>
+            </Card.Body>
+          )}
+        </Popover.Content>
+      </Popover>
+    );
 
     // const totalPage = this.props.worker.pagination;
     return (
@@ -110,13 +163,19 @@ class Home extends Component {
             <h1 className={styles.mainNav}>Top Jobs</h1>
             <Form>
               <Form.Group>
-                <Form.Control
-                  placeholder="Search for any skill"
-                  className={styles.mainControl}
-                  name="search"
-                  value={this.state.search}
-                  onChange={(event) => this.changeTextSearch(event)}
-                />
+                <OverlayTrigger
+                  trigger="focus"
+                  placement="bottom"
+                  overlay={popover}
+                >
+                  <Form.Control
+                    placeholder="Search for any skill"
+                    className={styles.mainControl}
+                    name="search"
+                    value={this.state.search}
+                    onChange={(event) => this.changeTextSearch(event)}
+                  />
+                </OverlayTrigger>
 
                 <img alt="" src={seacrh} className={styles.imgSearch} />
 

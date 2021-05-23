@@ -62,7 +62,7 @@ class WorkerEditProfile extends Component {
         experiencePosition: "",
         experienceDateStart: "",
         experienceDateEnd: "",
-        experienceDescription: "",
+        experienceDesc: "",
       },
       formPortofolio: {
         workerId: localStorage.getItem("userId"),
@@ -199,7 +199,7 @@ class WorkerEditProfile extends Component {
         experiencePosition: "",
         experienceDateStart: "",
         experienceDateEnd: "",
-        experienceDescription: "",
+        experienceDesc: "",
       },
     });
     this.setState({ isUpdateExp: false });
@@ -279,12 +279,12 @@ class WorkerEditProfile extends Component {
         experiencePosition: data.experience_position,
         experienceDateStart: data.experience_date_start.slice(0, 10),
         experienceDateEnd: data.experience_date_end.slice(0, 10),
-        experienceDescription: "",
+        experienceDesc: data.experience_desc,
       },
     });
   };
   render() {
-    console.log(this.state.idExp);
+    console.log(this.state.dataSkills);
     console.log(this.props);
     const { skillName } = this.state.formSkill;
     const {
@@ -550,7 +550,7 @@ class WorkerEditProfile extends Component {
                     <Row classNamr={styles.rowSkill}>
                       {this.state.dataSkills.map((item, index) => {
                         return (
-                          <Col xs={5}>
+                          <Col xs={5} key={index}>
                             <CardSkills
                               data={item}
                               setUpdate={this.handleSetUpdate.bind(this)}
@@ -636,8 +636,8 @@ class WorkerEditProfile extends Component {
                         type="text"
                         placeholder="Tuliskan deskripsi singkat"
                         className={styles.controlAreaExp}
-                        name="experienceDescription"
-                        value={this.state.formExperience.experienceDescription}
+                        name="experienceDesc"
+                        value={this.state.formExperience.experienceDesc}
                         onChange={(event) => this.changeTextExp(event)}
                       />
                     </Form.Group>

@@ -2,7 +2,15 @@ import React, { Component } from "react";
 import styles from "./Login.module.css";
 import logo from "../../../assets/img/Group 978 1.png";
 import logo1 from "../../../assets/img/Group 980 1.png";
-import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Form,
+  Button,
+  Alert,
+  Spinner,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { login } from "../../../redux/actions/auth";
@@ -36,12 +44,10 @@ class Login extends Component {
         localStorage.setItem("token", this.props.auth.data.token);
         if (this.props.auth.data.role === "worker") {
           localStorage.setItem("userId", this.props.auth.data.worker_id);
-          this.props.history.push(
-            `/worker/edit/${this.props.auth.data.worker_id}`
-          );
+          this.props.history.push(`/`);
         } else {
           localStorage.setItem("userId", this.props.auth.data.recruiter_id);
-          this.props.history.push(`/home`);
+          this.props.history.push(`/`);
         }
 
         // localStorage.setItem("userId", this.props.auth.data.recruiter_id);
@@ -122,7 +128,11 @@ class Login extends Component {
                 className={styles.btnSubmit}
                 onClick={(event) => this.handleLogin(event)}
               >
-                Masuk
+                {this.props.auth.isLoading ? (
+                  <Spinner animation="border" />
+                ) : (
+                  "Masuk"
+                )}
               </Button>
               {this.state.isError && (
                 <Alert variant="danger" className={styles.mainAlert}>
