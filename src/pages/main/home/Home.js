@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styles from "./Home.module.css";
-import imgDummy from "../../../assets/img/Ellipse 326.png";
+// import imgDummy from "../../../assets/img/Ellipse 326.png";
 import ReactPaginate from "react-paginate";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
@@ -17,9 +17,10 @@ import {
   Popover,
 } from "react-bootstrap";
 import seacrh from "../../../assets/img/search (1) 1.png";
+import BadgeHome from "../../../components/BadgeHome/BadgeHome";
 import { connect } from "react-redux";
 import { getWorkers } from "../../../redux/actions/worker";
-import { getSkills } from "../../../redux/actions/skill";
+import { getAllSkills } from "../../../redux/actions/skill";
 
 class Home extends Component {
   constructor() {
@@ -27,17 +28,25 @@ class Home extends Component {
     this.state = {
       data: [],
       data2: [],
+      dataSkills: [],
       search: "",
-      sort: "",
+      sort: "worker_name",
       page: 1,
       limit: 5,
       pagination: {},
+      idWorker: "",
     };
   }
   componentDidMount() {
     this.allWorkers();
     // this.getDataSkills();
   }
+  // getDataSkills = (data) => {
+  //   console.log(data);
+  //   this.props.getAllSkills().then((res) => {
+  //     this.setState({ dataSkills: res.action.payload.data.data });
+  //   });
+  // };
   allWorkers = () => {
     const { search, sort, page, limit } = this.state;
 
@@ -56,13 +65,7 @@ class Home extends Component {
       });
     });
   };
-  allWorkersSort = () => {
-    const { sort } = this.state;
 
-    this.props.getWorkers(sort).then((res) => {
-      this.setState({ data: res.action.payload.data.data });
-    });
-  };
   handlePageClick = (event) => {
     console.log(event);
     const selectedPage = event.selected + 1;
@@ -122,7 +125,7 @@ class Home extends Component {
     this.resetSearch(event);
   };
   render() {
-    console.log(this.props);
+    console.log(this.state.idWorker);
     const popover = (
       <Popover id="popover-basic">
         <Popover.Content>{this.handleSearch}</Popover.Content>
@@ -130,6 +133,7 @@ class Home extends Component {
           {this.state.data2.length > 0 ? (
             this.state.data2.map((item, index) => {
               // console.log(item);
+
               return (
                 <Card key={index} className={styles.mainCardUser}>
                   <Card.Body>
@@ -241,7 +245,11 @@ class Home extends Component {
                     <Card key={index} className={styles.mainCardUser}>
                       <Row>
                         <Col className={styles.colImg} sm={2}>
-                          <Card.Img variant="left" src={imgDummy} />
+                          <Card.Img
+                            variant="left"
+                            src={`http://localhost:3001/api/${item.worker_image}`}
+                            className={styles.imgProfile}
+                          />
                         </Col>
                         <Col sm={7}>
                           <Card.Body>
@@ -254,17 +262,14 @@ class Home extends Component {
                             <p className={styles.cardLocation}>
                               {item.worker_domicile}
                             </p>
-                            <Row className={styles.skillRow}>
-                              {/* {item.skills.map((item, index) => {
+                            <Row className={styles.skillRow}></Row>
+                            {this.state.dataSkills.map((item, index) => {
                               return (
                                 <Col xs={3} key={index}>
-                                  <Card className={styles.cardSkill}>
-                                    {item}
-                                  </Card>
+                                  <BadgeHome data={item} />
                                 </Col>
                               );
-                            })} */}
-                            </Row>
+                            })}
                           </Card.Body>
                         </Col>
                         <Col sm={3} className={styles.colButton}>
@@ -311,5 +316,5 @@ const mapStateToProps = (state) => ({
   worker: state.worker,
   skill: state.skill,
 });
-const mapDispatchToProps = { getWorkers, getSkills };
+const mapDispatchToProps = { getWorkers, getAllSkills };
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

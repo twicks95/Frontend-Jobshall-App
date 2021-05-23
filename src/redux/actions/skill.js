@@ -6,6 +6,12 @@ export const getSkills = (id) => {
     payload: axiosApiInstances.get(`skill/${id}`),
   };
 };
+export const getAllSkills = () => {
+  return {
+    type: "GET__ALL_SKILLS",
+    payload: axiosApiInstances.get(`skill/`),
+  };
+};
 
 export const createSkill = (skill) => {
   return {

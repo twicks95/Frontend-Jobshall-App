@@ -3,23 +3,24 @@ import styles from "./Portfolio.module.css";
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-import profileImg from "../../../assets/img/Ellipse 326.png";
+// import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
-import port from "../../../assets/img/Rectangle 637.png";
+// import port from "../../../assets/img/Rectangle 637.png";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPortfolios } from "../../../redux/actions/portfolio";
 import { getWorkerById } from "../../../redux/actions/worker";
+import { getSkills } from "../../../redux/actions/skill";
 
 class Portofolio extends Component {
   constructor() {
     super();
     this.state = {
       data: {},
-
+      dataSkill: [],
       dataPort: [],
       isExp: false,
       isPort: true,
@@ -29,6 +30,7 @@ class Portofolio extends Component {
     const id = localStorage.getItem("workerId");
     this.getPort(id);
     this.getWorkerId(id);
+    this.getSkill(id);
   }
   getPort = (id) => {
     console.log(id);
@@ -41,6 +43,11 @@ class Portofolio extends Component {
       this.setState({ data: res.action.payload.data.data[0] });
     });
   };
+  getSkill = (id) => {
+    this.props.getSkills(id).then((res) => {
+      this.setState({ dataSkill: res.action.payload.data.data });
+    });
+  };
   render() {
     return (
       <>
@@ -51,7 +58,7 @@ class Portofolio extends Component {
               <Col sm={4}>
                 <Card className={styles.cardOne}>
                   <Card.Img
-                    src={profileImg}
+                    src={`http://localhost:3001/api/${this.state.data.worker_image}`}
                     variant="top"
                     className={styles.ppImg}
                   />
@@ -78,17 +85,17 @@ class Portofolio extends Component {
                     <Button className={styles.btnHire}>Hire</Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
-                      {/* {this.state.data.skills.map((item, index) => {
+                      {this.state.dataSkill.map((item, index) => {
                         return (
                           <Badge
                             variant="primary"
                             className={styles.badge}
                             key={index}
                           >
-                            {item}
+                            {item.skill_name}
                           </Badge>
                         );
-                      })} */}
+                      })}
                       <Badge variant="primary" className={styles.badge}></Badge>{" "}
                     </div>
                     <Row>
@@ -108,16 +115,16 @@ class Portofolio extends Component {
                       </Col>
                       <Col className={styles.colMargin}>
                         <div className={styles.email}>
-                          {this.state.data.worker_email}
+                          @ {this.state.data.worker_email}
                         </div>
                         <div className={styles.ig}>
-                          {this.state.data.worker_instagram}
+                          @ {this.state.data.worker_instagram}
                         </div>
                         <div className={styles.github}>
-                          {this.state.data.worker_github}
+                          @ {this.state.data.worker_github}
                         </div>
                         <div className={styles.gitlab}>
-                          {this.state.data.worker_gitlab}
+                          @ {this.state.data.worker_gitlab}
                         </div>
                       </Col>
                     </Row>
@@ -156,7 +163,10 @@ class Portofolio extends Component {
                         return (
                           <Col sm={4} key={index}>
                             <Card className={styles.cardPort}>
-                              <Card.Img src={port} className={styles.portImg} />
+                              <Card.Img
+                                src={`http://localhost:3001/api/${item.portfolio_image}`}
+                                className={styles.portImg}
+                              />
                               <Card.Text className={styles.portName}>
                                 {item.portfolio_name}
                               </Card.Text>
@@ -180,6 +190,7 @@ class Portofolio extends Component {
 const mapStateToProps = (state) => ({
   experience: state.experience,
   worker: state.worker,
+  skill: state.skill,
 });
-const mapDispatchToProps = { getPortfolios, getWorkerById };
+const mapDispatchToProps = { getPortfolios, getWorkerById, getSkills };
 export default connect(mapStateToProps, mapDispatchToProps)(Portofolio);

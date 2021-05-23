@@ -3,7 +3,7 @@ import styles from "./Experience.module.css";
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-import profileImg from "../../../assets/img/Ellipse 326.png";
+// import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
@@ -13,38 +13,15 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getExperiences } from "../../../redux/actions/experience";
 import { getWorkerById } from "../../../redux/actions/worker";
+import { getSkills } from "../../../redux/actions/skill";
 
 class Experience extends Component {
   constructor() {
     super();
     this.state = {
       data: {},
-      dataPort: [
-        {
-          port_name: "Reminder App",
-          port_image: "../../../assets/img/Ellipse 326.png",
-        },
-      ],
-
-      // dataExp: [
-      //   {
-      //     position: "Engineer",
-      //     company_name: "Tokopedia",
-      //     start_date: "July 2019",
-      //     end_date: "January 2020",
-      //     total: "6 months",
-      //     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at.",
-      //   },
-      //   {
-      //     position: "CEO",
-      //     company_name: "Shopee",
-      //     start_date: "July 2019",
-      //     end_date: "January 2020",
-      //     total: "6 months",
-      //     desc: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at.",
-      //   },
-      // ],
       dataExp: [],
+      dataSkill: [],
       isExp: true,
       isPort: false,
     };
@@ -53,6 +30,7 @@ class Experience extends Component {
     const id = localStorage.getItem("workerId");
     this.getExp(id);
     this.getWorkerId(id);
+    this.getSkill(id);
   }
   getExp = (id) => {
     console.log(id);
@@ -65,6 +43,11 @@ class Experience extends Component {
       this.setState({ data: res.action.payload.data.data[0] });
     });
   };
+  getSkill = (id) => {
+    this.props.getSkills(id).then((res) => {
+      this.setState({ dataSkill: res.action.payload.data.data });
+    });
+  };
   render() {
     return (
       <>
@@ -75,7 +58,7 @@ class Experience extends Component {
               <Col sm={4}>
                 <Card className={styles.cardOne}>
                   <Card.Img
-                    src={profileImg}
+                    src={`http://localhost:3001/api/${this.state.data.worker_image}`}
                     variant="top"
                     className={styles.ppImg}
                   />
@@ -101,17 +84,17 @@ class Experience extends Component {
                     <Button className={styles.btnHire}>Hire</Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
-                      {/* {this.state.data.skills.map((item, index) => {
+                      {this.state.dataSkill.map((item, index) => {
                         return (
                           <Badge
                             variant="primary"
                             className={styles.badge}
                             key={index}
                           >
-                            {item}
+                            {item.skill_name}
                           </Badge>
                         );
-                      })} */}
+                      })}
                       <Badge variant="primary" className={styles.badge}></Badge>{" "}
                     </div>
                     <Row>
@@ -131,16 +114,16 @@ class Experience extends Component {
                       </Col>
                       <Col className={styles.colMargin}>
                         <div className={styles.email}>
-                          {this.state.data.worker_email}
+                          @ {this.state.data.worker_email}
                         </div>
                         <div className={styles.ig}>
-                          {this.state.data.worker_instagram}
+                          @ {this.state.data.worker_instagram}
                         </div>
                         <div className={styles.github}>
-                          {this.state.data.worker_github}
+                          @ {this.state.data.worker_github}
                         </div>
                         <div className={styles.gitlab}>
-                          {this.state.data.worker_gitlab}
+                          @ {this.state.data.worker_gitlab}
                         </div>
                       </Col>
                     </Row>
@@ -222,6 +205,7 @@ class Experience extends Component {
 const mapStateToProps = (state) => ({
   experience: state.experience,
   worker: state.worker,
+  skill: state.skill,
 });
-const mapDispatchToProps = { getExperiences, getWorkerById };
+const mapDispatchToProps = { getExperiences, getWorkerById, getSkills };
 export default connect(mapStateToProps, mapDispatchToProps)(Experience);

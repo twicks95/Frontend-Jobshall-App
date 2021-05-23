@@ -42,6 +42,28 @@ const skill = (state = initialState, action) => {
         isGetSkillsError: true,
         getMsg: action.payload.response.data.msg,
       };
+    case "GET_ALL_SKILLS_PENDING":
+      return {
+        ...state,
+        isGetSkillsLoading: true,
+        isGetSkillsError: false,
+      };
+    case "GET_ALL_SKILLS_FULFILLED":
+      return {
+        ...state,
+        skills: action.payload,
+        isGetSkillsLoading: false,
+        isGetSkillsError: false,
+        getMsg: action.payload.data.data.msg,
+      };
+    case "GET_ALL_SKILLS_REJECTED":
+      return {
+        ...state,
+        skills: [],
+        isGetSkillsLoading: false,
+        isGetSkillsError: true,
+        getMsg: action.payload.response.data.msg,
+      };
     case "CREATE_SKILL_PENDING":
       return {
         ...state,

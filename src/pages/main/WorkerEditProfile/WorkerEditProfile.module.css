@@ -49,6 +49,7 @@
   justify-content: center;
   margin: 0 auto;
   margin-top: 30px;
+  border-radius: 100%;
 }
 .editText {
   font-style: normal;
@@ -56,8 +57,9 @@
   font-size: 22px;
   line-height: 56px;
   color: #9ea0a5;
-  text-align: center;
+  justify-content: center;
   cursor: pointer;
+  margin-left: 100px !important;
 }
 .editText::before {
   content: url("../../../assets/img/edit\ \(1\)\ 1.png");

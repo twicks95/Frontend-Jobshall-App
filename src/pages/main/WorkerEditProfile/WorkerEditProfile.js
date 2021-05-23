@@ -9,7 +9,7 @@ import {
   Form,
   Modal,
 } from "react-bootstrap";
-import imgDummy from "../../../assets/img/Ellipse 326.png";
+// import imgDummy from "../../../assets/img/Ellipse 326.png";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import CardSkills from "../../../components/Skills/Skills";
@@ -57,7 +57,7 @@ class WorkerEditProfile extends Component {
         workerGitlab: "",
         workerInstagram: "",
         workerDescription: "",
-        image: null,
+        imageData: null,
       },
       formSkill: {
         workerId: localStorage.getItem("userId"),
@@ -182,7 +182,7 @@ class WorkerEditProfile extends Component {
     formData.append("workerGithub", this.state.formWorker.workerGithub);
     formData.append("workerGitlab", this.state.formWorker.workerGitlab);
 
-    // formData.append("workerImage", this.state.formWorker.workerImage);
+    formData.append("imageData", this.state.formWorker.imageData);
     formData.append(
       "workerDescription",
       this.state.formWorker.workerDescription
@@ -206,7 +206,7 @@ class WorkerEditProfile extends Component {
         workerGitlab: "",
         workerGithub: "",
         workerDescription: "",
-        workerImage: null,
+        image: null,
       },
     });
   };
@@ -255,10 +255,17 @@ class WorkerEditProfile extends Component {
       this.resetDataSkills(event);
     });
   };
+  handleBack = () => {
+    this.props.history.push("/");
+  };
   createPort = (event) => {
-    const { formPortofolio } = this.state;
     event.preventDefault();
-    this.props.createPortfolio(formPortofolio).then((res) => {
+    const formData = new FormData();
+    formData.append("workerId", localStorage.getItem("userId"));
+    formData.append("portfolioName", this.state.formPortofolio.portfolioName);
+    formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
+    formData.append("image", this.state.formPortofolio.image);
+    this.props.createPortfolio(formData).then((res) => {
       this.setState({ show: true, isCreatePort: true });
       this.getPort(localStorage.getItem("userId"));
       this.resetDataPort(event);
@@ -289,7 +296,10 @@ class WorkerEditProfile extends Component {
     formData.append("workerId", localStorage.getItem("userId"));
     formData.append("portfolioName", this.state.formPortofolio.portfolioName);
     formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
-    // formData.append("image", this.state.formPortofolio.image);
+    formData.append("image", this.state.formPortofolio.image);
+    for (var pair of formData.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
     this.props.updatePortfolio(idPort, formData).then((res) => {
       this.setState({ show: true, isUpdatePort2: true });
       this.getPort(localStorage.getItem("userId"));
@@ -334,6 +344,28 @@ class WorkerEditProfile extends Component {
   handleClose = () => {
     this.setState({ show: false });
   };
+  handleImage = (event) => {
+    this.setState({
+      formWorker: {
+        ...this.state.formWorker,
+        imageData: event.target.files[0],
+      },
+      formPortofolio: {
+        ...this.state.formPortofolio,
+        image: event.target.files[0],
+      },
+    });
+    console.log(this.state.formWorker);
+  };
+  // handleImage2 = (event) => {
+  //   this.setState({
+  //     formPortofolio: {
+  //       ...this.state.formPortofolio,
+  //       image: event.target.files[0],
+  //     },
+  //   });
+  //   console.log(this.state.formPortofolio);
+  // };
   handleSetUpdate = (data) => {
     console.log(data);
     // const { worker_id, skill_name } = this.state.itemSkills;
@@ -376,7 +408,7 @@ class WorkerEditProfile extends Component {
     });
   };
   render() {
-    console.log(this.state.idPort);
+    // console.log(this.state.formPortofolio);
     // console.log(this.props);
     const { skillName } = this.state.formSkill;
     const {
@@ -399,6 +431,7 @@ class WorkerEditProfile extends Component {
       worker_job_desk,
       worker_phone,
       worker_description,
+      worker_image,
     } = this.state.dataWorker;
     return (
       <>
@@ -410,11 +443,29 @@ class WorkerEditProfile extends Component {
                 <Card className={styles.cardProfile}>
                   <Card.Img
                     variant="top"
-                    src={imgDummy}
+                    src={`http://localhost:3001/api/${worker_image}`}
                     className={styles.imgCard}
                   />
                   <Card.Body>
-                    <Card.Title className={styles.editText}>Edit</Card.Title>
+                    <label for="file">
+                      <input
+                        type="file"
+                        id="file"
+                        onChange={(event) => this.handleImage(event)}
+                      />
+                      <div>
+                        {/* <img
+                          src={Edit}
+                          alt="edit"
+                          className={`${styles.editIcon}`}
+
+                        /> */}
+                        <Card.Title className={styles.editText}>
+                          Edit
+                        </Card.Title>
+                        {/* <span>Edit</span> */}
+                      </div>
+                    </label>
                   </Card.Body>
                   <Card.Body>
                     <h1 className={styles.profileName}>
@@ -439,7 +490,9 @@ class WorkerEditProfile extends Component {
                     </p>
                   </Card.Body>
                 </Card>
-                <Button className={styles.btnBack}>Kembali</Button>
+                <Button className={styles.btnBack} onClick={this.handleBack}>
+                  Kembali
+                </Button>
               </Col>
               <Col sm={8}>
                 <Card className={styles.cardForm}>
@@ -827,50 +880,59 @@ class WorkerEditProfile extends Component {
                       <Form.Label className={styles.everyLabelPort}>
                         Upload gambar
                       </Form.Label>
-                      <Card className={styles.cardUpload}>
-                        <Card.Img src={upload} className={styles.imgUpload} />
-                        <Card.Body>
-                          <Card.Text>
-                            <p className={styles.subTextPort1}>
-                              Drag & Drop untuk Upload Gambar Aplikasi Mobile
-                            </p>
-                            <p className={styles.subTextPort2}>
-                              Atau cari untuk mengupload file dari direktorimu.
-                            </p>
-                          </Card.Text>
-                          <Row className={styles.mainRowImg}>
-                            <Col>
-                              <Row>
-                                <Col sm={7} className={styles.col1Upload}>
-                                  <img alt="" src={setImg} />
-                                </Col>
-                                <Col sm={4} className={styles.col2Upload}>
-                                  <p className={styles.uploadSet1}>
-                                    High-Res Image
-                                    <br /> PNG, JPG or GIF{" "}
-                                  </p>
-                                </Col>
-                              </Row>
-                            </Col>
-                            <Col>
-                              <Row>
-                                <Col sm={2} className={styles.col3Upload}>
-                                  <img alt="" src={sizeImg} />
-                                </Col>
-                                <Col sm={6} className={styles.col4Upload}>
-                                  <p className={styles.uploadSet2}>
-                                    Size
-                                    <br />
-                                    1080x1920 or 600x800
-                                  </p>
-                                </Col>
-                              </Row>
-                            </Col>
-                          </Row>
-                        </Card.Body>
-                      </Card>
+                      <label for="file">
+                        <input
+                          type="file"
+                          id="file"
+                          onChange={(event) => this.handleImage2(event)}
+                        />
+                        <Card className={styles.cardUpload}>
+                          <Card.Img src={upload} className={styles.imgUpload} />
+                          <Card.Body>
+                            <Card.Text>
+                              <p className={styles.subTextPort1}>
+                                Drag & Drop untuk Upload Gambar Aplikasi Mobile
+                              </p>
+                              <p className={styles.subTextPort2}>
+                                Atau cari untuk mengupload file dari
+                                direktorimu.
+                              </p>
+                            </Card.Text>
+                            <Row className={styles.mainRowImg}>
+                              <Col>
+                                <Row>
+                                  <Col sm={7} className={styles.col1Upload}>
+                                    <img alt="" src={setImg} />
+                                  </Col>
+                                  <Col sm={4} className={styles.col2Upload}>
+                                    <p className={styles.uploadSet1}>
+                                      High-Res Image
+                                      <br /> PNG, JPG or GIF{" "}
+                                    </p>
+                                  </Col>
+                                </Row>
+                              </Col>
+                              <Col>
+                                <Row>
+                                  <Col sm={2} className={styles.col3Upload}>
+                                    <img alt="" src={sizeImg} />
+                                  </Col>
+                                  <Col sm={6} className={styles.col4Upload}>
+                                    <p className={styles.uploadSet2}>
+                                      Size
+                                      <br />
+                                      1080x1920 or 600x800
+                                    </p>
+                                  </Col>
+                                </Row>
+                              </Col>
+                            </Row>
+                          </Card.Body>
+                        </Card>
+                      </label>
                     </Form.Group>
                   </Form>
+
                   <hr />
                   {this.state.isUpdatePort ? (
                     <Row>
