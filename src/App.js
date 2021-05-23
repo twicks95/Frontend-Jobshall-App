@@ -46,10 +46,14 @@ class App extends Component {
               <Route path="/req-pass" exact component={Request} />
               <Route path="/login" exact component={Login} />
               <Route path="/home" exact component={Home} />
-              <Route path="/worker/edit" exact component={WorkerEditProfile} />
+              <Route
+                path="/worker/edit/:id"
+                exact
+                component={WorkerEditProfile}
+              />
               <Route path="/chat" exact component={Chat} />
-              <Route path="/experience" exact component={Experience} />
-              <Route path="/portofolio" exact component={Portofolio} />
+              <Route path="/experience/:id" exact component={Experience} />
+              <Route path="/portofolio/:id" exact component={Portofolio} />
               <Route path="/" exact component={Landing} />
               <Route
                 path="/recruiter/profile"

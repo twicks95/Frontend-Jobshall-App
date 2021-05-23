@@ -53,7 +53,7 @@ const skill = (state = initialState, action) => {
         ...state,
         isCreateSkillLoading: false,
         isCreateSkillError: false,
-        createMsg: action.payload.response.data.msg,
+        createMsg: action.payload.data.msg,
       };
     case "CREATE_SKILL_REJECTED":
       return {
@@ -73,7 +73,7 @@ const skill = (state = initialState, action) => {
         ...state,
         isUpdateSkillLoading: false,
         isUpdateSkillError: false,
-        updateMsg: action.payload.response.data.msg,
+        updateMsg: action.payload.data.msg,
       };
     case "UPDATE_SKILL_REJECTED":
       return {
@@ -93,7 +93,7 @@ const skill = (state = initialState, action) => {
         ...state,
         isDeleteSkillLoading: false,
         isDeleteSkillError: false,
-        deleteMsg: action.payload.response.data.msg,
+        deleteMsg: action.payload.data.msg,
       };
     case "DELETE_SKILL_REJECTED":
       return {

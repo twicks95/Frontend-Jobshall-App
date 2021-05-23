@@ -90,7 +90,7 @@ class NavbarComponent extends Component {
                     Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
-                <img
+                {/* <img
                   src={
                     this.props.auth.data.role === "worker"
                       ? this.props.worker.worker[0].worker_image
@@ -102,7 +102,7 @@ class NavbarComponent extends Component {
                   }
                   alt="avatar"
                   onClick={this.handleClickProfile}
-                />
+                /> */}
               </div>
             </Nav>
           </Navbar.Collapse>
@@ -156,16 +156,16 @@ class NavbarComponent extends Component {
     if (this.props.auth.data.role === "recruiter") {
       this.props.history.push("/recruiter/profile");
     } else {
-      this.props.history.push("/portofolio");
+      this.props.history.push(`/worker/edit/${localStorage.getItem("userId")}`);
     }
   };
 
   handleEditProfile = (e) => {
     e.preventDefault();
     if (this.props.auth.data.role === "recruiter") {
-      this.props.history.push("/recruiter/edit");
+      this.props.history.push("/recruiter/edit/");
     } else {
-      this.props.history.push("/worker/edit");
+      this.props.history.push(`/worker/edit/${localStorage.getItem("userId")}`);
     }
   };
 

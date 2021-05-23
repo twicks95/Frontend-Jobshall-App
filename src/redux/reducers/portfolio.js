@@ -53,7 +53,7 @@ const portfolio = (state = initialState, action) => {
         ...state,
         isCreatePortfolioLoading: false,
         isCreatePortfolioError: false,
-        createMsg: action.payload.response.data.msg,
+        createMsg: action.payload.data.msg,
       };
     case "CREATE_PORTFOLIO_REJECTED":
       return {
@@ -73,7 +73,7 @@ const portfolio = (state = initialState, action) => {
         ...state,
         isUpdatePortfolioLoading: false,
         isUpdatePortfolioError: false,
-        updateMsg: action.payload.response.data.msg,
+        updateMsg: action.payload.data.msg,
       };
     case "UPDATE_PORTFOLIO_REJECTED":
       return {
@@ -93,7 +93,7 @@ const portfolio = (state = initialState, action) => {
         ...state,
         isDeletePortfolioLoading: false,
         isDeletePortfolioError: false,
-        deleteMsg: action.payload.response.data.msg,
+        deleteMsg: action.payload.data.msg,
       };
     case "DELETE_PORTFOLIO_REJECTED":
       return {
