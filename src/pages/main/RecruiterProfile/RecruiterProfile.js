@@ -3,10 +3,12 @@ import React, { Component } from "react";
 import { Button, Col, Row } from "react-bootstrap";
 import styles from "./RecruiterProfile.module.css";
 
+import { connect } from "react-redux";
+
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
 
-import ProfilePicture from "../../../assets/images/394260100b438df48a885f4de8255d6c.jpg";
+import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
 import PinLocation from "../../../assets/icons/map-pin.svg";
 import Email from "../../../assets/icons/mail.svg";
 import Instagram from "../../../assets/icons/instagram.svg";
@@ -14,59 +16,47 @@ import Phone from "../../../assets/icons/phone.svg";
 import LinkedIn from "../../../assets/icons/linkedin.svg";
 
 class RecruiterProfile extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      data: [
-        {
-          image: ProfilePicture,
-          recruiterCompany: "PT. Hydrofarm",
-          recruiterCompanyField: "Agriculture",
-          recruiterDomicile: "Bandung, West Java",
-          recruiterPhone: "+62 77 2567 2222",
-          recruiterEmail: "hydrofarm@indonesia.com",
-          recruiterInstagram: "hydrofarm_id",
-          recruiterLinkedIn: "Hydrofarm Indonesia",
-          recruiterDescription:
-            "We are a company engaged in agriculture that focuses on producing the needs of fresh vegetables and fruits for urban communities with a hydroponic system.",
-        },
-      ],
-    };
-  }
-
   handleEditProfile = () => {
-    this.props.history.push("/recruiter/edit");
+    const { recruiter_id } = this.props.auth.data;
+    this.props.history.push(`/recruiter/edit?id=${recruiter_id}`);
   };
 
   render() {
     const {
-      image,
-      recruiterCompany,
-      recruiterCompanyField,
-      recruiterDomicile,
-      recruiterDescription,
-      recruiterEmail,
-      recruiterInstagram,
-      recruiterPhone,
-      recruiterLinkedIn,
-    } = this.state.data[0];
+      recruiter_company,
+      recruiter_field_company,
+      recruiter_domicile,
+      recruiter_description,
+      recruiter_email,
+      recruiter_instagram,
+      recruiter_phone,
+      recruiter_linked_id,
+      recruiter_image,
+    } = this.props.recruiter.recruiter[0];
+
     return (
       <>
         <NavbarComponent />
         <main className={`${styles.container}`}>
           <div className={`${styles.mainProfile}`}>
             <div className={`${styles.topStripe}`}>
-              <img src={image} alt="avatar" />
+              <img
+                src={
+                  recruiter_image
+                    ? `http://localhost:3001/api/${recruiter_image}`
+                    : NoProfilePicture
+                }
+                alt="avatar"
+              />
             </div>
             <div className={`${styles.detailProfile}`}>
-              <h2>{recruiterCompany}</h2>
-              <h3>{recruiterCompanyField}</h3>
+              <h2>{recruiter_company}</h2>
+              <h3>{recruiter_field_company}</h3>
               <span>
                 <img src={PinLocation} alt="map-pin" />
-                {recruiterDomicile}
+                {recruiter_domicile}
               </span>
-              <p>{recruiterDescription}</p>
+              <p>{recruiter_description}</p>
               <Button
                 onClick={this.handleEditProfile}
                 className={`${styles.btnEdit}`}
@@ -87,7 +77,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiterEmail}
+                    {recruiter_email}
                   </Col>
                 </Row>
                 <Row className="mb-4">
@@ -103,7 +93,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiterInstagram}
+                    {recruiter_instagram}
                   </Col>
                 </Row>
                 <Row className="mb-4">
@@ -119,7 +109,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiterPhone}
+                    {recruiter_phone}
                   </Col>
                 </Row>
                 <Row className="mb-4">
@@ -135,7 +125,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiterLinkedIn}
+                    {recruiter_linked_id}
                   </Col>
                 </Row>
               </div>
@@ -148,4 +138,9 @@ class RecruiterProfile extends Component {
   }
 }
 
-export default RecruiterProfile;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  recruiter: state.recruiter,
+});
+
+export default connect(mapStateToProps, null)(RecruiterProfile);
