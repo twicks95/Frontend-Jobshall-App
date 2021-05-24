@@ -13,8 +13,6 @@ import {
   Card,
   Row,
   Col,
-  OverlayTrigger,
-  Popover,
 } from "react-bootstrap";
 import seacrh from "../../../assets/img/search (1) 1.png";
 import BadgeHome from "../../../components/BadgeHome/BadgeHome";
@@ -27,7 +25,6 @@ class Home extends Component {
     super();
     this.state = {
       data: [],
-      data2: [],
       dataSkills: [],
       search: "",
       sort: "worker_name",
@@ -41,12 +38,7 @@ class Home extends Component {
     this.allWorkers();
     // this.getDataSkills();
   }
-  // getDataSkills = (data) => {
-  //   console.log(data);
-  //   this.props.getAllSkills().then((res) => {
-  //     this.setState({ dataSkills: res.action.payload.data.data });
-  //   });
-  // };
+
   allWorkers = () => {
     const { search, sort, page, limit } = this.state;
 
@@ -56,15 +48,15 @@ class Home extends Component {
       });
     });
   };
-  allWorkersSearch = () => {
-    const { search, sort, page, limit } = this.state;
+  // allWorkersSearch = () => {
+  //   const { search, sort, page, limit } = this.state;
 
-    this.props.getWorkers(page, limit, search, sort).then((res) => {
-      this.setState({
-        data2: res.action.payload.data.data,
-      });
-    });
-  };
+  //   this.props.getWorkers(page, limit, search, sort).then((res) => {
+  //     this.setState({
+  //       data2: res.action.payload.data.data,
+  //     });
+  //   });
+  // };
 
   handlePageClick = (event) => {
     console.log(event);
@@ -75,7 +67,7 @@ class Home extends Component {
   };
   changeTextSearch = (event) => {
     // this.state.search === "" && this.allWorkers();
-    this.allWorkersSearch();
+    this.allWorkers();
     this.setState({ [event.target.name]: event.target.value });
   };
   resetSearch = (event) => {
@@ -84,40 +76,40 @@ class Home extends Component {
   };
   handleSort = (event) => {
     console.log(event);
-    // switch (event.target.name) {
-    //   case "sortName":
-    //     this.allWorkers();
-    //     this.setState({ sort: "worker_name ASC" });
+    switch (event.target.name) {
+      case "sortName":
+        this.allWorkers();
+        this.setState({ sort: "worker_name ASC" });
 
-    //     break;
-    //   case "sortSkills":
-    //     this.allWorkers();
-    //     this.setState({ sort: `worker_skills ASC` });
+        break;
+      case "sortSkills":
+        this.allWorkers();
+        this.setState({ sort: `worker_skills ASC` });
 
-    //     break;
-    //   case "sortLoc":
-    //     this.allWorkers();
-    //     this.setState({ sort: "worker_domicile ASC" });
+        break;
+      case "sortLoc":
+        this.allWorkers();
+        this.setState({ sort: "worker_domicile ASC" });
 
-    //     break;
-    //   case "sortType1":
-    //     this.allWorkersSort(this.state.sort);
-    //     this.setState({ sort: "worker_status='freelance'" });
+        break;
+      case "sortType1":
+        this.allWorkers(this.state.sort);
+        this.setState({ sort: "worker_status='freelance'" });
 
-    //     break;
-    //   case "sortType2":
-    //     this.allWorkersSort(this.state.sort);
-    //     this.setState({ sort: "worker_status='fulltime'" });
+        break;
+      case "sortType2":
+        this.allWorkers(this.state.sort);
+        this.setState({ sort: "worker_status='fulltime'" });
 
-    //     break;
-    //   default:
-    //     break;
-    // }
+        break;
+      default:
+        break;
+    }
   };
   handleProfile = (id) => {
     // console.log(id);
     localStorage.setItem("workerId", id);
-    this.props.history.push(`/portofolio/${id}`);
+    this.props.history.push(`/portofolio?id=${id}`);
   };
   handleSearch = (event) => {
     this.allWorkers();
@@ -125,38 +117,7 @@ class Home extends Component {
     this.resetSearch(event);
   };
   render() {
-    console.log(this.state.idWorker);
-    const popover = (
-      <Popover id="popover-basic">
-        <Popover.Content>{this.handleSearch}</Popover.Content>
-        <Popover.Content className={styles.popover}>
-          {this.state.data2.length > 0 ? (
-            this.state.data2.map((item, index) => {
-              // console.log(item);
-
-              return (
-                <Card key={index} className={styles.mainCardUser}>
-                  <Card.Body>
-                    <h1 className={styles.cardTitle}>{item.worker_name}</h1>
-                    <p className={styles.cardType}>
-                      {item.worker_job_desk} - {item.worker_status}
-                    </p>
-                    <p className={styles.cardLocation}>
-                      {item.worker_domicile}
-                    </p>
-                    <Row className={styles.skillRow}></Row>
-                  </Card.Body>
-                </Card>
-              );
-            })
-          ) : (
-            <Card.Body>
-              <h1 className={styles.titlePop}>Name not found</h1>
-            </Card.Body>
-          )}
-        </Popover.Content>
-      </Popover>
-    );
+    // console.log(this.state.idWorker);
 
     // const totalPage = this.props.worker.pagination;
     return (
@@ -167,19 +128,13 @@ class Home extends Component {
             <h1 className={styles.mainNav}>Top Jobs</h1>
             <Form>
               <Form.Group>
-                <OverlayTrigger
-                  trigger="focus"
-                  placement="bottom"
-                  overlay={popover}
-                >
-                  <Form.Control
-                    placeholder="Search for any skill"
-                    className={styles.mainControl}
-                    name="search"
-                    value={this.state.search}
-                    onChange={(event) => this.changeTextSearch(event)}
-                  />
-                </OverlayTrigger>
+                <Form.Control
+                  placeholder="Search for any skill"
+                  className={styles.mainControl}
+                  name="search"
+                  value={this.state.search}
+                  onChange={(event) => this.changeTextSearch(event)}
+                />
 
                 <img alt="" src={seacrh} className={styles.imgSearch} />
 
@@ -225,14 +180,14 @@ class Home extends Component {
                     name="sortType1"
                     onClick={(event) => this.handleSort(event)}
                   >
-                    Sortir berdasarkan Freelance
+                    Sortir berdasarkan Fulltime
                   </Dropdown.Item>
                   <Dropdown.Item
                     className={styles.listDropdown}
                     name="sortType2"
                     onClick={(event) => this.handleSort(event)}
                   >
-                    Sortir berdasarkan Fulltime
+                    Sortir berdasarkan Freelance
                   </Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
@@ -263,13 +218,13 @@ class Home extends Component {
                               {item.worker_domicile}
                             </p>
                             <Row className={styles.skillRow}></Row>
-                            {this.state.dataSkills.map((item, index) => {
-                              return (
-                                <Col xs={3} key={index}>
-                                  <BadgeHome data={item} />
-                                </Col>
-                              );
-                            })}
+
+                            <Col xs={5} key={index}>
+                              <BadgeHome
+                                data={item.worker_id}
+                                dataSkill={this.state.dataSkills}
+                              />
+                            </Col>
                           </Card.Body>
                         </Col>
                         <Col sm={3} className={styles.colButton}>

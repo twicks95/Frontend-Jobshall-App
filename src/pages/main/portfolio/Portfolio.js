@@ -52,7 +52,7 @@ class Portofolio extends Component {
     this.props.history.push("/hire");
   };
   render() {
-    console.log(this.state);
+    console.log(this.state.data);
     return (
       <>
         <NavbarComponent />
@@ -145,7 +145,9 @@ class Portofolio extends Component {
                   <Nav>
                     <Nav.Item className={styles.nav1}>
                       <Link
-                        to={`/portofolio/${localStorage.getItem("workerId")}`}
+                        to={`/portofolio?id=${localStorage.getItem(
+                          "workerId"
+                        )}`}
                         className={
                           this.state.isPort ? styles.link1 : styles.link2
                         }
@@ -156,7 +158,9 @@ class Portofolio extends Component {
                     </Nav.Item>
                     <Nav.Item>
                       <Link
-                        to={`/experience/${localStorage.getItem("workerId")}`}
+                        to={`/experience?id=${localStorage.getItem(
+                          "workerId"
+                        )}`}
                         className={
                           this.state.isExp ? styles.link1 : styles.link2
                         }

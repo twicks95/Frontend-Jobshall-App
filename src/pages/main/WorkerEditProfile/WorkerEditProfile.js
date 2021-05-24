@@ -60,12 +60,12 @@ class WorkerEditProfile extends Component {
         imageData: null,
       },
       formSkill: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         skillName: "",
         skillId: "",
       },
       formExperience: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         experienceCompany: "",
         experiencePosition: "",
         experienceDateStart: "",
@@ -73,7 +73,7 @@ class WorkerEditProfile extends Component {
         experienceDesc: "",
       },
       formPortofolio: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         portfolioName: "",
         portfolioLink: "",
         image: null,
@@ -105,7 +105,7 @@ class WorkerEditProfile extends Component {
     };
   }
   componentDidMount() {
-    const id = localStorage.getItem("userId");
+    const id = localStorage.getItem("workerId");
     this.getWorkerId(id);
     this.getSkillId(id);
     this.getExperienceId(id);
@@ -170,7 +170,8 @@ class WorkerEditProfile extends Component {
     });
   };
   updateDataWorker = (event) => {
-    const { id } = this.props.match.params;
+    const id = localStorage.getItem("workerId");
+    console.log(id);
     event.preventDefault();
     const formData = new FormData(); // FORM DATA digunakan untuk menghandle inputan yang memiliki file upload didalamnya
     formData.append("workerName", this.state.formWorker.workerName);
@@ -214,7 +215,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     this.setState({
       formSkill: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         skillName: "",
       },
     });
@@ -223,7 +224,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     this.setState({
       formExperience: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         experienceCompany: "",
         experiencePosition: "",
         experienceDateStart: "",
@@ -237,7 +238,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     this.setState({
       formPortofolio: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         portfolioName: "",
         portfolioLink: "",
         image: null,
@@ -251,7 +252,7 @@ class WorkerEditProfile extends Component {
     // console.log(id);
     this.props.createSkill(this.state.formSkill).then((res) => {
       this.setState({ show: true, isCreateSkill: true });
-      this.getSkillId(localStorage.getItem("userId"));
+      this.getSkillId(localStorage.getItem("workerId"));
       this.resetDataSkills(event);
     });
   };
@@ -261,13 +262,13 @@ class WorkerEditProfile extends Component {
   createPort = (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("workerId", localStorage.getItem("userId"));
+    formData.append("workerId", localStorage.getItem("workerId"));
     formData.append("portfolioName", this.state.formPortofolio.portfolioName);
     formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
     formData.append("image", this.state.formPortofolio.image);
     this.props.createPortfolio(formData).then((res) => {
       this.setState({ show: true, isCreatePort: true });
-      this.getPort(localStorage.getItem("userId"));
+      this.getPort(localStorage.getItem("workerId"));
       this.resetDataPort(event);
     });
   };
@@ -277,7 +278,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     this.props.updateSkill(idSkill, formSkill).then((res) => {
       this.setState({ show: true, isUpdateSkill: true, isUpdate: false });
-      this.getSkillId(localStorage.getItem("userId"));
+      this.getSkillId(localStorage.getItem("workerId"));
       this.resetDataSkills(event);
     });
   };
@@ -285,7 +286,7 @@ class WorkerEditProfile extends Component {
     const { idExp, formExperience } = this.state;
     this.props.updateExperience(idExp, formExperience).then((res) => {
       this.setState({ show: true, isUpdateExp2: true, isUpdate: false });
-      this.getExperienceId(localStorage.getItem("userId"));
+      this.getExperienceId(localStorage.getItem("workerId"));
       this.resetDataExp(event);
     });
   };
@@ -293,7 +294,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     const { idPort } = this.state;
     const formData = new FormData();
-    formData.append("workerId", localStorage.getItem("userId"));
+    formData.append("workerId", localStorage.getItem("workerId"));
     formData.append("portfolioName", this.state.formPortofolio.portfolioName);
     formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
     formData.append("image", this.state.formPortofolio.image);
@@ -302,13 +303,13 @@ class WorkerEditProfile extends Component {
     }
     this.props.updatePortfolio(idPort, formData).then((res) => {
       this.setState({ show: true, isUpdatePort2: true });
-      this.getPort(localStorage.getItem("userId"));
+      this.getPort(localStorage.getItem("workerId"));
       this.resetDataPort(event);
     });
   };
   deleteSkill = (id) => {
     this.props.deleteSkill(id).then((res) => {
-      this.getSkillId(localStorage.getItem("userId"));
+      this.getSkillId(localStorage.getItem("workerId"));
       this.setState({ show: true, isDelete: true });
     });
     // console.log("work");
@@ -318,7 +319,7 @@ class WorkerEditProfile extends Component {
     const { idExp } = this.state;
     console.log(idExp);
     this.props.deleteExperience(idExp).then((res) => {
-      this.getExperienceId(localStorage.getItem("userId"));
+      this.getExperienceId(localStorage.getItem("workerId"));
       this.resetDataExp(event);
       this.setState({ show: true, isDeleteExp: true, isUpdateExp: false });
     });
@@ -327,7 +328,7 @@ class WorkerEditProfile extends Component {
     event.preventDefault();
     const { idPort } = this.state;
     this.props.deletePortfolio(idPort).then((res) => {
-      this.getPort(localStorage.getItem("userId"));
+      this.getPort(localStorage.getItem("workerId"));
       this.resetDataPort(event);
       this.setState({ show: true, isUpdatePort: false, isDeletePort: true });
     });
@@ -337,7 +338,7 @@ class WorkerEditProfile extends Component {
     // console.log("work");
     this.props.createExperience(this.state.formExperience).then((res) => {
       this.setState({ show: true, isCreateExp: true });
-      this.getExperienceId(localStorage.getItem("userId"));
+      this.getExperienceId(localStorage.getItem("workerId"));
       this.resetDataExp(event);
     });
   };
@@ -398,7 +399,7 @@ class WorkerEditProfile extends Component {
       isUpdateExp: true,
       idExp: data.experience_id,
       formExperience: {
-        workerId: localStorage.getItem("userId"),
+        workerId: localStorage.getItem("workerId"),
         experienceCompany: data.experience_company,
         experiencePosition: data.experience_position,
         experienceDateStart: data.experience_date_start.slice(0, 10),
@@ -408,7 +409,7 @@ class WorkerEditProfile extends Component {
     });
   };
   render() {
-    // console.log(this.state.formPortofolio);
+    console.log(this.state.dataWorker);
     // console.log(this.props);
     const { skillName } = this.state.formSkill;
     const {
@@ -468,9 +469,7 @@ class WorkerEditProfile extends Component {
                     </label>
                   </Card.Body>
                   <Card.Body>
-                    <h1 className={styles.profileName}>
-                      {worker_name ? worker_name : "Someone"}
-                    </h1>
+                    <h1 className={styles.profileName}>{worker_name}</h1>
                     <p className={styles.profileField}>
                       {worker_job_desk ? worker_job_desk : "Searching for Job"}
                     </p>

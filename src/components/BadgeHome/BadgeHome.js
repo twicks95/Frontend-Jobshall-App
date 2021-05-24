@@ -1,20 +1,45 @@
 import React, { Component } from "react";
 import { Badge } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { getSkills } from "../../redux/actions/skill";
 
 import styles from "./BadgeHome.module.css";
 
 class BadgeHome extends Component {
+  constructor() {
+    super();
+    this.state = {
+      dataSkill: [],
+    };
+  }
+  componentDidMount() {
+    const id = this.props.data;
+    this.getSkill(id);
+  }
+  getSkill = (id) => {
+    this.props.getSkills(id).then((res) => {
+      this.setState({ dataSkill: res.action.payload.data.data });
+    });
+  };
   render() {
-    // console.log(this.props);
+    console.log(this.props);
     return (
       <>
-        <Badge variant="danger" className={styles.BadgeSkill}>
-          {this.props.data.skill_name}
-        </Badge>
+        {this.state.dataSkill.map((item, index) => {
+          return <Badge className={styles.BadgeSkill}>{item.skill_name}</Badge>;
+        })}
       </>
     );
   }
 }
 
-export default withRouter(BadgeHome);
+const mapStateToProps = (state) => ({
+  skill: state.skill,
+});
+
+const mapDispatchToProps = { getSkills };
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(BadgeHome));

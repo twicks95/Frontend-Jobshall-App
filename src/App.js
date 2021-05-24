@@ -73,16 +73,8 @@ class App extends Component {
                 component={WorkerEditProfile}
               />
               <PublicRoute path="/chat" exact component={Chat} />
-              <PublicRoute
-                path="/experience/:id"
-                exact
-                component={Experience}
-              />
-              <PublicRoute
-                path="/portofolio/:id"
-                exact
-                component={Portofolio}
-              />
+              <PublicRoute path="/experience/" exact component={Experience} />
+              <PublicRoute path="/portofolio/" exact component={Portofolio} />
               <Route path="/" exact component={Landing} />
               <PrivateRoute
                 author="recruiter"

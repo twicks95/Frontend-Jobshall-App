@@ -143,7 +143,9 @@ class Experience extends Component {
                   <Nav>
                     <Nav.Item className={styles.nav1}>
                       <Link
-                        to={`/portofolio/${localStorage.getItem("workerId")}`}
+                        to={`/portofolio?id=${localStorage.getItem(
+                          "workerId"
+                        )}`}
                         className={
                           this.state.isPort ? styles.link1 : styles.link2
                         }
@@ -154,7 +156,7 @@ class Experience extends Component {
 
                     <Nav.Item className={styles.nav1}>
                       <Link
-                        to={`/experience/${localStorage.getItem("workerId")}`}
+                        to={`/experience?=${localStorage.getItem("workerId")}`}
                         className={
                           this.state.isExp ? styles.link1 : styles.link2
                         }

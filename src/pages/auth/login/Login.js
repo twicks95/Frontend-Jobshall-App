@@ -51,10 +51,12 @@ class Login extends Component {
         if (role === "recruiter") {
           const { recruiter_id } = this.props.auth.data;
           getRecruiterById(recruiter_id);
+          localStorage.setItem("recId", this.props.auth.data.recruiter_id);
           this.props.history.push("/home");
         } else {
           const { worker_id } = this.props.auth.data;
           getWorkerById(worker_id);
+          localStorage.setItem("workerId", this.props.auth.data.worker_id);
           this.props.history.push(`/portofolio?id=${worker_id}`);
         }
 
