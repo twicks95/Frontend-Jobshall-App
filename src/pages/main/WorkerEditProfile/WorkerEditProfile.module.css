@@ -253,6 +253,7 @@
   border-width: 7px;
   cursor: pointer;
   margin-bottom: 40px;
+  margin-top: 40px;
 }
 .everyLabelExp {
   font-style: normal;
@@ -355,6 +356,7 @@
   margin-bottom: 6px;
   color: #9ea0a5;
   margin-top: 32px;
+  margin-right: 19px;
 }
 .imgUpload {
   width: 114px;
@@ -386,15 +388,16 @@
 .uploadSet1 {
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 10px;
   line-height: 16px;
   color: #1f2a36;
-  text-align: right;
+  text-align: center;
 }
 .uploadSet2 {
   font-style: normal;
   font-weight: normal;
-  font-size: 12px;
+  font-size: 10px;
+  text-align: center;
   line-height: 16px;
   color: #1f2a36;
 }
