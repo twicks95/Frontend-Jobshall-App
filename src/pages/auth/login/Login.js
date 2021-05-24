@@ -57,7 +57,7 @@ class Login extends Component {
           const { worker_id } = this.props.auth.data;
           getWorkerById(worker_id);
           localStorage.setItem("workerId", this.props.auth.data.worker_id);
-          this.props.history.push(`/portofolio?id=${worker_id}`);
+          this.props.history.push(`/worker/edit?id=${worker_id}`);
         }
 
         // localStorage.setItem("userId", this.props.auth.data.recruiter_id);
