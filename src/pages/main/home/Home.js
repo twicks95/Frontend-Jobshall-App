@@ -48,15 +48,6 @@ class Home extends Component {
       });
     });
   };
-  // allWorkersSearch = () => {
-  //   const { search, sort, page, limit } = this.state;
-
-  //   this.props.getWorkers(page, limit, search, sort).then((res) => {
-  //     this.setState({
-  //       data2: res.action.payload.data.data,
-  //     });
-  //   });
-  // };
 
   handlePageClick = (event) => {
     console.log(event);
@@ -67,7 +58,7 @@ class Home extends Component {
   };
   changeTextSearch = (event) => {
     // this.state.search === "" && this.allWorkers();
-    this.allWorkers();
+    // this.allWorkers();
     this.setState({ [event.target.name]: event.target.value });
   };
   resetSearch = (event) => {

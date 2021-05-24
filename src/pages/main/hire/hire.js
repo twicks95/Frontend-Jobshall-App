@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./hire.module.css";
+import BadgeSkill from "../../../components/BadgeSkill/BadgeSkill";
 import {
   Card,
   Col,
@@ -68,6 +69,7 @@ class Hire extends Component {
     });
   };
   render() {
+    // console.log(this.state.data.worker_id);
     return (
       <>
         <NavbarComponent />
@@ -103,6 +105,7 @@ class Hire extends Component {
                     </div>
                     <Button className={styles.btnHire}>Hire</Button>
                     <h1 className={styles.title2}>Skills</h1>
+                    <BadgeSkill data={this.state.data.worker_id} />
                     <div className={styles.skills}>
                       {/* {this.state.data.skills.map((item, index) => {
                         return (
