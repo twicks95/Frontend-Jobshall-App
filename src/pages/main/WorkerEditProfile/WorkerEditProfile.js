@@ -9,13 +9,14 @@ import {
   Form,
   Modal,
 } from "react-bootstrap";
-// import imgDummy from "../../../assets/img/Ellipse 326.png";
+
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
 import CardSkills from "../../../components/Skills/Skills";
 import upload from "../../../assets/img/Vector.png";
 import setImg from "../../../assets/img/Group.png";
 import sizeImg from "../../../assets/img/expand 2.png";
+
 import {
   getWorkerById,
   updateWorkerData,
@@ -40,6 +41,7 @@ import {
   updatePortfolio,
 } from "../../../redux/actions/portfolio";
 import { connect } from "react-redux";
+
 import CardExperience from "../../../components/CardExperience/CardExperience";
 import CardPort from "../../../components/CardPort/CardPort";
 
@@ -120,7 +122,6 @@ class WorkerEditProfile extends Component {
   };
   getSkillId = (id) => {
     this.props.getSkills(id).then((res) => {
-      console.log(res);
       this.setState({
         dataSkills: res.action.payload.data.data,
         itemSkills: res.action.payload.data.data[0],
@@ -171,9 +172,8 @@ class WorkerEditProfile extends Component {
   };
   updateDataWorker = (event) => {
     const id = localStorage.getItem("workerId");
-    console.log(id);
     event.preventDefault();
-    const formData = new FormData(); // FORM DATA digunakan untuk menghandle inputan yang memiliki file upload didalamnya
+    const formData = new FormData();
     formData.append("workerName", this.state.formWorker.workerName);
     formData.append("workerDomicile", this.state.formWorker.workerDomicile);
     formData.append("workerStatus", this.state.formWorker.workerStatus);
@@ -247,9 +247,7 @@ class WorkerEditProfile extends Component {
     });
   };
   createSkill = (event) => {
-    // const { id } = this.props.match.params;
     event.preventDefault();
-    // console.log(id);
     this.props.createSkill(this.state.formSkill).then((res) => {
       this.setState({ show: true, isCreateSkill: true });
       this.getSkillId(localStorage.getItem("workerId"));
@@ -298,9 +296,6 @@ class WorkerEditProfile extends Component {
     formData.append("portfolioName", this.state.formPortofolio.portfolioName);
     formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
     formData.append("image", this.state.formPortofolio.image);
-    for (var pair of formData.entries()) {
-      console.log(pair[0] + ", " + pair[1]);
-    }
     this.props.updatePortfolio(idPort, formData).then((res) => {
       this.setState({ show: true, isUpdatePort2: true });
       this.getPort(localStorage.getItem("workerId"));
@@ -312,12 +307,10 @@ class WorkerEditProfile extends Component {
       this.getSkillId(localStorage.getItem("workerId"));
       this.setState({ show: true, isDelete: true });
     });
-    // console.log("work");
   };
   deleteExp = (event) => {
     event.preventDefault();
     const { idExp } = this.state;
-    console.log(idExp);
     this.props.deleteExperience(idExp).then((res) => {
       this.getExperienceId(localStorage.getItem("workerId"));
       this.resetDataExp(event);
@@ -335,7 +328,6 @@ class WorkerEditProfile extends Component {
   };
   createExp = (event) => {
     event.preventDefault();
-    // console.log("work");
     this.props.createExperience(this.state.formExperience).then((res) => {
       this.setState({ show: true, isCreateExp: true });
       this.getExperienceId(localStorage.getItem("workerId"));
@@ -356,20 +348,8 @@ class WorkerEditProfile extends Component {
         image: event.target.files[0],
       },
     });
-    console.log(this.state.formWorker);
   };
-  // handleImage2 = (event) => {
-  //   this.setState({
-  //     formPortofolio: {
-  //       ...this.state.formPortofolio,
-  //       image: event.target.files[0],
-  //     },
-  //   });
-  //   console.log(this.state.formPortofolio);
-  // };
   handleSetUpdate = (data) => {
-    console.log(data);
-    // const { worker_id, skill_name } = this.state.itemSkills;
     this.setState({
       isUpdate: true,
       idSkill: data.skill_id,
@@ -393,8 +373,6 @@ class WorkerEditProfile extends Component {
     });
   };
   handleSetUpdateExp = (data) => {
-    // console.log(data);
-    // console.log("work");
     this.setState({
       isUpdateExp: true,
       idExp: data.experience_id,
@@ -409,8 +387,6 @@ class WorkerEditProfile extends Component {
     });
   };
   render() {
-    console.log(this.state.dataWorker);
-    // console.log(this.props);
     const { skillName } = this.state.formSkill;
     const {
       workerName,
@@ -418,8 +394,6 @@ class WorkerEditProfile extends Component {
       workerStatus,
       workerJobDesk,
       workerPhone,
-      // workerEmail,
-      // workerPassword,
       workerInstagram,
       workerGithub,
       workerGitlab,
@@ -455,16 +429,9 @@ class WorkerEditProfile extends Component {
                         onChange={(event) => this.handleImage(event)}
                       />
                       <div>
-                        {/* <img
-                          src={Edit}
-                          alt="edit"
-                          className={`${styles.editIcon}`}
-
-                        /> */}
                         <Card.Title className={styles.editText}>
                           Edit
                         </Card.Title>
-                        {/* <span>Edit</span> */}
                       </div>
                     </label>
                   </Card.Body>

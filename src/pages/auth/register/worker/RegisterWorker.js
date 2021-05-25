@@ -40,7 +40,6 @@ class RegisterWorker extends Component {
   };
   handleRegister = (event) => {
     event.preventDefault();
-    console.log(this.state.form);
     if (this.state.form.workerPassword === this.state.form.workerConfirm) {
       this.setState({ samePass: false });
       this.props
@@ -66,7 +65,6 @@ class RegisterWorker extends Component {
   render() {
     const { workerName, workerEmail, workerPhone, workerPassword } =
       this.state.form;
-    console.log(this.props);
 
     return (
       <>

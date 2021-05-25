@@ -33,7 +33,6 @@ class Experience extends Component {
     this.getSkill(id);
   }
   getExp = (id) => {
-    console.log(id);
     this.props.getExperiences(id).then((res) => {
       this.setState({ dataExp: res.action.payload.data.data });
     });
@@ -49,7 +48,9 @@ class Experience extends Component {
     });
   };
   handleHire = () => {
-    this.props.history.push("/hire");
+    this.props.history.push(
+      `/worker/edit?id=${localStorage.getItem("workerId")}`
+    );
   };
   render() {
     return (
@@ -88,7 +89,7 @@ class Experience extends Component {
                       className={styles.btnHire}
                       onClick={this.handleHire}
                     >
-                      Hire
+                      Edit Profile
                     </Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
@@ -168,7 +169,6 @@ class Experience extends Component {
                   </Nav>
                   <Card className={styles.cardExpMain}>
                     {this.state.dataExp.map((item, index) => {
-                      console.log(item);
                       return (
                         <Row key={index} className={styles.cardExp}>
                           <Col sm={2} className={styles.imgExp}>
@@ -196,7 +196,6 @@ class Experience extends Component {
                               {item.experience_desc}
                             </p>
                           </Col>
-                          <hr />
                         </Row>
                       );
                     })}

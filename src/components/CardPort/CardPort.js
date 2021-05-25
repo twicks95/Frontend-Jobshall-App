@@ -6,7 +6,6 @@ import styles from "./CardPort.module.css";
 
 class CardPort extends Component {
   render() {
-    // console.log(this.props.dataPort);
     return (
       <>
         <Card

@@ -69,7 +69,6 @@ class Hire extends Component {
     });
   };
   render() {
-    // console.log(this.state.data.worker_id);
     return (
       <>
         <NavbarComponent />

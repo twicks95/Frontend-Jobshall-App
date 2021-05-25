@@ -50,7 +50,6 @@ class Home extends Component {
   };
 
   handlePageClick = (event) => {
-    console.log(event);
     const selectedPage = event.selected + 1;
     this.setState({ page: selectedPage }, () => {
       this.allWorkers();
@@ -66,7 +65,6 @@ class Home extends Component {
     this.setState({ search: "" });
   };
   handleSort = (event) => {
-    console.log(event);
     switch (event.target.name) {
       case "sortName":
         this.allWorkers();
@@ -98,7 +96,6 @@ class Home extends Component {
     }
   };
   handleProfile = (id) => {
-    // console.log(id);
     localStorage.setItem("workerId", id);
     this.props.history.push(`/portofolio?id=${id}`);
   };
@@ -108,9 +105,6 @@ class Home extends Component {
     this.resetSearch(event);
   };
   render() {
-    // console.log(this.state.idWorker);
-
-    // const totalPage = this.props.worker.pagination;
     return (
       <>
         <NavbarComponent />

@@ -23,7 +23,6 @@ class BadgeHome extends Component {
     });
   };
   render() {
-    console.log(this.props);
     return (
       <>
         {this.state.dataSkill.map((item, index) => {

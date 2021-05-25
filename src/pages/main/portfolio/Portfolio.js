@@ -49,7 +49,9 @@ class Portofolio extends Component {
     });
   };
   handleHire = () => {
-    this.props.history.push("/hire");
+    this.props.history.push(
+      `/worker/edit?id=${localStorage.getItem("workerId")}`
+    );
   };
   render() {
     console.log(this.state.data);
@@ -90,7 +92,7 @@ class Portofolio extends Component {
                       className={styles.btnHire}
                       onClick={this.handleHire}
                     >
-                      Hire
+                      Edit Profile
                     </Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>

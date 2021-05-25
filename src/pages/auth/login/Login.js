@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./Login.module.css";
 import logo from "../../../assets/img/Group 978 1.png";
 import logo1 from "../../../assets/img/Group 980 1.png";
+
 import {
   Container,
   Row,
@@ -59,13 +60,6 @@ class Login extends Component {
           localStorage.setItem("workerId", this.props.auth.data.worker_id);
           this.props.history.push(`/worker/edit?id=${worker_id}`);
         }
-
-        // localStorage.setItem("userId", this.props.auth.data.recruiter_id);
-        // // localStorage.setItem("userId", this.props.auth.data.user_id);
-        // if (this.props.auth.data.length > 0) {
-        //   alert(`${this.props.auth.msg}`);
-        // } else {
-        // }
       })
       .catch((error) => {
         this.setState({ isError: true });

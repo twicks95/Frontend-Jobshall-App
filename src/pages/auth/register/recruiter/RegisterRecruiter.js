@@ -42,7 +42,6 @@ class RegisterRecruiter extends Component {
   };
   handleRegister = (event) => {
     event.preventDefault();
-    console.log(this.state.form);
     if (
       this.state.form.recruiterPassword === this.state.form.recruiterConPass
     ) {
