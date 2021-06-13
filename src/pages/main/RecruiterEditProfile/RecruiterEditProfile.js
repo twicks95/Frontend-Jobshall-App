@@ -47,13 +47,11 @@ class RecruiterEditProfile extends Component {
   }
 
   handleFile = (e, id, update) => {
-    // console.log(e.target.files[0]);
+    console.log(e.target.files[0]);
 
     this.setState({
-      // formData: {
       ...this.state,
       image: e.target.files[0],
-      // },
     });
 
     // console.log(this.state);
@@ -66,29 +64,15 @@ class RecruiterEditProfile extends Component {
     const isContinue = window.confirm("Yakin ingin ubah foto?");
 
     if (isContinue) {
-      // const image = this.props.;
-      console.log(this.state.image);
-      // const formData = new FormData();
-      // formData.append("image", data);
-      // for (const field in dataToBeUpdated) {
-      //   formData.append(field, dataToBeUpdated[field]);
-      // }
-      // console.log(formData.entries());
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ", " + pair[1]);
-      // }
-      // console.log(data);
-
-      // this.props.updateRecruiterImage(id, formData).then(() => {
-      //   this.setState({
-      //     ...this.state.form,
-      //     image: null,
-      //   });
-      //   this.props.getRecruiterById(id);
-      // });
+      const { image } = this.state;
+      console.log(this.state);
+      const formData = new FormData();
+      formData.append("image", image);
+      for (var pair of formData.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+      this.props.updateRecruiterImage(id, formData);
     }
-
-    return;
   };
 
   handleUpdateData = (id, data) => {

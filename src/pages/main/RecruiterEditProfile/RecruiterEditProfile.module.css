@@ -5,7 +5,6 @@ input[type="file"] {
 .container {
   position: relative;
   padding: 100px 120px;
-  border: 1px solid red;
   background-color: #e5e5e5;
 }
 
