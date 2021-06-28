@@ -1,7 +1,7 @@
 .detailProfile span,
 .detailProfile p,
 .socialAccount .account {
-  color: #9ea0a5;
+  color: #6f7072;
 }
 
 .container {
@@ -44,8 +44,12 @@
 }
 
 .detailProfile h2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 22px;
+}
+
+.detailProfile h3 {
+  font-weight: 600;
 }
 
 .detailProfile span {
