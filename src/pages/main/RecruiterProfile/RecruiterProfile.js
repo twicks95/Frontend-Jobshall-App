@@ -50,13 +50,21 @@ class RecruiterProfile extends Component {
               />
             </div>
             <div className={`${styles.detailProfile}`}>
-              <h2>{recruiter_company}</h2>
-              <h3>{recruiter_field_company}</h3>
+              <h2>{recruiter_company ? recruiter_company : "Company Name"}</h2>
+              <h3>
+                {recruiter_field_company
+                  ? recruiter_field_company
+                  : "Company's Field"}
+              </h3>
               <span>
                 <img src={PinLocation} alt="map-pin" />
-                {recruiter_domicile}
+                {recruiter_domicile ? recruiter_domicile : "unknown"}
               </span>
-              <p>{recruiter_description}</p>
+              <p>
+                {recruiter_description
+                  ? recruiter_description
+                  : "No description for this company"}
+              </p>
               <Button
                 onClick={this.handleEditProfile}
                 className={`${styles.btnEdit}`}
@@ -77,7 +85,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiter_email}
+                    {recruiter_email ? recruiter_email : "not set"}
                   </Col>
                 </Row>
                 <Row className="mb-4">
@@ -93,7 +101,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiter_instagram}
+                    {recruiter_instagram ? recruiter_instagram : "not set"}
                   </Col>
                 </Row>
                 <Row className="mb-4">
@@ -109,7 +117,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiter_phone}
+                    {recruiter_phone ? recruiter_phone : "not set"}
                   </Col>
                 </Row>
                 <Row className="mb-4">
@@ -125,7 +133,7 @@ class RecruiterProfile extends Component {
                     md={10}
                     className={`text-center text-md-start ${styles.account}`}
                   >
-                    {recruiter_linked_id}
+                    {recruiter_linked_id ? recruiter_linked_id : "not set"}
                   </Col>
                 </Row>
               </div>
