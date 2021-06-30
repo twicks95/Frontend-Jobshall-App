@@ -43,7 +43,7 @@ import {
 } from "../../../redux/actions/portfolio";
 import { connect } from "react-redux";
 
-import CardExperience from "../../../components/CardExperience/CardExperience";
+// import CardExperience from "../../../components/CardExperience/CardExperience";
 import CardPort from "../../../components/CardPort/CardPort";
 
 class WorkerEditProfile extends Component {
