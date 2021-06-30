@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 
 import NavbarComponent from "../../../components/Navbar/Navbar";
+import defaultImg from "../../../assets/images/defaultprofilepict.png";
 import Footer from "../../../components/Footer/Footer";
 import CardSkills from "../../../components/Skills/Skills";
 import upload from "../../../assets/img/Vector.png";
@@ -104,6 +105,9 @@ class WorkerEditProfile extends Component {
       isUpdateExp2: false,
       isUpdatePort: false,
       isUpdatePort2: false,
+      alert: true,
+      imageDefault: "",
+      isImage: false,
     };
   }
   componentDidMount() {
@@ -171,6 +175,7 @@ class WorkerEditProfile extends Component {
     });
   };
   updateDataWorker = (event) => {
+    this.setState({ alert: false });
     const id = localStorage.getItem("workerId");
     event.preventDefault();
     const formData = new FormData();
@@ -338,6 +343,8 @@ class WorkerEditProfile extends Component {
     this.setState({ show: false });
   };
   handleImage = (event) => {
+    this.setState({ isImage: true });
+    this.setState({ imageDefault: URL.createObjectURL(event.target.files[0]) });
     this.setState({
       formWorker: {
         ...this.state.formWorker,
@@ -418,7 +425,11 @@ class WorkerEditProfile extends Component {
                 <Card className={styles.cardProfile}>
                   <Card.Img
                     variant="top"
-                    src={`http://localhost:3001/api/${worker_image}`}
+                    src={
+                      this.state.isImage
+                        ? this.state.imageDefault
+                        : `http://localhost:3001/api/${worker_image}`
+                    }
                     className={styles.imgCard}
                   />
                   <Card.Body>
@@ -436,7 +447,20 @@ class WorkerEditProfile extends Component {
                     </label>
                   </Card.Body>
                   <Card.Body>
-                    <h1 className={styles.profileName}>{worker_name}</h1>
+                    {this.state.alert && (
+                      <p
+                        style={{
+                          color: "red",
+                          fontSize: "13px",
+                          textAlign: "center",
+                        }}
+                      >
+                        Please Update Biodata to Continue
+                      </p>
+                    )}
+                    <h1 className={styles.profileName}>
+                      {worker_name ? worker_name : "Workers"}
+                    </h1>
                     <p className={styles.profileField}>
                       {worker_job_desk ? worker_job_desk : "Searching for Job"}
                     </p>
