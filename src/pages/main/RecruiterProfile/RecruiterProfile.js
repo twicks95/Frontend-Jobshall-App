@@ -41,11 +41,12 @@ class RecruiterProfile extends Component {
           <div className={`${styles.mainProfile}`}>
             <div className={`${styles.topStripe}`}>
               <img
-                src={
-                  recruiter_image
-                    ? `http://localhost:3001/api/${recruiter_image}`
-                    : NoProfilePicture
-                }
+                // src={
+                //   recruiter_image
+                //     ? `http://localhost:3001/api/${recruiter_image}`
+                //     : NoProfilePicture
+                // }
+                src={NoProfilePicture}
                 alt="avatar"
               />
             </div>
