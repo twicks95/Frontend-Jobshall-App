@@ -815,6 +815,7 @@ class WorkerEditProfile extends Component {
                       md={this.props.skill.skills.length > 0 ? 4 : 1}
                       className={styles.rowSkill}
                     >
+                      {console.log(this.props.skill)}
                       {this.props.skill.skills.length > 0 ? (
                         this.props.skill.skills.map((item, index) => (
                           <Col key={index}>
