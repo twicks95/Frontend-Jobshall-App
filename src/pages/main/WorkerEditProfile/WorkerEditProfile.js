@@ -465,7 +465,7 @@ class WorkerEditProfile extends Component {
                   <Card.Title className={styles.title}>Data diri</Card.Title>
                   <hr />
                   <Card.Body>
-                    <Form>
+                    <Form onSubmit={(event) => this.updateDataWorker(event)}>
                       <Form.Row>
                         <Form.Group>
                           <Form.Label className={styles.everyLabel}>
@@ -478,6 +478,7 @@ class WorkerEditProfile extends Component {
                             name="workerName"
                             value={workerName}
                             onChange={(event) => this.changeText(event)}
+                            required
                           />
                         </Form.Group>
 
@@ -492,6 +493,7 @@ class WorkerEditProfile extends Component {
                             name="workerJobDesk"
                             value={workerJobDesk}
                             onChange={(event) => this.changeText(event)}
+                            required
                           />
                         </Form.Group>
                       </Form.Row>
@@ -507,6 +509,7 @@ class WorkerEditProfile extends Component {
                           name="workerDomicile"
                           value={workerDomicile}
                           onChange={(event) => this.changeText(event)}
+                          required
                         />
                       </Form.Group>
                       <Form.Group>
@@ -520,6 +523,7 @@ class WorkerEditProfile extends Component {
                           name="workerPhone"
                           value={workerPhone}
                           onChange={(event) => this.changeText(event)}
+                          required
                         />
                       </Form.Group>
                       <Form.Group>
@@ -532,6 +536,7 @@ class WorkerEditProfile extends Component {
                           name="workerStatus"
                           value={workerStatus}
                           onChange={(event) => this.changeText(event)}
+                          required
                         >
                           <option>select status</option>
                           <option>freelance</option>
@@ -551,6 +556,7 @@ class WorkerEditProfile extends Component {
                               name="workerInstagram"
                               value={workerInstagram}
                               onChange={(event) => this.changeText(event)}
+                              required
                             />
                           </Form.Group>
                         </Col>
@@ -566,6 +572,7 @@ class WorkerEditProfile extends Component {
                               name="workerGithub"
                               value={workerGithub}
                               onChange={(event) => this.changeText(event)}
+                              required
                             />
                           </Form.Group>
                         </Col>
@@ -581,6 +588,7 @@ class WorkerEditProfile extends Component {
                               name="workerGitlab"
                               value={workerGitlab}
                               onChange={(event) => this.changeText(event)}
+                              required
                             />
                           </Form.Group>
                         </Col>
@@ -597,12 +605,10 @@ class WorkerEditProfile extends Component {
                           name="workerDescription"
                           value={workerDescription}
                           onChange={(event) => this.changeText(event)}
+                          required
                         />
                       </Form.Group>
-                      <Button
-                        className={styles.btnSave}
-                        onClick={(event) => this.updateDataWorker(event)}
-                      >
+                      <Button className={styles.btnSave} type="submit">
                         Simpan
                       </Button>
                       <Modal show={this.state.show} onHide={this.handleClose}>

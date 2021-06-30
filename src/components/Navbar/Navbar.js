@@ -8,7 +8,7 @@ import { getWorkerById } from "../../redux/actions/worker";
 
 import styles from "./Navbar.module.css";
 
-import NoProfilePicture from "../../assets/images/defaultprofilepict.png";
+// import NoProfilePicture from "../../assets/images/defaultprofilepict.png";
 import Logo from "../../assets/images/peworld.png";
 import Bell from "../../assets/icons/bell.svg";
 import Mail from "../../assets/icons/mail.svg";
@@ -74,7 +74,7 @@ class NavbarComponent extends Component {
         </>
       );
     } else if (!isLanding && isLoggedIn) {
-      const { role, worker_image, recruiter_image } = this.props.auth.data;
+      // const { role, worker_image, recruiter_image } = this.props.auth.data;
 
       return (
         <>

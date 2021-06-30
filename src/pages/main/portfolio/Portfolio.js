@@ -1,14 +1,14 @@
 import React, { Component } from "react";
+
 import styles from "./Portfolio.module.css";
-import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-// import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
-// import port from "../../../assets/img/Rectangle 637.png";
+
+import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getPortfolios } from "../../../redux/actions/portfolio";
@@ -54,7 +54,6 @@ class Portofolio extends Component {
     );
   };
   render() {
-    console.log(this.state.data);
     return (
       <>
         <NavbarComponent />
@@ -173,22 +172,24 @@ class Portofolio extends Component {
                   </Nav>
                   <Card.Body>
                     <Row className={styles.rowPort}>
-                      {this.state.dataPort.map((item, index) => {
-                        console.log(index);
-                        return (
-                          <Col sm={4} key={index}>
-                            <Card className={styles.cardPort}>
-                              <Card.Img
-                                src={`http://localhost:3001/api/${item.portfolio_image}`}
-                                className={styles.portImg}
-                              />
-                              <Card.Text className={styles.portName}>
-                                {item.portfolio_name}
-                              </Card.Text>
-                            </Card>
-                          </Col>
-                        );
-                      })}
+                      {this.state.dataPort.length <= 0
+                        ? "Belum ada Data"
+                        : this.state.dataPort.map((item, index) => {
+                            console.log(index);
+                            return (
+                              <Col sm={4} key={index}>
+                                <Card className={styles.cardPort}>
+                                  <Card.Img
+                                    src={`http://localhost:3001/api/${item.portfolio_image}`}
+                                    className={styles.portImg}
+                                  />
+                                  <Card.Text className={styles.portName}>
+                                    {item.portfolio_name}
+                                  </Card.Text>
+                                </Card>
+                              </Col>
+                            );
+                          })}
                     </Row>
                   </Card.Body>
                 </Card>
