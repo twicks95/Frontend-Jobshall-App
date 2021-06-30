@@ -1,5 +1,6 @@
 .contentWrapper {
-  padding: 70px 120px;
+  font-size: 62.5%;
+  padding: 7em 3em;
 }
 
 .greyBox1,
@@ -97,12 +98,14 @@
   object-fit: cover;
 }
 
-.textSide h1 {
-  font-size: 44px;
+.textSide1 h1 {
+  font-size: 3em !important;
 }
 
 .textSide1 p {
+  font-size: 1.4em;
   margin: 20px 0px 55px;
+  width: 90%;
 }
 
 .textSide1 {
@@ -139,6 +142,12 @@
 .textSide3 p:first-child {
   color: #46505c;
 }
+.textSide1 p,
+.textSide2 p,
+.textSide3 p,
+.card p {
+  font-size: 1.4em;
+}
 
 .textSide1 h1,
 .textSide2 h2,
@@ -148,8 +157,9 @@
 
 .CTAButton1,
 .CTAButton2 {
-  width: 210px;
-  height: 63px;
+  font-size: 1.2em;
+  width: 17em;
+  height: 4em;
 }
 
 .CTAButton2 {
@@ -186,60 +196,74 @@
   width: 80px;
   height: 80px;
   border-radius: 50%;
-  border: 6px solid rgba(251, 176, 23, 0.37);
+  border: 6px solid #0e1422bd;
   object-fit: cover;
 }
 
 .card {
-  width: 80%;
-  padding: 8% 10%;
+  padding: 5em 6em;
   border-radius: 16px;
   border-style: none;
   box-shadow: 0px 8px 16px rgba(197, 197, 197, 0.25);
 }
+.card .cardTitle {
+  font-size: 2.2em;
+  font-weight: 600;
+}
+.card .cardSubtitle {
+  font-size: 1.4em;
+  margin-top: 1em;
+}
+.card p {
+  margin-top: 2em;
+}
 
 .bottomRectangle {
   position: relative;
-  width: 100%;
-  padding: 5% 8%;
+  padding: 4em 5em;
   border-radius: 40px 8px;
   background-color: #5e50a1;
 }
 
 .bottomRectangle p {
-  width: 50%;
-  font-size: 32px;
   color: #ffffff;
+  font-size: 2em;
+  margin-bottom: 1em !important;
+  text-align: center;
+  width: 100%;
 }
 
-@media (max-width: 576px) {
+@media (min-width: 576px) {
   .contentWrapper {
-    padding: 70px 5%;
+    padding: 12em 10em;
+  }
+  .textSide1 h1 {
+    font-size: 3.5em !important;
+  }
+
+  .textSide1 p,
+  .textSide2 p,
+  .textSide3 p,
+  .card p {
+    font-size: 1.6em;
   }
 }
 
-@media (max-width: 768px) {
-  .CTAButton1,
-  .CTAButton2 {
-    width: 180px;
-    height: 52px;
-    font-size: 12px;
-  }
-
+@media (min-width: 768px) {
   .bottomRectangle p {
-    font-size: 24px !important;
+    font-size: 24px;
   }
 }
 
-@media (max-width: 992px) {
+@media (min-width: 992px) {
   .bottomRectangle {
-    padding: 10% 8%;
+    padding: 5em 8em;
   }
 
   .bottomRectangle p {
-    width: 100%;
-    font-size: 32px;
-    text-align: center;
-    margin-bottom: 30px !important;
+    font-size: 2em;
+    margin: 0;
+    text-align: left;
+    width: 40%;
   }
 }

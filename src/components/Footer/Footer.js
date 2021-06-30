@@ -1,15 +1,15 @@
 import React from "react";
 
 import styles from "./Footer.module.css";
-import Logo from "../../assets/images/peworld-white.png";
+import Logo from "../../assets/images/Jobshall white.png";
 
 const Footer = (props) => {
   return (
     <footer className={`${styles.footer}`}>
       <img src={Logo} alt="logo" className={`${styles.logo}`} />
       <p className={`${styles.footerText}`}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod
-        ipsum et dui rhoncus auctor.
+        Platform pencarian kerja dan pencarian calon kandidat terbaik untuk
+        perusahaan di seluruh Indonesia.
       </p>
       <hr className={`m-0 ${styles.separator}`} />
       <div className="d-flex flex-column flex-md-row justify-content-between">

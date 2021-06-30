@@ -32,7 +32,7 @@ const worker = (state = initialState, action) => {
       return {
         ...state,
         workers: action.payload.data.data,
-        isGetWorkersLoading: true,
+        isGetWorkersLoading: false,
         isGetWorkersError: false,
         getWorkersMsg: action.payload,
         pagination: action.payload.data.pagination,
@@ -55,7 +55,7 @@ const worker = (state = initialState, action) => {
       return {
         ...state,
         worker: action.payload.data.data,
-        isGetWorkerByIdLoading: true,
+        isGetWorkerByIdLoading: false,
         isGetWorkerByIdError: false,
         getWorkerMsg: action.payload,
       };
@@ -77,9 +77,9 @@ const worker = (state = initialState, action) => {
       return {
         ...state,
         worker: action.payload.data.data,
-        isUpdateWorkerDataLoading: true,
+        isUpdateWorkerDataLoading: false,
         isUpdateWorkerDataError: false,
-        updateMsg: action.payload,
+        updateMsg: action.payload.data.msg,
       };
     case "UPDATE_WORKER_DATA_REJECTED":
       return {
@@ -97,7 +97,7 @@ const worker = (state = initialState, action) => {
     case "DELETE_WORKER_DATA_FULFILLED":
       return {
         ...state,
-        isDeleteWorkerDataLoading: true,
+        isDeleteWorkerDataLoading: false,
         isDeleteWorkerDataError: false,
         deleteMsg: action.payload,
       };

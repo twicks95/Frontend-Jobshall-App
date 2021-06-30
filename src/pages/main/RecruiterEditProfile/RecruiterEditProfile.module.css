@@ -4,8 +4,7 @@ input[type="file"] {
 
 .container {
   position: relative;
-  padding: 100px 120px;
-  border: 1px solid red;
+  padding: 40px 30px;
   background-color: #e5e5e5;
 }
 
@@ -71,6 +70,11 @@ input[type="file"] {
   text-align: center;
   margin: 25px 0px;
 }
+.changePictureButton {
+  font-size: 14px;
+  margin: 25px 0px;
+  padding: 10px 20px;
+}
 
 .editPictureButton .editIcon {
   width: 24px;
@@ -106,6 +110,7 @@ input[type="file"] {
   font-size: 24px;
 }
 .form label {
+  font-size: 14px;
   font-weight: 600;
 }
 .profilePreview,
@@ -113,8 +118,8 @@ input[type="file"] {
   border-radius: 8px;
 }
 
-@media (max-width: 576px) {
+@media (min-width: 576px) {
   .container {
-    padding: 100px 5%;
+    padding: 100px;
   }
 }

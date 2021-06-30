@@ -9,7 +9,7 @@ import { getWorkerById } from "../../redux/actions/worker";
 import styles from "./Navbar.module.css";
 
 import NoProfilePicture from "../../assets/images/defaultprofilepict.png";
-import Logo from "../../assets/images/peworld.png";
+import Logo from "../../assets/images/Jobshall.png";
 import Bell from "../../assets/icons/bell.svg";
 import Mail from "../../assets/icons/mail.svg";
 
@@ -126,7 +126,7 @@ class NavbarComponent extends Component {
             <Nav className="ms-auto mt-5 mt-lg-0">
               <Button
                 variant="outline-primary"
-                className="me-2 w-100"
+                className="me-2 shadow-none w-100"
                 onClick={this.handleClickLogin}
               >
                 Masuk
@@ -135,12 +135,12 @@ class NavbarComponent extends Component {
                 <Dropdown.Toggle
                   variant="primary"
                   id="dropdown-basic"
-                  className="w-100 mt-2 mt-lg-0"
+                  className="mt-2 mt-lg-0 shadow-none w-100"
                 >
                   Daftar
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu align="right">
                   <Dropdown.Item
                     name="worker"
                     onClick={(e) => this.handleClickRegister(e)}

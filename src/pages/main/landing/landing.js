@@ -236,14 +236,18 @@ class Landing extends Component {
           </Row>
           <div className={`text-center ${styles.recruiterOpinion}`}>
             <h2>Their opinion about jobshall</h2>
-            <Row className={`${styles.cards}`}>
+            <Row xs={1} md={2} lg={3} className={`g-4 ${styles.cards}`}>
               <Col>
                 <Card className={`align-items-center ${styles.card}`}>
                   <Card.Img variant="top" src={Recruiter1} />
                   <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Card Subtitle
+                    <Card.Title className={styles.cardTitle}>
+                      Harry Styles
+                    </Card.Title>
+                    <Card.Subtitle
+                      className={`mb-2 text-muted ${styles.cardSubtitle}`}
+                    >
+                      Web Developer
                     </Card.Subtitle>
                     <Card.Text>
                       Some quick example text to build on the card title and
@@ -256,9 +260,13 @@ class Landing extends Component {
                 <Card className={`align-items-center ${styles.card}`}>
                   <Card.Img variant="top" src={Recruiter3} />
                   <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Card Subtitle
+                    <Card.Title className={styles.cardTitle}>
+                      Niall Horan
+                    </Card.Title>
+                    <Card.Subtitle
+                      className={`mb-2 text-muted ${styles.cardSubtitle}`}
+                    >
+                      Web Developer
                     </Card.Subtitle>
                     <Card.Text>
                       Some quick example text to build on the card title and
@@ -271,9 +279,13 @@ class Landing extends Component {
                 <Card className={`align-items-center ${styles.card}`}>
                   <Card.Img variant="top" src={Recruiter2} />
                   <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      Card Subtitle
+                    <Card.Title className={styles.cardTitle}>
+                      Louis Tomlinson
+                    </Card.Title>
+                    <Card.Subtitle
+                      className={`mb-2 text-muted ${styles.cardSubtitle}`}
+                    >
+                      Web Developer
                     </Card.Subtitle>
                     <Card.Text>
                       Some quick example text to build on the card title and
@@ -297,20 +309,6 @@ class Landing extends Component {
             >
               Mulai dari sekarang
             </Button>
-            {/* <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="100%"
-              height="100%"
-              viewBox="0 0 1140 294"
-              fill="none"
-              className="position-absolute"
-            >
-              <path
-                d="M115.803 237.6C65.8759 260.01 20.5718 228.263 4.16058 209.588C1.38686 205.986 0.23114 203.086 -4.01769e-06 202.086L0 294L1140 294L1140 1.12042e-05C1103.48 69.8628 1011.16 212.09 934.051 222.094C837.664 234.6 735.73 187.578 610.912 237.6C486.095 287.622 389.015 259.109 331.46 237.6C273.905 216.092 178.212 209.588 115.803 237.6Z"
-                fill="white"
-                fill-opacity="0.05"
-              />
-            </svg> */}
           </div>
         </div>
         <FooterComponent />

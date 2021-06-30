@@ -1,14 +1,17 @@
 .btn-primary {
-  background-color: #5e50a1;
+  background-color: #5e50a1 !important;
 }
-
+.btn-secondary {
+  background-color: #fbb017;
+  border: 1px solid #fbb017 !important;
+}
 .btn-primary:hover,
 .btn-primary:focus {
-  background-color: #3f3474;
+  background-color: #3f3474 !important;
 }
 
 .btn-outline-primary {
-  color: #5e50a1;
+  color: #5e50a1 !important;
 }
 
 .btn-light {
@@ -18,7 +21,7 @@
 
 .btn-outline-primary:hover,
 .btn-outline-primary:focus {
-  color: #5e50a1;
+  color: #5e50a1 !important;
   background-color: rgb(243, 243, 243);
 }
 
