@@ -217,6 +217,10 @@ class WorkerEditProfile extends Component {
   };
   updateDataWorker = () => {
     const id = localStorage.getItem("workerId");
+    this.setState({
+      ...this.state,
+      isUpdateWorkerSuccess: false,
+    });
     const {
       workerName,
       workerJobDesk,
@@ -780,7 +784,7 @@ class WorkerEditProfile extends Component {
                           onChange={(event) => this.changeTextSkill(event)}
                         />
                       </Col>
-                      <Col sm={2}>
+                      <Col sm={2} className="p-sm-0">
                         <Button
                           variant="secondary"
                           className={styles.btnSaveSkill}
@@ -794,34 +798,56 @@ class WorkerEditProfile extends Component {
                         </Button>
                       </Col>
                     </Row>
-                    <Row xs={2} md={4} className={styles.rowSkill}>
-                      {this.props.skill.skills.data.data.map((item, index) => (
-                        <Col key={index}>
-                          <div
-                            title={item.skill_name}
-                            className={styles.skillBadge}
-                          >
-                            <span>{item.skill_name}</span>
-                            <div>
-                              <PencilSimple
-                                weight="bold"
-                                className={`me-1 ${styles.actionButton}`}
-                                onClick={() =>
-                                  this.handleSetUpdate({
-                                    skillId: item.skill_id,
-                                    skillName: item.skill_name,
-                                  })
-                                }
-                              />
-                              <TrashSimple
-                                weight="bold"
-                                className={styles.actionButton}
-                                onClick={() => this.deleteSkill(item.skill_id)}
-                              />
+                    <Row
+                      xs={2}
+                      md={this.props.skill.skills.length > 0 ? 4 : 1}
+                      className={styles.rowSkill}
+                    >
+                      {this.props.skill.skills.length > 0 ? (
+                        this.props.skill.skills.map((item, index) => (
+                          <Col key={index}>
+                            <div
+                              title={item.skill_name}
+                              className={styles.skillBadge}
+                            >
+                              <span>{item.skill_name}</span>
+                              <div>
+                                <PencilSimple
+                                  weight="bold"
+                                  className={`me-1 ${styles.actionButton}`}
+                                  onClick={() =>
+                                    this.handleSetUpdate({
+                                      skillId: item.skill_id,
+                                      skillName: item.skill_name,
+                                    })
+                                  }
+                                />
+                                <TrashSimple
+                                  weight="bold"
+                                  className={styles.actionButton}
+                                  onClick={() =>
+                                    this.deleteSkill(item.skill_id)
+                                  }
+                                />
+                              </div>
                             </div>
+                          </Col>
+                        ))
+                      ) : (
+                        <Col xs={12}>
+                          <div
+                            style={{
+                              border: "1px solid #6f707265",
+                              borderRadius: "5px",
+                              display: "grid",
+                              placeItems: "center",
+                              height: "100%",
+                            }}
+                          >
+                            No skills
                           </div>
                         </Col>
-                      ))}
+                      )}
                     </Row>
                   </Form>
                 </Card>
