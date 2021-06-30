@@ -3,11 +3,8 @@ import styles from "./Experience.module.css";
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-<<<<<<< HEAD
 import defaultImg from "../../../assets/images/defaultprofilepict.png";
 // import profileImg from "../../../assets/img/Ellipse 326.png";
-=======
->>>>>>> 71d3a9eb4ca36b5e2cd400063ac153df9430a1a0
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
