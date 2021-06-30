@@ -1,6 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@600&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
 @media (max-width: 512px) {
   .mainImg {
     display: none;
@@ -22,7 +19,6 @@
   }
   .title1 {
     display: block !important;
-    font-family: "Open Sans", sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 32px;
@@ -38,12 +34,6 @@
   padding: 0;
   background-repeat: no-repeat;
 }
-/* .layer {
-  background-color: #5e50a1;
-  opacity: 0.8;
-  width: 100%;
-  height: 100%;
-} */
 .layer {
   position: relative;
   height: 822px;
@@ -61,12 +51,10 @@
   padding: 47px 45.88px;
 }
 .logo {
-  width: 86px;
-  height: 24px;
+  height: 20px;
 }
 .logo1 {
-  width: 86px;
-  height: 24px;
+  height: 20px;
   display: none;
   margin-bottom: 35px;
 }
@@ -120,17 +108,13 @@
   display: none;
 }
 .label {
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   font-size: 12px;
   line-height: 16px;
   color: #9ea0a5;
 }
 .label1 {
-  font-family: "Open Sans", sans-serif;
-  font-style: normal;
-  font-weight: normal;
+  font-weight: 600;
   font-size: 12px;
   line-height: 16px;
   color: #9ea0a5;
@@ -159,7 +143,7 @@
   color: #1f2a36;
 }
 .btnSubmit {
-  width: 100%;
+  width: 100% !important;
   height: 50px;
   background: #fbb017;
   border-radius: 4px;
