@@ -415,6 +415,12 @@ class WorkerEditProfile extends Component {
       worker_description,
       worker_image,
     } = this.state.dataWorker;
+    let image = {};
+    if (worker_image) {
+      image = `http://localhost:3001/api/${worker_image}`;
+    } else {
+      image = defaultImg;
+    }
     return (
       <>
         <Container fluid className={styles.mainBackground}>
@@ -425,11 +431,7 @@ class WorkerEditProfile extends Component {
                 <Card className={styles.cardProfile}>
                   <Card.Img
                     variant="top"
-                    src={
-                      this.state.isImage
-                        ? this.state.imageDefault
-                        : `http://localhost:3001/api/${worker_image}`
-                    }
+                    src={this.state.isImage ? this.state.imageDefault : image}
                     className={styles.imgCard}
                   />
                   <Card.Body>
