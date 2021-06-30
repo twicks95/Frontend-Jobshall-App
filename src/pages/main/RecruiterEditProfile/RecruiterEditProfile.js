@@ -3,10 +3,9 @@ import styles from "./RecruiterEditProfile.module.css";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
 import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
-import Edit from "../../../assets/icons/edit.svg";
 import PinLocation from "../../../assets/icons/map-pin.svg";
 import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
-import { CheckCircle, XCircle } from "phosphor-react";
+import { CheckCircle, PencilSimple, Upload, XCircle } from "phosphor-react";
 import { connect } from "react-redux";
 import {
   getRecruiterById,
@@ -55,49 +54,30 @@ class RecruiterEditProfile extends Component {
     inputTextArea.disabled = true;
   };
 
-  handleFile = (e, id, update) => {
-    // console.log(e.target.files[0]);
-
+  handleFile = (e) => {
     this.setState({
-      // formData: {
       ...this.state,
       image: e.target.files[0],
-      // },
     });
-
-    // console.log(this.state);
-    // const { image } = this.state;
-    // console.log(this.state);
-    update(id);
   };
 
-  handleUpdateImage = (id) => {
-    const isContinue = window.confirm("Yakin ingin ubah foto?");
-
-    if (isContinue) {
-      // const image = this.props.;
-      console.log(this.state.image);
-      // const formData = new FormData();
-      // formData.append("image", data);
-      // for (const field in dataToBeUpdated) {
-      //   formData.append(field, dataToBeUpdated[field]);
-      // }
-      // console.log(formData.entries());
-      // for (var pair of formData.entries()) {
-      //   console.log(pair[0] + ", " + pair[1]);
-      // }
-      // console.log(data);
-
-      // this.props.updateRecruiterImage(id, formData).then(() => {
-      //   this.setState({
-      //     ...this.state.form,
-      //     image: null,
-      //   });
-      //   this.props.getRecruiterById(id);
-      // });
+  handleUpdateImage = (id, data) => {
+    console.log(this.state.image);
+    const formData = new FormData();
+    // formData.append("image", data);
+    for (const field in data) {
+      console.log(field);
+      console.log(data[field]);
+      // formData.append(field, data[field]);
     }
-
-    return;
+    console.log(formData);
+    // this.props.updateRecruiterImage(id, formData).then(() => {
+    //   this.setState({
+    //     ...this.state,
+    //     image: null,
+    //   });
+    //   this.props.getRecruiterById(id);
+    // });
   };
 
   handleUpdateData = (id, data) => {
@@ -250,21 +230,18 @@ class RecruiterEditProfile extends Component {
       recruiter_domicile,
       recruiter_description,
     } = this.props.recruiter.recruiter[0];
-    const {
-      isUpdateRecruiterPasswordLoading,
-      updatePasswordMsg,
-      isUpdateRecruiterDataLoading,
-      updateDataMsg,
-    } = this.props.recruiter;
+    const { isUpdateRecruiterPasswordLoading, isUpdateRecruiterDataLoading } =
+      this.props.recruiter;
     const {
       formData,
       formPassword,
+      image,
       isUpdateDataSuccess,
       isUpdateDataError,
       isUpdatePasswordSuccess,
       isUpdatePasswordError,
     } = this.state;
-
+    console.log(image);
     return (
       <>
         <NavbarComponent />
@@ -283,26 +260,37 @@ class RecruiterEditProfile extends Component {
                     }
                     alt="avatar"
                   ></img>
-                  <label for="file">
-                    <input
-                      type="file"
-                      id="file"
-                      name="image"
-                      onChange={(e) =>
-                        this.handleFile(e, recruiter_id, this.handleUpdateImage)
+                  {!image ? (
+                    <label for="file">
+                      <div
+                        className={`d-flex align-items-center ${styles.editPictureButton}`}
+                      >
+                        <PencilSimple
+                          color="#6f7072"
+                          size={24}
+                          weight="fill"
+                          className="me-1"
+                        />
+                        <span>Edit</span>
+                      </div>
+                    </label>
+                  ) : (
+                    <Button
+                      className={styles.changePictureButton}
+                      onClick={() =>
+                        this.handleUpdateImage(recruiter_id, { image })
                       }
-                    />
-                    <div
-                      className={`d-flex align-items-center ${styles.editPictureButton}`}
                     >
-                      <img
-                        src={Edit}
-                        alt="edit"
-                        className={`${styles.editIcon}`}
-                      />
-                      <span>Edit</span>
-                    </div>
-                  </label>
+                      <Upload weight="fill" className="me-1" />
+                      Upload
+                    </Button>
+                  )}
+                  <input
+                    type="file"
+                    id="file"
+                    name="image"
+                    onChange={(e) => this.handleFile(e)}
+                  />
                 </div>
 
                 <h2>
@@ -326,7 +314,7 @@ class RecruiterEditProfile extends Component {
               <div className={`d-flex flex-column ${styles.actionButton}`}>
                 {isUpdate ? (
                   isUpdateRecruiterDataLoading ? (
-                    <Button variant="primary" disabled>
+                    <Button variant="primary" className="mb-3" disabled>
                       <Spinner
                         as="span"
                         animation="border"
