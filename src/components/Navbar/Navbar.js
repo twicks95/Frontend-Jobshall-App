@@ -27,21 +27,21 @@ class NavbarComponent extends Component {
   //   this.renderAvatar();
   // }
 
-  // renderAvatar = () => {
-  //   return this.props.auth.data.role === "worker"
-  //     ? this.props.getWorkerById(this.props.auth.data.worker_id).then(() => {
-  //         return this.props.worker.worker[0].worker_image
-  //           ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
-  //           : NoProfilePicture;
-  //       })
-  //     : this.props
-  //         .getRecruiterById(this.props.auth.data.recruiter_id)
-  //         .then(() => {
-  //           return this.props.recruiter.recruiter[0].recruiter_image
-  //             ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
-  //             : NoProfilePicture;
-  //         });
-  // };
+  renderAvatar = () => {
+    return this.props.auth.data.role === "worker"
+      ? this.props.getWorkerById(this.props.auth.data.worker_id).then(() => {
+          return this.props.worker.worker[0].worker_image
+            ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
+            : NoProfilePicture;
+        })
+      : this.props
+          .getRecruiterById(this.props.auth.data.recruiter_id)
+          .then(() => {
+            return this.props.recruiter.recruiter[0].recruiter_image
+              ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
+              : NoProfilePicture;
+          });
+  };
 
   renderNav = () => {
     const { isLoggedIn } = this.state;
@@ -101,17 +101,18 @@ class NavbarComponent extends Component {
                     Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
-                {/* <img
+                <img
                   src={
-                    role === "worker"
+                    role === "worker" && this.props.auth.data.worker_image
                       ? `http://localhost:3001/api/${worker_image}`
-                      : role === "recruiter"
+                      : role === "recruiter" &&
+                        this.props.auth.data.recruiter_image
                       ? `http://localhost:3001/api/${recruiter_image}`
                       : NoProfilePicture
                   }
                   alt="avatar"
                   onClick={this.handleClickProfile}
-                /> */}
+                />
               </div>
             </Nav>
           </Navbar.Collapse>

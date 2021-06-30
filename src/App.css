@@ -2,7 +2,8 @@
   background-color: #5e50a1;
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:focus {
   background-color: #3f3474;
 }
 
@@ -10,13 +11,21 @@
   color: #5e50a1;
 }
 
-.btn-outline-primary:hover {
+.btn-light {
+  border: 1px solid #5a5a5a !important;
+  font-weight: 700;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus {
   color: #5e50a1;
   background-color: rgb(243, 243, 243);
 }
 
 .btn-primary,
-.btn-outline-primary {
+.btn-outline-primary,
+.btn-primary:focus,
+.btn-outline-primary:focus {
   font-weight: 700;
   border-radius: 4px;
   border: 1px solid #5e50a1 !important;

@@ -290,7 +290,11 @@ class Landing extends Component {
             <p className="m-0">
               Eksplore atau jadilah talent yang paling dicari
             </p>
-            <Button variant="light" className={`${styles.CTAButton2}`}>
+            <Button
+              variant="light"
+              className={`${styles.CTAButton2}`}
+              onClick={(e) => this.props.history.push("/login")}
+            >
               Mulai dari sekarang
             </Button>
             {/* <svg

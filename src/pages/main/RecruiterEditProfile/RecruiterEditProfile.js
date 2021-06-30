@@ -1,15 +1,12 @@
 import React, { Component } from "react";
-
-import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
 import styles from "./RecruiterEditProfile.module.css";
-
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
-
 import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
 import Edit from "../../../assets/icons/edit.svg";
 import PinLocation from "../../../assets/icons/map-pin.svg";
-
+import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { CheckCircle, XCircle } from "phosphor-react";
 import { connect } from "react-redux";
 import {
   getRecruiterById,
@@ -24,14 +21,15 @@ class RecruiterEditProfile extends Component {
 
     this.state = {
       formData: {
-        recruiterCompany: "",
-        recruiterFieldCompany: "",
-        recruiterDomicile: "",
-        recruiterDesc: "",
-        recruiterEmail: "",
-        recruiterPhone: "",
-        recruiterIG: "",
-        recruiterLinked: "",
+        recruiterCompany: this.props.recruiter.recruiter[0].recruiter_company,
+        recruiterFieldCompany:
+          this.props.recruiter.recruiter[0].recruiter_field_company,
+        recruiterDomicile: this.props.recruiter.recruiter[0].recruiter_domicile,
+        recruiterDesc: this.props.recruiter.recruiter[0].recruiter_description,
+        recruiterEmail: this.props.recruiter.recruiter[0].recruiter_email,
+        recruiterPhone: this.props.recruiter.recruiter[0].recruiter_phone,
+        recruiterIG: this.props.recruiter.recruiter[0].recruiter_instagram,
+        recruiterLinked: this.props.recruiter.recruiter[0].recruiter_linked_id,
       },
       formPassword: {
         newPassword: "",
@@ -45,6 +43,17 @@ class RecruiterEditProfile extends Component {
       isUpdatePasswordError: false,
     };
   }
+
+  componentDidMount = () => {
+    const inputText = document.querySelectorAll("input[type = 'text']");
+    const inputEmail = document.querySelectorAll("input[type = 'email']")[0];
+    const inputTextArea = document.getElementsByTagName("textarea")[0];
+    inputEmail.disabled = true;
+    for (const el of inputText) {
+      el.disabled = true;
+    }
+    inputTextArea.disabled = true;
+  };
 
   handleFile = (e, id, update) => {
     // console.log(e.target.files[0]);
@@ -95,13 +104,38 @@ class RecruiterEditProfile extends Component {
     this.props
       .updateRecruiterData(id, data)
       .then(() => {
-        this.setState({
-          ...this.state,
-          isUpdate: false,
-          isUpdateDataSuccess: true,
+        this.setState({ ...this.state, isUpdateDataSuccess: true });
+        this.props.getRecruiterById(id).then((res) => {
+          this.setState({
+            formData: {
+              ...this.state.formData,
+              recruiterCompany:
+                res.action.payload.data.data[0].recruiter_company,
+              recruiterFieldCompany:
+                res.action.payload.data.data[0].recruiter_field_company,
+              recruiterDomicile:
+                res.action.payload.data.data[0].recruiter_domicile,
+              recruiterDesc:
+                res.action.payload.data.data[0].recruiter_description,
+              recruiterEmail: res.action.payload.data.data[0].recruiter_email,
+              recruiterPhone: res.action.payload.data.data[0].recruiter_phone,
+              recruiterIG: res.action.payload.data.data[0].recruiter_instagram,
+              recruiterLinked:
+                res.action.payload.data.data[0].recruiter_linked_id,
+            },
+            isUpdate: false,
+          });
+          const inputText = document.querySelectorAll("input[type = 'text']");
+          const inputEmail = document.querySelectorAll(
+            "input[type = 'email']"
+          )[0];
+          const inputTextArea = document.getElementsByTagName("textarea")[0];
+          inputEmail.disabled = true;
+          for (const el of inputText) {
+            el.disabled = true;
+          }
+          inputTextArea.disabled = true;
         });
-        this.setStateDataEmpty();
-        this.props.getRecruiterById(id);
       })
       .catch(() => {
         this.setState({
@@ -112,6 +146,11 @@ class RecruiterEditProfile extends Component {
   };
 
   handleUpdatePassword = (id, data) => {
+    this.setState({
+      ...this.state,
+      isUpdatePasswordSuccess: false,
+      isUpdatePasswordError: false,
+    });
     this.props
       .updateRecruiterPassword(id, data)
       .then(() => {
@@ -158,54 +197,42 @@ class RecruiterEditProfile extends Component {
     this.setState({
       formData: {
         ...this.state.formData,
-        image: null,
-        recruiterCompany: "",
-        recruiterFieldCompany: "",
-        recruiterDomicile: "",
-        recruiterDesc: "",
-        recruiterEmail: "",
-        recruiterPhone: "",
-        recruiterIG: "",
-        recruiterLinked: "",
+        recruiterCompany: this.props.recruiter.recruiter[0].recruiter_company,
+        recruiterFieldCompany:
+          this.props.recruiter.recruiter[0].recruiter_field_company,
+        recruiterDomicile: this.props.recruiter.recruiter[0].recruiter_domicile,
+        recruiterDesc: this.props.recruiter.recruiter[0].recruiter_description,
+        recruiterEmail: this.props.recruiter.recruiter[0].recruiter_email,
+        recruiterPhone: this.props.recruiter.recruiter[0].recruiter_phone,
+        recruiterIG: this.props.recruiter.recruiter[0].recruiter_instagram,
+        recruiterLinked: this.props.recruiter.recruiter[0].recruiter_linked_id,
       },
       isUpdate: false,
     });
+    const inputText = document.querySelectorAll("input[type = 'text']");
+    const inputEmail = document.querySelectorAll("input[type = 'email']")[0];
+    const inputTextArea = document.getElementsByTagName("textarea")[0];
+    inputEmail.disabled = true;
+    for (const el of inputText) {
+      el.disabled = true;
+    }
+    inputTextArea.disabled = true;
   };
 
   setInputFormData = () => {
-    const {
-      recruiter_company,
-      recruiter_field_company,
-      recruiter_domicile,
-      recruiter_description,
-      recruiter_email,
-      recruiter_phone,
-      recruiter_instagram,
-      recruiter_linked_id,
-    } = this.props.recruiter.recruiter[0];
-
-    this.setState({
-      formData: {
-        ...this.state.formData,
-        recruiterCompany: recruiter_company,
-        recruiterFieldCompany: recruiter_field_company,
-        recruiterDomicile: recruiter_domicile,
-        recruiterDesc: recruiter_description,
-        recruiterEmail: recruiter_email,
-        recruiterPhone: recruiter_phone,
-        recruiterIG: recruiter_instagram,
-        recruiterLinked: recruiter_linked_id,
-      },
-      isUpdate: true,
-    });
-
-    console.log(this.state);
+    const inputText = document.querySelectorAll("input[type = 'text']");
+    const inputTextArea = document.getElementsByTagName("textarea")[0];
+    for (const el of inputText) {
+      el.disabled = false;
+    }
+    inputTextArea.disabled = false;
+    this.setState({ ...this.state, isUpdate: true });
   };
 
   render() {
-    // console.log(this.state);
-
     const { isUpdate } = this.state;
+    const { recruiter_id } = this.props.auth.data;
+    const { newPassword, confirmPassword } = this.state.formPassword;
     const {
       recruiterCompany,
       recruiterFieldCompany,
@@ -216,9 +243,6 @@ class RecruiterEditProfile extends Component {
       recruiterIG,
       recruiterLinked,
     } = this.state.formData;
-
-    const { newPassword, confirmPassword } = this.state.formPassword;
-
     const {
       recruiter_image,
       recruiter_company,
@@ -232,8 +256,6 @@ class RecruiterEditProfile extends Component {
       isUpdateRecruiterDataLoading,
       updateDataMsg,
     } = this.props.recruiter;
-
-    const { recruiter_id } = this.props.auth.data;
     const {
       formData,
       formPassword,
@@ -283,13 +305,23 @@ class RecruiterEditProfile extends Component {
                   </label>
                 </div>
 
-                <h2>{recruiter_company}</h2>
-                <h3>{recruiter_field_company}</h3>
+                <h2>
+                  {recruiter_company ? recruiter_company : "Company Name"}
+                </h2>
+                <h3>
+                  {recruiter_field_company
+                    ? recruiter_field_company
+                    : "Company's Field"}
+                </h3>
                 <span>
                   <img src={PinLocation} alt="map-pin" />
-                  {recruiter_domicile}
+                  {recruiter_domicile ? recruiter_domicile : "Unknown"}
                 </span>
-                <p>{recruiter_description}</p>
+                <p>
+                  {recruiter_description
+                    ? recruiter_description
+                    : "No description for this company"}
+                </p>
               </div>
               <div className={`d-flex flex-column ${styles.actionButton}`}>
                 {isUpdate ? (
@@ -301,10 +333,13 @@ class RecruiterEditProfile extends Component {
                         size="sm"
                         role="status"
                         aria-hidden="true"
+                        className="me-2"
                       />
                       <span className="sr-only"> Loading...</span>
                     </Button>
-                  ) : (
+                  ) : recruiterCompany &&
+                    recruiterFieldCompany &&
+                    recruiterDomicile ? (
                     <Button
                       variant="primary"
                       onClick={() =>
@@ -313,6 +348,10 @@ class RecruiterEditProfile extends Component {
                       className="mb-3"
                     >
                       Submit
+                    </Button>
+                  ) : (
+                    <Button variant="light" className="mb-3" disabled>
+                      Kolom wajib harus terisi
                     </Button>
                   )
                 ) : (
@@ -339,13 +378,42 @@ class RecruiterEditProfile extends Component {
                 <h3>Data diri</h3>
                 <hr />
                 {isUpdateDataSuccess && (
-                  <Alert variant="success">{updateDataMsg}</Alert>
+                  <Alert
+                    variant="success"
+                    className="d-flex align-items-center"
+                    style={{ fontWeight: "600" }}
+                  >
+                    <CheckCircle size={32} className="me-2" />
+                    Selamat! Data anda telah berhasil diperbarui.
+                  </Alert>
                 )}
                 {isUpdateDataError && (
-                  <Alert variant="danger">{updateDataMsg}</Alert>
+                  <Alert
+                    variant="danger"
+                    className="d-flex align-items-center"
+                    style={{ fontWeight: "600" }}
+                  >
+                    <XCircle size={32} className="me-2" />
+                    Gagal! Data tidak dapat diperbarui.
+                  </Alert>
                 )}
                 <Form.Group controlId="company">
-                  <Form.Label>Nama Perusahaan</Form.Label>
+                  <Form.Label>
+                    Nama Perusahaan
+                    {isUpdate && (
+                      <span
+                        style={{
+                          color: "#e83a3a",
+                          fontSize: ".7em",
+                          fontWeight: "600",
+                          paddingLeft: "13px",
+                          paddingBottom: "4px",
+                        }}
+                      >
+                        (Kolom ini wajib diisi)
+                      </span>
+                    )}
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="recruiterCompany"
@@ -356,7 +424,22 @@ class RecruiterEditProfile extends Component {
                 </Form.Group>
 
                 <Form.Group controlId="field">
-                  <Form.Label>Bidang</Form.Label>
+                  <Form.Label>
+                    Bidang
+                    {isUpdate && (
+                      <span
+                        style={{
+                          color: "#e83a3a",
+                          fontSize: ".7em",
+                          fontWeight: "600",
+                          paddingLeft: "13px",
+                          paddingBottom: "4px",
+                        }}
+                      >
+                        (Kolom ini wajib diisi)
+                      </span>
+                    )}
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="recruiterFieldCompany"
@@ -366,7 +449,22 @@ class RecruiterEditProfile extends Component {
                   />
                 </Form.Group>
                 <Form.Group controlId="domicile">
-                  <Form.Label>Domisili</Form.Label>
+                  <Form.Label>
+                    Domisili
+                    {isUpdate && (
+                      <span
+                        style={{
+                          color: "#e83a3a",
+                          fontSize: ".7em",
+                          fontWeight: "600",
+                          paddingLeft: "13px",
+                          paddingBottom: "4px",
+                        }}
+                      >
+                        (Kolom ini wajib diisi)
+                      </span>
+                    )}
+                  </Form.Label>
                   <Form.Control
                     type="text"
                     name="recruiterDomicile"
@@ -431,13 +529,27 @@ class RecruiterEditProfile extends Component {
                 <h3>Ubah Password</h3>
                 <hr />
                 {isUpdatePasswordSuccess ? (
-                  <Alert variant="success">{updatePasswordMsg}</Alert>
+                  <Alert
+                    variant="success"
+                    className="d-flex align-items-center"
+                    style={{ fontWeight: "600" }}
+                  >
+                    <CheckCircle size={32} className="me-2" />
+                    Password anda telah berhasil diperbarui.
+                  </Alert>
                 ) : isUpdatePasswordError ? (
-                  <Alert variant="danger">{updatePasswordMsg}</Alert>
+                  <Alert
+                    variant="danger"
+                    className="d-flex flex-column align-items-center text-center"
+                    style={{ fontWeight: "600" }}
+                  >
+                    <XCircle size={32} className="mb-1 me-2" />
+                    Gagal dikonfirmasi! Coba periksa kembali password yang anda
+                    diinputkan.
+                  </Alert>
                 ) : (
                   <></>
                 )}
-
                 <Form.Group controlId="newPassword">
                   <Form.Label>New Password</Form.Label>
                   <Form.Control
@@ -446,6 +558,7 @@ class RecruiterEditProfile extends Component {
                     value={newPassword}
                     onChange={(e) => this.changeStatePassword(e)}
                     placeholder="Password baru"
+                    required
                   />
                 </Form.Group>
                 <Form.Group controlId="confirmPassword">
@@ -456,33 +569,43 @@ class RecruiterEditProfile extends Component {
                     value={confirmPassword}
                     onChange={(e) => this.changeStatePassword(e)}
                     placeholder="Konfirmasi password"
+                    required
                   />
                 </Form.Group>
                 <Row className={`${styles.changePasswordActionBtn}`}>
                   <Col>
-                    {isUpdateRecruiterPasswordLoading ? (
-                      <Button
-                        variant="outline-primary"
-                        className="w-100"
-                        disabled
-                      >
-                        <Spinner
-                          as="span"
-                          animation="border"
-                          size="sm"
-                          role="status"
-                          aria-hidden="true"
-                        />
-                        <span className="sr-only">Loading...</span>
-                      </Button>
+                    {newPassword && confirmPassword ? (
+                      isUpdateRecruiterPasswordLoading ? (
+                        <Button
+                          variant="outline-primary"
+                          className="w-100"
+                          disabled
+                        >
+                          <Spinner
+                            as="span"
+                            animation="border"
+                            size="sm"
+                            role="status"
+                            aria-hidden="true"
+                          />
+                          <span className="sr-only">Loading...</span>
+                        </Button>
+                      ) : (
+                        <Button
+                          variant="outline-primary"
+                          className="w-100"
+                          onClick={() =>
+                            this.handleUpdatePassword(
+                              recruiter_id,
+                              formPassword
+                            )
+                          }
+                        >
+                          Ubah password
+                        </Button>
+                      )
                     ) : (
-                      <Button
-                        variant="outline-primary"
-                        className="w-100"
-                        onClick={() =>
-                          this.handleUpdatePassword(recruiter_id, formPassword)
-                        }
-                      >
+                      <Button variant="light" className="w-100" disabled>
                         Ubah password
                       </Button>
                     )}

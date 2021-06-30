@@ -1,6 +1,6 @@
 .navbar {
   background-color: #ffffff !important;
-  padding: 42px 120px !important;
+  padding: 20px 120px !important;
 }
 
 .logo {
@@ -31,15 +31,21 @@
   color: #5e50a1;
 }
 
+@media (min-width: 768px) {
+  .navbar {
+    padding: 15px 150px;
+  }
+}
+
 @media (min-width: 1200px) {
   .navbar {
     padding: inherit 150px !important;
   }
 }
 
-@media (max-width: 576px) {
+/* @media (max-width: 576px) {
   .navbar {
     padding-left: 5% !important;
     padding-right: 5% !important;
   }
-}
+} */
