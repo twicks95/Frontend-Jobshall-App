@@ -106,13 +106,7 @@ class WorkerEditProfile extends Component {
       isUpdateExp2: false,
       isUpdatePort: false,
       isUpdatePort2: false,
-<<<<<<< HEAD
-      alert: true,
-      imageDefault: "",
-      isImage: false,
-=======
       missingRequiredInput: false,
->>>>>>> 71d3a9eb4ca36b5e2cd400063ac153df9430a1a0
     };
   }
   componentDidMount() {
@@ -222,12 +216,7 @@ class WorkerEditProfile extends Component {
       },
     });
   };
-<<<<<<< HEAD
-  updateDataWorker = (event) => {
-    this.setState({ alert: false });
-=======
   updateDataWorker = () => {
->>>>>>> 71d3a9eb4ca36b5e2cd400063ac153df9430a1a0
     const id = localStorage.getItem("workerId");
     const {
       workerName,
