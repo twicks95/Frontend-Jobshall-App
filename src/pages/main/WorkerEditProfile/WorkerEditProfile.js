@@ -11,6 +11,7 @@ import {
 } from "react-bootstrap";
 import moment from "moment";
 import NavbarComponent from "../../../components/Navbar/Navbar";
+import defaultImg from "../../../assets/images/defaultprofilepict.png";
 import Footer from "../../../components/Footer/Footer";
 import upload from "../../../assets/img/Vector.png";
 import setImg from "../../../assets/img/Group.png";
@@ -396,6 +397,8 @@ class WorkerEditProfile extends Component {
     });
   };
   handleImage = (event) => {
+    this.setState({ isImage: true });
+    this.setState({ imageDefault: URL.createObjectURL(event.target.files[0]) });
     this.setState({
       formWorker: {
         ...this.state.formWorker,
@@ -550,6 +553,7 @@ class WorkerEditProfile extends Component {
                             name="workerName"
                             value={workerName}
                             onChange={(event) => this.changeText(event)}
+                            required
                           />
                         </Form.Group>
 
@@ -577,6 +581,7 @@ class WorkerEditProfile extends Component {
                             name="workerJobDesk"
                             value={workerJobDesk}
                             onChange={(event) => this.changeText(event)}
+                            required
                           />
                         </Form.Group>
                       </Form.Row>
@@ -605,6 +610,7 @@ class WorkerEditProfile extends Component {
                           name="workerDomicile"
                           value={workerDomicile}
                           onChange={(event) => this.changeText(event)}
+                          required
                         />
                       </Form.Group>
                       <Form.Group>
@@ -631,6 +637,7 @@ class WorkerEditProfile extends Component {
                           name="workerPhone"
                           value={workerPhone}
                           onChange={(event) => this.changeText(event)}
+                          required
                         />
                       </Form.Group>
                       <Form.Group>
@@ -656,6 +663,7 @@ class WorkerEditProfile extends Component {
                           name="workerStatus"
                           value={workerStatus}
                           onChange={(event) => this.changeText(event)}
+                          required
                         >
                           <option>select status</option>
                           <option>freelance</option>
@@ -675,6 +683,7 @@ class WorkerEditProfile extends Component {
                               name="workerInstagram"
                               value={workerInstagram}
                               onChange={(event) => this.changeText(event)}
+                              required
                             />
                           </Form.Group>
                         </Col>
@@ -690,6 +699,7 @@ class WorkerEditProfile extends Component {
                               name="workerGithub"
                               value={workerGithub}
                               onChange={(event) => this.changeText(event)}
+                              required
                             />
                           </Form.Group>
                         </Col>
@@ -705,6 +715,7 @@ class WorkerEditProfile extends Component {
                               name="workerGitlab"
                               value={workerGitlab}
                               onChange={(event) => this.changeText(event)}
+                              required
                             />
                           </Form.Group>
                         </Col>
@@ -721,6 +732,7 @@ class WorkerEditProfile extends Component {
                           name="workerDescription"
                           value={workerDescription}
                           onChange={(event) => this.changeText(event)}
+                          required
                         />
                       </Form.Group>
                       <Button
