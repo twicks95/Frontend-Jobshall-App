@@ -81,7 +81,7 @@ class Home extends Component {
     this.resetSearch(event);
   };
   render() {
-    console.log(this.props);
+    console.log(this.state.data);
     return (
       <>
         <NavbarComponent />
