@@ -8,6 +8,7 @@ import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
 import defaultImg from "../../../assets/images/defaultprofilepict.png";
+import DefaultPicture from "../../../assets/images/defaultprofilepict.png";
 
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -210,7 +211,11 @@ class Portofolio extends Component {
                               <Col sm={4} key={index}>
                                 <Card className={styles.cardPort}>
                                   <Card.Img
-                                    src={`http://localhost:3001/api/${item.portfolio_image}`}
+                                    src={
+                                      item.portfolio_image
+                                        ? `http://localhost:3001/api/${item.portfolio_image}`
+                                        : DefaultPicture
+                                    }
                                     className={styles.portImg}
                                   />
                                   <Card.Text className={styles.portName}>

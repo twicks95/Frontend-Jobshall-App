@@ -82,7 +82,6 @@ class WorkerEditProfile extends Component {
       image: null,
       dataWorker: {},
       dataSkills: [],
-      dataPort: [],
       itemSkills: {},
       dataExperience: [],
       idSkill: "",
@@ -108,6 +107,7 @@ class WorkerEditProfile extends Component {
       missingRequiredInput: false,
       errorUploadImage: false,
       errorMessage: "",
+      emptySkill: false,
     };
   }
   componentDidMount() {
@@ -181,9 +181,7 @@ class WorkerEditProfile extends Component {
     });
   };
   getPort = (id) => {
-    this.props.getPortfolios(id).then((res) => {
-      this.setState({ ...this.state, dataPort: res.action.payload.data.data });
-    });
+    this.props.getPortfolios(id);
   };
   changeText = (event) => {
     this.setState({
@@ -298,10 +296,22 @@ class WorkerEditProfile extends Component {
   };
   createSkill = (event) => {
     event.preventDefault();
-    this.props.createSkill(this.state.formSkill).then(() => {
-      this.props.getSkills(localStorage.getItem("workerId"));
-      this.resetDataSkills();
+    this.setState({
+      ...this.state,
+      emptySkill: false,
     });
+
+    if (this.state.formSkill.skillName) {
+      this.props.createSkill(this.state.formSkill).then(() => {
+        this.props.getSkills(localStorage.getItem("workerId"));
+        this.resetDataSkills();
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        emptySkill: true,
+      });
+    }
   };
   handleBack = () => {
     this.props.history.push("/");
@@ -939,7 +949,12 @@ class WorkerEditProfile extends Component {
                         <Form.Control
                           type="text"
                           placeholder="Java"
-                          className={styles.everyControl}
+                          className={`${styles.everyControl} ${
+                            this.state.emptySkill &&
+                            !this.state.formSkill.skillName
+                              ? styles.borderWarning
+                              : ""
+                          }`}
                           name="skillName"
                           value={skillName}
                           onChange={(event) => this.changeTextSkill(event)}
@@ -1377,9 +1392,16 @@ class WorkerEditProfile extends Component {
                       Tambah Portfolio
                     </Button>
                   )}
+                  <span
+                    style={{ fontWeight: "600", marginBottom: "20px" }}
+                    className="d-flex align-items-center"
+                  >
+                    <Info weight="bold" size={18} className="me-2" /> Click card
+                    to edit portfolio
+                  </span>
                   <Row className={styles.mainRowPort}>
-                    {this.state.dataPort.length > 0 ? (
-                      this.state.dataPort.map((item, index) => (
+                    {this.props.portfolio.portfolios.length > 0 ? (
+                      this.props.portfolio.portfolios.map((item, index) => (
                         <Col
                           xs={10}
                           md={8}
@@ -1399,10 +1421,11 @@ class WorkerEditProfile extends Component {
                             <div>
                               <h4>{item.portfolio_name}</h4>
                               <Link
+                                to={item.portfolio_link_repo}
                                 id="RouterNavLink"
                                 target="_blank"
                                 rel="noreferrer"
-                                to={item.portfolio_link_repo}
+                                className={styles.portfolioLink}
                               >
                                 {item.portfolio_link_repo}
                               </Link>

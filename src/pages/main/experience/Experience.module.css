@@ -35,6 +35,7 @@
   margin-top: 30px;
   margin-bottom: 13px;
   border-radius: 100%;
+  object-fit: cover;
 }
 .title {
   font-style: normal;
@@ -237,4 +238,5 @@
 }
 .imgExp {
   padding: 20px;
+  object-fit: cover;
 }
