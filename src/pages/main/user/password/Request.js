@@ -7,7 +7,7 @@ import { Container, Button, Card } from "react-bootstrap";
 
 class Request extends Component {
   handlePage = () => {
-    this.props.history.push("/request");
+    this.props.history.push("/confirm-password");
   };
   render() {
     return (
@@ -26,7 +26,9 @@ class Request extends Component {
                   The following is the button for you to reset
                   <br /> the password.
                 </p>
-                <Button className={styles.btn1}>Change password</Button>
+                <Button className={styles.btn1} onClick={this.handlePage}>
+                  Change password
+                </Button>
               </Card.Body>
             </Card>
           </div>
