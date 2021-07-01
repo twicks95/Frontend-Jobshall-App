@@ -64,7 +64,13 @@ input[type="file"] {
   border-radius: 50%;
   object-fit: cover;
 }
-
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 8px !important;
+  color: #1f2a36;
+}
 .editPictureButton {
   cursor: pointer;
   text-align: center;

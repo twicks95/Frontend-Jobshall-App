@@ -36,17 +36,16 @@ class RecruiterProfile extends Component {
 
     return (
       <>
-        <NavbarComponent />
+        <NavbarComponent image={recruiter_image} />
         <main className={`${styles.container}`}>
           <div className={`${styles.mainProfile}`}>
             <div className={`${styles.topStripe}`}>
               <img
-                // src={
-                //   recruiter_image
-                //     ? `http://localhost:3001/api/${recruiter_image}`
-                //     : NoProfilePicture
-                // }
-                src={NoProfilePicture}
+                src={
+                  recruiter_image
+                    ? `http://localhost:3001/api/${recruiter_image}`
+                    : NoProfilePicture
+                }
                 alt="avatar"
               />
             </div>

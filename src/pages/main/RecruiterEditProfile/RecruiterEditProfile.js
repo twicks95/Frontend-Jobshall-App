@@ -4,7 +4,7 @@ import NavbarComponent from "../../../components/Navbar/Navbar";
 import FooterComponent from "../../../components/Footer/Footer";
 import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
 import PinLocation from "../../../assets/icons/map-pin.svg";
-import { Alert, Button, Col, Form, Row, Spinner } from "react-bootstrap";
+import { Alert, Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
 import { CheckCircle, PencilSimple, Upload, XCircle } from "phosphor-react";
 import { connect } from "react-redux";
 import {
@@ -34,6 +34,7 @@ class RecruiterEditProfile extends Component {
         newPassword: "",
         confirmPassword: "",
       },
+      show: false,
       image: null,
       isUpdate: false,
       isUpdateDataSuccess: false,
@@ -62,22 +63,22 @@ class RecruiterEditProfile extends Component {
   };
 
   handleUpdateImage = (id, data) => {
-    console.log(this.state.image);
     const formData = new FormData();
-    // formData.append("image", data);
     for (const field in data) {
-      console.log(field);
-      console.log(data[field]);
-      // formData.append(field, data[field]);
+      formData.append(field, data[field]);
     }
-    console.log(formData);
-    // this.props.updateRecruiterImage(id, formData).then(() => {
-    //   this.setState({
-    //     ...this.state,
-    //     image: null,
-    //   });
-    //   this.props.getRecruiterById(id);
-    // });
+    this.props
+      .updateRecruiterImage(id, formData)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          image: null,
+        });
+        this.props.getRecruiterById(id);
+      })
+      .catch(() => {
+        this.setState({ ...this.state, show: true, image: null });
+      });
   };
 
   handleUpdateData = (id, data) => {
@@ -241,11 +242,25 @@ class RecruiterEditProfile extends Component {
       isUpdatePasswordSuccess,
       isUpdatePasswordError,
     } = this.state;
-    console.log(image);
     return (
       <>
-        <NavbarComponent />
+        <NavbarComponent image={recruiter_image} />
         <main className={`${styles.container}`}>
+          <Modal
+            show={this.state.show}
+            onHide={() => {
+              this.setState({ ...this.state, show: false });
+            }}
+          >
+            <Modal.Header>
+              <Modal.Title className={styles.title}>JobShall</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              {this.props.recruiter.isUpdateImageError
+                ? this.props.recruiter.updateImageMsg
+                : "Modal is Work"}
+            </Modal.Body>
+          </Modal>
           <Row md={2} className={`${styles.content}`}>
             <Col xs={12} md={5}>
               <div className={`mb-3 mb-md-0 ${styles.profilePreview}`}>
@@ -261,7 +276,7 @@ class RecruiterEditProfile extends Component {
                     alt="avatar"
                   ></img>
                   {!image ? (
-                    <label for="file">
+                    <label htmlFor="upload">
                       <div
                         className={`d-flex align-items-center ${styles.editPictureButton}`}
                       >
@@ -287,8 +302,7 @@ class RecruiterEditProfile extends Component {
                   )}
                   <input
                     type="file"
-                    id="file"
-                    name="image"
+                    id="upload"
                     onChange={(e) => this.handleFile(e)}
                   />
                 </div>

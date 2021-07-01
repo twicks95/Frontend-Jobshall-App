@@ -23,6 +23,13 @@ export const updateWorkerData = (id, data) => {
   };
 };
 
+export const updateWorkerImage = (id, data) => {
+  return {
+    type: "UPDATE_WORKER_IMAGE",
+    payload: axiosApiInstances.patch(`worker/img/upload/${id}`, data),
+  };
+};
+
 export const deleteWorkerData = (id) => {
   return {
     type: "DELETE_WORKER_BY_ID",

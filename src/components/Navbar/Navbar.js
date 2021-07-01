@@ -19,29 +19,19 @@ class NavbarComponent extends Component {
 
     this.state = {
       isLoggedIn: localStorage.getItem("token"),
-      // avatar: props.auth.data.role,
     };
   }
 
-  // componentDidMount() {
-  //   this.renderAvatar();
-  // }
-
-  renderAvatar = () => {
-    return this.props.auth.data.role === "worker"
-      ? this.props.getWorkerById(this.props.auth.data.worker_id).then(() => {
-          return this.props.worker.worker[0].worker_image
-            ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
-            : NoProfilePicture;
-        })
-      : this.props
-          .getRecruiterById(this.props.auth.data.recruiter_id)
-          .then(() => {
-            return this.props.recruiter.recruiter[0].recruiter_image
-              ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
-              : NoProfilePicture;
-          });
-  };
+  componentDidMount() {
+    const role = localStorage.getItem("role");
+    if (role === "worker") {
+      const workerId = localStorage.getItem("workerId");
+      this.props.getWorkerById(workerId);
+    } else {
+      const recId = localStorage.getItem("recId");
+      this.props.getRecruiterById(recId);
+    }
+  }
 
   renderNav = () => {
     const { isLoggedIn } = this.state;
@@ -74,8 +64,8 @@ class NavbarComponent extends Component {
         </>
       );
     } else if (!isLanding && isLoggedIn) {
-      const { role, worker_image, recruiter_image } = this.props.auth.data;
-
+      const { image } = this.props;
+      const role = localStorage.getItem("role");
       return (
         <>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -103,11 +93,14 @@ class NavbarComponent extends Component {
                 </NavDropdown>
                 <img
                   src={
-                    role === "worker" && this.props.auth.data.worker_image
-                      ? `http://localhost:3001/api/${worker_image}`
+                    image
+                      ? `http://localhost:3001/api/${image}`
+                      : role === "worker" &&
+                        this.props.worker.worker[0].worker_image
+                      ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
                       : role === "recruiter" &&
-                        this.props.auth.data.recruiter_image
-                      ? `http://localhost:3001/api/${recruiter_image}`
+                        this.props.recruiter.recruiter[0].recruiter_image
+                      ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
                       : NoProfilePicture
                   }
                   alt="avatar"
@@ -203,8 +196,6 @@ class NavbarComponent extends Component {
   };
 
   render() {
-    // console.log(this.props.recruiter.recruiter[0].recruiter_image);
-
     return (
       <Navbar
         bg="light"

@@ -17,11 +17,12 @@ import upload from "../../../assets/img/Vector.png";
 import setImg from "../../../assets/img/Group.png";
 import sizeImg from "../../../assets/img/expand 2.png";
 import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
-import { Info, PencilSimple, TrashSimple } from "phosphor-react";
+import { Info, PencilSimple, TrashSimple, Upload } from "phosphor-react";
 
 import {
   getWorkerById,
   updateWorkerData,
+  updateWorkerImage,
   getWorkers,
 } from "../../../redux/actions/worker";
 import {
@@ -61,7 +62,6 @@ class WorkerEditProfile extends Component {
         workerGitlab: this.props.worker.worker[0].worker_gitlab,
         workerInstagram: this.props.worker.worker[0].worker_instagram,
         workerDescription: this.props.worker.worker[0].worker_description,
-        // imageData: null,
       },
       formSkill: {
         workerId: localStorage.getItem("workerId"),
@@ -81,6 +81,7 @@ class WorkerEditProfile extends Component {
         portfolioLink: "",
         image: null,
       },
+      image: null,
       dataWorker: {},
       dataSkills: [],
       dataPort: [],
@@ -107,6 +108,8 @@ class WorkerEditProfile extends Component {
       isUpdatePort: false,
       isUpdatePort2: false,
       missingRequiredInput: false,
+      errorUploadImage: false,
+      errorMessage: "",
     };
   }
   componentDidMount() {
@@ -356,11 +359,7 @@ class WorkerEditProfile extends Component {
       .deleteSkill(id)
       .then((res) => {
         this.props.getSkills(localStorage.getItem("workerId"));
-        // this.setState({ show: true, isDelete: true });
       })
-      .catch((err) => {
-        console.log(err.response);
-      });
   };
   deleteExp = (event) => {
     event.preventDefault();
@@ -397,18 +396,41 @@ class WorkerEditProfile extends Component {
     });
   };
   handleImage = (event) => {
-    this.setState({ isImage: true });
-    this.setState({ imageDefault: URL.createObjectURL(event.target.files[0]) });
+    // this.setState({ isImage: true });
+    // this.setState({ imageDefault: URL.createObjectURL(event.target.files[0]) });
     this.setState({
-      formWorker: {
-        ...this.state.formWorker,
-        imageData: event.target.files[0],
-      },
-      formPortofolio: {
-        ...this.state.formPortofolio,
-        image: event.target.files[0],
-      },
+      ...this.state,
+      image: event.target.files[0],
     });
+  };
+  handleUpdateImage = (id, data) => {
+    this.setState({
+      ...this.state,
+      errorUploadImage: false,
+    });
+
+    const formData = new FormData();
+    for (const field in data) {
+      formData.append(field, data[field]);
+    }
+    this.props
+      .updateWorkerImage(id, formData)
+      .then((res) => {
+        this.setState({
+          ...this.state,
+          image: null,
+        });
+        this.props.getWorkerById(id);
+      })
+      .catch((err) => {
+        this.setState({
+          ...this.state,
+          image: null,
+          show: true,
+          errorUploadImage: true,
+          errorMessage: err.response.data.msg,
+        });
+      });
   };
   handleSetUpdate = (data) => {
     this.setState({
@@ -448,6 +470,7 @@ class WorkerEditProfile extends Component {
   };
   render() {
     const { skillName } = this.state.formSkill;
+    const { worker_id } = this.props.auth.data;
     const {
       workerName,
       workerDomicile,
@@ -471,7 +494,7 @@ class WorkerEditProfile extends Component {
     return (
       <>
         <Container fluid className={styles.mainBackground}>
-          <NavbarComponent />
+          <NavbarComponent image={worker_image} />
           <Container>
             <Row xs={1} lg={2} className={styles.mainRow}>
               <Col lg={5}>
@@ -485,13 +508,37 @@ class WorkerEditProfile extends Component {
                     }
                     className={styles.imgCard}
                   />
-                  <Card.Body>
-                    <label for="file" className={styles.editText}>
-                      Edit
-                    </label>
+                  <Card.Body className="d-flex justify-content-center">
+                    {!this.state.image ? (
+                      <label htmlFor="upload">
+                        <div
+                          className={`d-flex align-items-center ${styles.editPictureButton}`}
+                        >
+                          <PencilSimple
+                            color="#6f7072"
+                            size={24}
+                            weight="fill"
+                            className="me-1"
+                          />
+                          <span>Edit</span>
+                        </div>
+                      </label>
+                    ) : (
+                      <Button
+                        className={styles.changePictureButton}
+                        onClick={() =>
+                          this.handleUpdateImage(worker_id, {
+                            image: this.state.image,
+                          })
+                        }
+                      >
+                        <Upload weight="fill" className="me-1" />
+                        Upload
+                      </Button>
+                    )}
                     <input
                       type="file"
-                      id="file"
+                      id="upload"
                       onChange={(event) => this.handleImage(event)}
                     />
                   </Card.Body>
@@ -775,6 +822,8 @@ class WorkerEditProfile extends Component {
                             ? "Success Update Portfolio"
                             : this.state.missingRequiredInput
                             ? "Please fill in the required input"
+                            : this.state.errorUploadImage
+                            ? this.state.errorMessage
                             : "Modal is Work"}
                         </Modal.Body>
                       </Modal>
@@ -815,7 +864,6 @@ class WorkerEditProfile extends Component {
                       md={this.props.skill.skills.length > 0 ? 4 : 1}
                       className={styles.rowSkill}
                     >
-                      {console.log(this.props.skill)}
                       {this.props.skill.skills.length > 0 ? (
                         this.props.skill.skills.map((item, index) => (
                           <Col key={index}>
@@ -1072,7 +1120,7 @@ class WorkerEditProfile extends Component {
                       <Form.Label className={styles.everyLabelPort}>
                         Upload gambar
                       </Form.Label>
-                      <label for="file">
+                      <label htmlFor="file">
                         <input
                           type="file"
                           id="file"
@@ -1184,6 +1232,7 @@ class WorkerEditProfile extends Component {
   }
 }
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   worker: state.worker,
   skill: state.skill,
   experience: state.experience,
@@ -1193,6 +1242,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   getWorkerById,
   updateWorkerData,
+  updateWorkerImage,
   getWorkers,
   createSkill,
   getSkills,

@@ -50,6 +50,7 @@
   box-shadow: 0 5px 30px rgba(112, 112, 112, 0.185);
 }
 .imgCard {
+  object-fit: cover;
   width: 150px;
   height: 150px;
   text-align: center;
@@ -442,7 +443,27 @@
 .skillBadge .actionButton {
   cursor: pointer;
 }
+.editPictureButton {
+  cursor: pointer;
+  text-align: center;
+  margin: 25px 0px;
+}
+.changePictureButton {
+  font-size: 14px;
+  margin: 25px 0px;
+  padding: 10px 20px;
+}
 
+.editPictureButton .editIcon {
+  width: 24px;
+  height: 24px;
+  margin-right: 6px;
+}
+
+.editPictureButton span {
+  font-weight: 600;
+  font-size: 22px;
+}
 .experienceList {
   border: 1px solid #6f707265;
   border-radius: 5px;
