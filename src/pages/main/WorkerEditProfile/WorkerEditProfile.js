@@ -46,9 +46,6 @@ import {
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 
-// import CardExperience from "../../../components/CardExperience/CardExperience";
-import CardPort from "../../../components/CardPort/CardPort";
-
 class WorkerEditProfile extends Component {
   constructor(props) {
     super(props);

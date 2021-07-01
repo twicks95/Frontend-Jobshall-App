@@ -24,11 +24,8 @@ import RecruiterProfile from "./pages/main/RecruiterProfile/RecruiterProfile";
 import Hire from "./pages/main/hire/hire";
 import RecruiterEditProfile from "./pages/main/RecruiterEditProfile/RecruiterEditProfile";
 import Portofolio from "./pages/main/portfolio/Portfolio";
-
 import PrivateRoute from "../src/helpers/PrivateRoute";
 import PublicRoute from "../src/helpers/PublicRoute";
-
-// import { connect } from "react-redux";
 
 class App extends Component {
   render() {
@@ -66,9 +63,6 @@ class App extends Component {
               <PrivateRoute
                 author="worker"
                 path="/worker/edit"
-                // authorized={
-                //   this.props.auth.data.role === "worker" ? true : false
-                // }
                 exact
                 component={WorkerEditProfile}
               />
@@ -79,13 +73,15 @@ class App extends Component {
               <PrivateRoute
                 author="recruiter"
                 path="/recruiter/profile"
-                // authorized={
-                //   this.props.auth.data.role === "recruiter" ? true : false
-                // }
                 exact
                 component={RecruiterProfile}
               />
-              <Route path="/hire" exact component={Hire} />
+              <PrivateRoute
+                author="recruiter"
+                path="/hire"
+                exact
+                component={Hire}
+              />
               <PrivateRoute
                 author="recruiter"
                 path="/recruiter/edit"
@@ -100,7 +96,4 @@ class App extends Component {
   }
 }
 
-// const mapStateToProps = (state) => ({ auth: state.auth });
-
-// export default connect(mapStateToProps, null)(App);
 export default App;

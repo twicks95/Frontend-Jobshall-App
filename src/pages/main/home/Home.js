@@ -12,6 +12,7 @@ import { getWorkers, getWorkerById } from "../../../redux/actions/worker";
 import { getRecruiterById } from "../../../redux/actions/recruiter";
 import { getAllSkills } from "../../../redux/actions/skill";
 import qs from "query-string";
+import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
 
 class Home extends Component {
   constructor(props) {
@@ -150,7 +151,11 @@ class Home extends Component {
                         <Col className={styles.colImg} sm={2}>
                           <Card.Img
                             variant="left"
-                            src={`http://localhost:3001/api/${item.worker_image}`}
+                            src={
+                              item.worker_image
+                                ? `http://localhost:3001/api/${item.worker_image}`
+                                : NoProfilePicture
+                            }
                             className={styles.imgProfile}
                           />
                         </Col>
