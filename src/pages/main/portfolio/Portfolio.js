@@ -8,6 +8,7 @@ import ig from "../../../assets/img/instagram.png";
 import github from "../../../assets/img/github.png";
 import gitlab from "../../../assets/img/gitlab.png";
 import defaultImg from "../../../assets/images/defaultprofilepict.png";
+import DefaultPicture from "../../../assets/images/defaultprofilepict.png";
 
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -49,9 +50,14 @@ class Portofolio extends Component {
       this.setState({ dataSkill: res.action.payload.data.data });
     });
   };
-  handleHire = () => {
+  handleEdit = () => {
     this.props.history.push(
       `/worker/edit?id=${localStorage.getItem("workerId")}`
+    );
+  };
+  handleHire = () => {
+    this.props.history.push(
+      `/hire?id=${this.props.worker.worker[0].worker_id}`
     );
   };
   render() {
@@ -104,12 +110,21 @@ class Portofolio extends Component {
                         ? this.state.data.worker_description
                         : "Tell about yourself"}
                     </div>
-                    <Button
-                      className={styles.btnHire}
-                      onClick={this.handleHire}
-                    >
-                      Edit Profile
-                    </Button>
+                    {this.props.auth.data.role === "worker" ? (
+                      <Button
+                        className={styles.btnHire}
+                        onClick={this.handleEdit}
+                      >
+                        Edit Profile
+                      </Button>
+                    ) : (
+                      <Button
+                        className={styles.btnHire}
+                        onClick={this.handleHire}
+                      >
+                        Hire
+                      </Button>
+                    )}
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
                       {this.state.dataSkill.map((item, index) => {
@@ -192,12 +207,15 @@ class Portofolio extends Component {
                       {this.state.dataPort.length <= 0
                         ? "Belum ada Data"
                         : this.state.dataPort.map((item, index) => {
-                            console.log(index);
                             return (
                               <Col sm={4} key={index}>
                                 <Card className={styles.cardPort}>
                                   <Card.Img
-                                    src={`http://localhost:3001/api/${item.portfolio_image}`}
+                                    src={
+                                      item.portfolio_image
+                                        ? `http://localhost:3001/api/${item.portfolio_image}`
+                                        : DefaultPicture
+                                    }
                                     className={styles.portImg}
                                   />
                                   <Card.Text className={styles.portName}>
@@ -221,6 +239,7 @@ class Portofolio extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   experience: state.experience,
   worker: state.worker,
   skill: state.skill,

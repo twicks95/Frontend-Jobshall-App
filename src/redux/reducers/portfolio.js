@@ -29,7 +29,7 @@ const portfolio = (state = initialState, action) => {
     case "GET_PORTFOLIOS_FULFILLED":
       return {
         ...state,
-        experiences: action.payload,
+        portfolios: action.payload.data.data,
         isGetPortfoliosLoading: false,
         isGetPortfoliosError: false,
         getMsg: action.payload.data.data.msg,
@@ -37,7 +37,7 @@ const portfolio = (state = initialState, action) => {
     case "GET_PORTFOLIOS_REJECTED":
       return {
         ...state,
-        experiences: [],
+        portfolios: [],
         isGetPortfoliosLoading: false,
         isGetPortfoliosError: true,
         getMsg: action.payload.response.data.msg,
