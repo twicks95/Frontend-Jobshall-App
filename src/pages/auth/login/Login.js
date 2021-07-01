@@ -102,7 +102,10 @@ class Login extends Component {
                 Masuk akun yang di telah daftarkan, dan mulailah untuk
                 eksplorasi perusahaan atau kandidat yang anda inginkan sekarang!
               </p>
-              <Form className={styles.mainForm}>
+              <Form
+                className={styles.mainForm}
+                onSubmit={(event) => this.handleLogin(event)}
+              >
                 {this.state.isError && (
                   <Alert variant="danger" className="d-flex align-items-center">
                     <WarningCircle size={24} weight="bold" className="me-2" />
@@ -120,6 +123,7 @@ class Login extends Component {
                     value={Email}
                     className={styles.control}
                     onChange={(event) => this.changeText(event)}
+                    required
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicPass">
@@ -131,33 +135,36 @@ class Login extends Component {
                     value={Password}
                     className={styles.control}
                     onChange={(event) => this.changeText(event)}
+                    required
                   />
                 </Form.Group>
+
+                <Link to="reset-password" className={styles.forgotPass}>
+                  Lupa kata sandi ?
+                </Link>
+                {this.props.auth.data.isLoading ? (
+                  <Button
+                    variant="primary"
+                    disabled
+                    className={styles.btnSubmit}
+                    type="submit"
+                  >
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                    <span className="sr-only">Loading...</span>
+                  </Button>
+                ) : (
+                  <Button block className={styles.btnSubmit} type="submit">
+                    Masuk
+                  </Button>
+                )}
               </Form>
-              <Link to="reset-password" className={styles.forgotPass}>
-                Lupa kata sandi ?
-              </Link>
-              {this.props.auth.data.isLoading ? (
-                <Button variant="primary" disabled className={styles.btnSubmit}>
-                  <Spinner
-                    as="span"
-                    animation="border"
-                    size="sm"
-                    role="status"
-                    aria-hidden="true"
-                    className="me-2"
-                  />
-                  <span className="sr-only">Loading...</span>
-                </Button>
-              ) : (
-                <Button
-                  block
-                  className={styles.btnSubmit}
-                  onClick={(event) => this.handleLogin(event)}
-                >
-                  Masuk
-                </Button>
-              )}
               <p className={styles.register}>
                 Anda belum punya akun?{" "}
                 <Link to="/register-worker" className={styles.onReg}>

@@ -41,13 +41,24 @@ class App extends Component {
                 component={RegisterRecruiter}
               />
               <Route path="/reset-password" exact component={ResetPassword} />
-              <Route
+              <PublicRoute
                 path="/confirm-password"
                 exact
                 component={ConfirmPassword}
+                restricted={true}
               />
-              <Route path="/pass-login" exact component={PassLogin} />
-              <PublicRoute path="/req-pass" exact component={Request} />
+              <PublicRoute
+                path="/pass-login"
+                restricted={true}
+                exact
+                component={PassLogin}
+              />
+              <PublicRoute
+                path="/req-pass"
+                restricted={true}
+                exact
+                component={Request}
+              />
               <PublicRoute
                 restricted={true}
                 path="/login"
