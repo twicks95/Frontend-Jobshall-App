@@ -5,13 +5,14 @@ import FooterComponent from "../../../components/Footer/Footer";
 import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
 import PinLocation from "../../../assets/icons/map-pin.svg";
 import { Alert, Button, Col, Form, Modal, Row, Spinner } from "react-bootstrap";
-import { CheckCircle, PencilSimple, Upload, XCircle } from "phosphor-react";
+import { CheckCircle, PencilSimple, Upload, X, XCircle } from "phosphor-react";
 import { connect } from "react-redux";
 import {
   getRecruiterById,
   updateRecruiterImage,
   updateRecruiterData,
   updateRecruiterPassword,
+  deleteRecruiterImage,
 } from "../../../redux/actions/recruiter";
 
 class RecruiterEditProfile extends Component {
@@ -80,7 +81,12 @@ class RecruiterEditProfile extends Component {
         this.setState({ ...this.state, show: true, image: null });
       });
   };
-
+  handleDeleteImage = () => {
+    const id = localStorage.getItem("recId");
+    this.props.deleteRecruiterImage(id).then(() => {
+      this.props.getRecruiterById(id);
+    });
+  };
   handleUpdateData = (id, data) => {
     this.props
       .updateRecruiterData(id, data)
@@ -274,7 +280,15 @@ class RecruiterEditProfile extends Component {
                         : NoProfilePicture
                     }
                     alt="avatar"
-                  ></img>
+                  />
+                  <div className="d-flex justify-content-center">
+                    <div
+                      className={styles.deleteBtn}
+                      onClick={this.handleDeleteImage}
+                    >
+                      <X weight="bold" className="me-1" /> Remove
+                    </div>
+                  </div>
                   {!image ? (
                     <label htmlFor="upload">
                       <div
@@ -642,6 +656,7 @@ const mapDispatchToProps = {
   updateRecruiterImage,
   updateRecruiterData,
   updateRecruiterPassword,
+  deleteRecruiterImage,
 };
 
 export default connect(
