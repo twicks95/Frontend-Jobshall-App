@@ -79,7 +79,7 @@ class Home extends Component {
   handleSearch = (event) => {
     this.allWorkers(this.state.sort);
     this.changeTextSearch(event);
-    this.resetSearch(event);
+    // this.resetSearch(event);
   };
   render() {
     return (
