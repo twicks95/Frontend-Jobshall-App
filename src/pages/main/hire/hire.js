@@ -171,6 +171,7 @@ class Hire extends Component {
                     rows={10}
                     placeholder="Deskripsikan/jelaskan lebih detail "
                     name="message"
+                    value={this.state.form.message}
                     onChange={(event) => this.changeText(event)}
                   />
                 </Form.Group>
