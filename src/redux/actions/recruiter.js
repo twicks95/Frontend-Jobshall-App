@@ -34,3 +34,10 @@ export const deleteRecruiterData = (id) => {
     payload: axiosApiInstances.delete(`recruiter/${id}`),
   };
 };
+
+export const deleteRecruiterImage = (id) => {
+  return {
+    type: "DELETE_RECRUITER_IMAGE",
+    payload: axiosApiInstances.delete(`recruiter/img/delete/${id}`),
+  };
+};

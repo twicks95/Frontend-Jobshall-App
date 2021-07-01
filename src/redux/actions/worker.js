@@ -30,6 +30,12 @@ export const updateWorkerImage = (id, data) => {
   };
 };
 
+export const deleteWorkerImage = (id) => {
+  return {
+    type: "DELETE_WORKER_IMAGE",
+    payload: axiosApiInstances.delete(`worker/img/delete/${id}`),
+  };
+};
 export const deleteWorkerData = (id) => {
   return {
     type: "DELETE_WORKER_BY_ID",
