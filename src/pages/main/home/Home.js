@@ -213,7 +213,9 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   worker: state.worker,
+  recruiter: state.recruiter,
   skill: state.skill,
 });
 const mapDispatchToProps = { getWorkers, getAllSkills };
