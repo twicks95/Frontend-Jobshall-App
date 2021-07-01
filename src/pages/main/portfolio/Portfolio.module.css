@@ -38,6 +38,7 @@
   margin-top: 30px;
   margin-bottom: 13px;
   border-radius: 100%;
+  object-fit: cover;
 }
 .title {
   font-style: normal;
@@ -224,6 +225,7 @@
 .portImg {
   width: 219px;
   height: 148px;
+  object-fit: cover;
 }
 .portName {
   font-style: normal;

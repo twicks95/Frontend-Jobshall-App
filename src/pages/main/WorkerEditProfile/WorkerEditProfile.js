@@ -82,7 +82,6 @@ class WorkerEditProfile extends Component {
       image: null,
       dataWorker: {},
       dataSkills: [],
-      dataPort: [],
       itemSkills: {},
       dataExperience: [],
       idSkill: "",
@@ -182,9 +181,7 @@ class WorkerEditProfile extends Component {
     });
   };
   getPort = (id) => {
-    this.props.getPortfolios(id).then((res) => {
-      this.setState({ ...this.state, dataPort: res.action.payload.data.data });
-    });
+    this.props.getPortfolios(id);
   };
   changeText = (event) => {
     this.setState({
@@ -1403,8 +1400,8 @@ class WorkerEditProfile extends Component {
                     to edit portfolio
                   </span>
                   <Row className={styles.mainRowPort}>
-                    {this.state.dataPort.length > 0 ? (
-                      this.state.dataPort.map((item, index) => (
+                    {this.props.portfolio.portfolios.length > 0 ? (
+                      this.props.portfolio.portfolios.map((item, index) => (
                         <Col
                           xs={10}
                           md={8}
@@ -1424,10 +1421,11 @@ class WorkerEditProfile extends Component {
                             <div>
                               <h4>{item.portfolio_name}</h4>
                               <Link
+                                to={item.portfolio_link_repo}
                                 id="RouterNavLink"
                                 target="_blank"
                                 rel="noreferrer"
-                                to={item.portfolio_link_repo}
+                                className={styles.portfolioLink}
                               >
                                 {item.portfolio_link_repo}
                               </Link>

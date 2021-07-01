@@ -536,6 +536,14 @@
   box-shadow: 0 0 1px 1px red;
   transition: all 0.2s ease-in-out;
 }
+.portfolioLink {
+  font-weight: 600;
+  z-index: 100;
+  transition: all 0.2s ease-in-out;
+}
+.portfolioLink:hover {
+  color: #fbb017;
+}
 
 @media (min-width: 576px) {
   .mainRow {
