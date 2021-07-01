@@ -108,6 +108,7 @@ class WorkerEditProfile extends Component {
       missingRequiredInput: false,
       errorUploadImage: false,
       errorMessage: "",
+      emptySkill: false,
     };
   }
   componentDidMount() {
@@ -298,10 +299,22 @@ class WorkerEditProfile extends Component {
   };
   createSkill = (event) => {
     event.preventDefault();
-    this.props.createSkill(this.state.formSkill).then(() => {
-      this.props.getSkills(localStorage.getItem("workerId"));
-      this.resetDataSkills();
+    this.setState({
+      ...this.state,
+      emptySkill: false,
     });
+
+    if (this.state.formSkill.skillName) {
+      this.props.createSkill(this.state.formSkill).then(() => {
+        this.props.getSkills(localStorage.getItem("workerId"));
+        this.resetDataSkills();
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        emptySkill: true,
+      });
+    }
   };
   handleBack = () => {
     this.props.history.push("/");
@@ -939,7 +952,12 @@ class WorkerEditProfile extends Component {
                         <Form.Control
                           type="text"
                           placeholder="Java"
-                          className={styles.everyControl}
+                          className={`${styles.everyControl} ${
+                            this.state.emptySkill &&
+                            !this.state.formSkill.skillName
+                              ? styles.borderWarning
+                              : ""
+                          }`}
                           name="skillName"
                           value={skillName}
                           onChange={(event) => this.changeTextSkill(event)}

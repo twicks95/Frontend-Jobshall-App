@@ -532,6 +532,10 @@
   font-size: 12px;
   text-decoration: none;
 }
+.borderWarning {
+  box-shadow: 0 0 1px 1px red;
+  transition: all 0.2s ease-in-out;
+}
 
 @media (min-width: 576px) {
   .mainRow {
