@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styles from "./Home.module.css";
-// import imgDummy from "../../../assets/img/Ellipse 326.png";
 import ReactPaginate from "react-paginate";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
@@ -32,7 +31,6 @@ class Home extends Component {
   componentDidMount() {
     this.allWorkers();
     this.props.getRecruiterById(localStorage.getItem("recId"));
-    // this.getDataSkills();
   }
 
   allWorkers = () => {
@@ -60,8 +58,6 @@ class Home extends Component {
     });
   };
   changeTextSearch = (event) => {
-    // this.state.search === "" && this.allWorkers();
-    // this.allWorkers();
     this.setState({ [event.target.name]: event.target.value });
   };
   resetSearch = (event) => {
@@ -79,7 +75,6 @@ class Home extends Component {
   handleSearch = (event) => {
     this.allWorkers(this.state.sort);
     this.changeTextSearch(event);
-    // this.resetSearch(event);
   };
   render() {
     return (

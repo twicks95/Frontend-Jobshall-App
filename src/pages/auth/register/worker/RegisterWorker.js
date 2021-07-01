@@ -46,7 +46,6 @@ class RegisterWorker extends Component {
         .registerWorker(this.state.form)
         .then((result) => {
           this.props.history.push("/login");
-          // localStorage.setItem("token", this.props.auth.data.token);
         })
         .catch((error) => {
           this.setState({ isError: true });

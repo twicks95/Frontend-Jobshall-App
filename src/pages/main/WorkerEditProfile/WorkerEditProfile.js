@@ -481,8 +481,6 @@ class WorkerEditProfile extends Component {
     });
   };
   handleImage = (event) => {
-    // this.setState({ isImage: true });
-    // this.setState({ imageDefault: URL.createObjectURL(event.target.files[0]) });
     this.setState({
       ...this.state,
       image: event.target.files[0],
