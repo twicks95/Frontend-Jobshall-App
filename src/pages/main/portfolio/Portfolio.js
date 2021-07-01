@@ -50,7 +50,9 @@ class Portofolio extends Component {
     });
   };
   handleHire = () => {
-    this.props.history.push(`/worker/edit/${localStorage.getItem("workerId")}`);
+    this.props.history.push(
+      `/worker/edit?id=${localStorage.getItem("workerId")}`
+    );
   };
   render() {
     return (
