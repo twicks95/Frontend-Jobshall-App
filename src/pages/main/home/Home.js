@@ -114,7 +114,10 @@ class Home extends Component {
                 <option className={styles.listDropdown} value="worker_name ASC">
                   Sortir berdasarkan Nama
                 </option>
-                <option className={styles.listDropdown} value="skill_name ASC">
+                <option
+                  className={styles.listDropdown}
+                  value="jumlah_skill DESC"
+                >
                   Sortir berdasarkan Skill
                 </option>
                 <option
@@ -164,10 +167,10 @@ class Home extends Component {
                             </p>
                             <Row className={styles.skillRow}></Row>
 
-                            <Col xs={5} key={index}>
+                            <Col xs={5}>
                               <BadgeHome
                                 data={item.worker_id}
-                                dataSkill={this.state.dataSkills}
+                                dataSkill={item.skill}
                               />
                             </Col>
                           </Card.Body>

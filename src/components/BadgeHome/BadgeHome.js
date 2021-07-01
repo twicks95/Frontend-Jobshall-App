@@ -25,7 +25,7 @@ class BadgeHome extends Component {
   render() {
     return (
       <>
-        {this.state.dataSkill.map((item, index) => {
+        {this.props.dataSkill.map((item, index) => {
           return <Badge className={styles.BadgeSkill}>{item.skill_name}</Badge>;
         })}
       </>
