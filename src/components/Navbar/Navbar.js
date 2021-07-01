@@ -66,6 +66,7 @@ class NavbarComponent extends Component {
     } else if (!isLanding && isLoggedIn) {
       const { image } = this.props;
       const role = localStorage.getItem("role");
+      console.log(image);
       return (
         <>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -101,9 +102,6 @@ class NavbarComponent extends Component {
                       : role === "recruiter" &&
                         this.props.auth.data.recruiter_image
                       ? `http://localhost:3001/api/${this.props.auth.data.recruiter_image}`
-                      : role === "recruiter" &&
-                        this.props.recruiter.recruiter[0].recruiter_image
-                      ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
                       : NoProfilePicture
                   }
                   alt="avatar"
