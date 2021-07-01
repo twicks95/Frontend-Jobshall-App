@@ -8,7 +8,8 @@ import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
 import seacrh from "../../../assets/img/search (1) 1.png";
 import BadgeHome from "../../../components/BadgeHome/BadgeHome";
 import { connect } from "react-redux";
-import { getWorkers } from "../../../redux/actions/worker";
+import { getWorkers, getWorkerById } from "../../../redux/actions/worker";
+import { getRecruiterById } from "../../../redux/actions/recruiter";
 import { getAllSkills } from "../../../redux/actions/skill";
 import qs from "query-string";
 
@@ -29,7 +30,7 @@ class Home extends Component {
   }
   componentDidMount() {
     this.allWorkers();
-
+    this.props.getRecruiterById(localStorage.getItem("recId"));
     // this.getDataSkills();
   }
 
@@ -81,10 +82,9 @@ class Home extends Component {
     this.resetSearch(event);
   };
   render() {
-    console.log(this.state.data);
     return (
       <>
-        <NavbarComponent />
+        <NavbarComponent image={this.props.auth.data.recruiter_image} />
         <Container fluid className={styles.main}>
           <Container>
             <h1 className={styles.mainNav}>Top Jobs</h1>
@@ -218,5 +218,10 @@ const mapStateToProps = (state) => ({
   recruiter: state.recruiter,
   skill: state.skill,
 });
-const mapDispatchToProps = { getWorkers, getAllSkills };
+const mapDispatchToProps = {
+  getWorkerById,
+  getWorkers,
+  getRecruiterById,
+  getAllSkills,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
