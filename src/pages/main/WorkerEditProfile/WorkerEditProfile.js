@@ -1395,6 +1395,13 @@ class WorkerEditProfile extends Component {
                       Tambah Portfolio
                     </Button>
                   )}
+                  <span
+                    style={{ fontWeight: "600", marginBottom: "20px" }}
+                    className="d-flex align-items-center"
+                  >
+                    <Info weight="bold" size={18} className="me-2" /> Click card
+                    to edit portfolio
+                  </span>
                   <Row className={styles.mainRowPort}>
                     {this.state.dataPort.length > 0 ? (
                       this.state.dataPort.map((item, index) => (
