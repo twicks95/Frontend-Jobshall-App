@@ -6,8 +6,9 @@
   .btn1 {
     right: 23px !important;
   }
-  .dropdown {
-    left: 120px !important;
+  .dropdownMain {
+    right: 150px !important;
+    width: 20px !important;
     border: solid white !important;
   }
   .mainControl {
@@ -130,12 +131,12 @@
 }
 .imgSearch {
   position: absolute;
-  top: 300px;
-  right: 400px;
+  top: 254px;
+  right: 530px;
 }
 .btn1 {
   position: absolute;
-  top: 288px;
+  top: 238px;
   right: 128px;
   background: #5e50a1;
   border-radius: 4px;
@@ -198,8 +199,12 @@
 
 .dropdownMain {
   position: absolute;
-  top: 290px;
-  right: 380px;
+  top: 239px;
+  right: 260px;
+  height: 54px;
+  border: none;
+  border-left: 1px solid black;
+  padding-left: 15px;
 }
 .listDropdown {
   font-family: " Open Sans", sans-serif;
