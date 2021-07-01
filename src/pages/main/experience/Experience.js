@@ -59,7 +59,6 @@ class Experience extends Component {
     );
   };
   render() {
-    console.log(this.props);
     return (
       <>
         <NavbarComponent />

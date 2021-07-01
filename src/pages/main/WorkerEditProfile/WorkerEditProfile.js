@@ -570,7 +570,6 @@ class WorkerEditProfile extends Component {
     });
   };
   render() {
-    console.log(this.props);
     const { skillName } = this.state.formSkill;
     const { worker_id } = this.props.auth.data;
     const {

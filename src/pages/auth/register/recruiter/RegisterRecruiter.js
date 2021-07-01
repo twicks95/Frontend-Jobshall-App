@@ -76,7 +76,6 @@ class RegisterRecruiter extends Component {
       recruiterPassword,
       recruiterConPass,
     } = this.state.form;
-    console.log(this.state.form);
     return (
       <>
         <Container>

@@ -35,7 +35,6 @@ class Portofolio extends Component {
     this.getSkill(id);
   }
   getPort = (id) => {
-    console.log(id);
     this.props.getPortfolios(id).then((res) => {
       this.setState({ dataPort: res.action.payload.data.data });
     });

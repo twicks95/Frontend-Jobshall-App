@@ -69,7 +69,6 @@ class Home extends Component {
     this.setState({ search: "" });
   };
   handleSort = (event) => {
-    console.log(event.target.value);
     this.setState({ sort: event.target.value });
     this.allWorkers();
   };
@@ -144,7 +143,6 @@ class Home extends Component {
             <Card className={styles.userCard}>
               {this.state.data.length > 0 ? (
                 this.state.data.map((item, index) => {
-                  // console.log(item);
                   return (
                     <Card key={index} className={styles.mainCardUser}>
                       <Row>
