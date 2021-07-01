@@ -3,17 +3,36 @@ import styles from "./Password.module.css";
 import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axiosApiInstances from "../../../../utils/axios";
 // import { Link } from "react-router-dom";
 
 class ResetPassword extends Component {
   constructor() {
     super();
     this.state = {
-      form: {},
+      form: { userEmail: "" },
     };
   }
+
   handlePage = () => {
-    this.props.history.push("/confirm-password");
+    axiosApiInstances
+      .post("/auth/reset-password", this.state.form)
+      .then((res) => {
+        alert(res.data.msg);
+        localStorage.setItem("userEmail", this.state.form.userEmail);
+      })
+      .catch((err) => {
+        alert(err.response.data.msg);
+      });
+  };
+
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
   };
   render() {
     return (
@@ -52,6 +71,8 @@ class ResetPassword extends Component {
                     type="email"
                     placeholder="Masukan alamat email"
                     className={styles.control}
+                    onChange={this.changeText}
+                    name="userEmail"
                   />
                 </Form.Group>
               </Form>

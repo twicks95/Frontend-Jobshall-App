@@ -3,11 +3,40 @@ import styles from "./Password.module.css";
 import logo from "../../../../assets/img/Group 978 1.png";
 import logo1 from "../../../../assets/img/Group 980 1.png";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import axiosApiInstances from "../../../../utils/axios";
 // import { Link } from "react-router-dom";
 
 class ConfirmPassword extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        newPassword: "",
+        confirmNewPassword: "",
+        userEmail: localStorage.getItem("userEmail"),
+      },
+    };
+  }
+
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
+
   handlePage = () => {
-    this.props.history.push("/pass-login");
+    axiosApiInstances
+      .patch("/auth/reset-password", this.state.form)
+      .then((res) => {
+        alert(res.data.msg);
+        this.props.history.push("/pass-login");
+      })
+      .catch((err) => {
+        alert(err.response.data.msg);
+      });
   };
   render() {
     return (
@@ -44,6 +73,8 @@ class ConfirmPassword extends Component {
                     type="password"
                     placeholder="Masukan kata sandi"
                     className={styles.control}
+                    name="newPassword"
+                    onChange={this.changeText}
                   />
                 </Form.Group>
                 <Form.Group controlId="formBasicConPass">
@@ -54,6 +85,8 @@ class ConfirmPassword extends Component {
                     type="password"
                     placeholder="Masukan konfirmasi kata sandi"
                     className={styles.control}
+                    name="confirmNewPassword"
+                    onChange={this.changeText}
                   />
                 </Form.Group>
               </Form>

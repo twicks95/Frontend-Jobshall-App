@@ -6,8 +6,27 @@ import { Container, Row, Col, Form, Button } from "react-bootstrap";
 // import { Link } from "react-router-dom";
 
 class PassLogin extends Component {
+  constructor() {
+    super();
+    this.state = {
+      form: {
+        newPassword: "",
+        confirmNewPassword: "",
+        userEmail: localStorage.getItem("userEmail"),
+      },
+    };
+  }
+
+  changeText = (event) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [event.target.name]: event.target.value,
+      },
+    });
+  };
   handlePage = () => {
-    this.props.history.push("/req-pass");
+    this.props.history.push("/");
   };
   render() {
     return (
