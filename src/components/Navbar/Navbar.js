@@ -98,8 +98,9 @@ class NavbarComponent extends Component {
                       : role === "worker" &&
                         this.props.worker.worker[0].worker_image
                       ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
-                      : role === "recruiter" &&
-                        this.props.recruiter.recruiter[0].recruiter_image
+                      : (role === "recruiter" &&
+                          this.props.recruiter.recruiter[0].recruiter_image) ||
+                        this.props.auth.data.recruiter_image
                       ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
                       : NoProfilePicture
                   }

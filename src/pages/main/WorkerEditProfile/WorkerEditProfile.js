@@ -11,7 +11,6 @@ import {
 } from "react-bootstrap";
 import moment from "moment";
 import NavbarComponent from "../../../components/Navbar/Navbar";
-// import defaultImg from "../../../assets/images/defaultprofilepict.png";
 import Footer from "../../../components/Footer/Footer";
 import upload from "../../../assets/img/Vector.png";
 import setImg from "../../../assets/img/Group.png";
