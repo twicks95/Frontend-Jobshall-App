@@ -11,7 +11,6 @@ import {
 } from "react-bootstrap";
 import moment from "moment";
 import NavbarComponent from "../../../components/Navbar/Navbar";
-import defaultImg from "../../../assets/images/defaultprofilepict.png";
 import Footer from "../../../components/Footer/Footer";
 import upload from "../../../assets/img/Vector.png";
 import setImg from "../../../assets/img/Group.png";
@@ -355,11 +354,9 @@ class WorkerEditProfile extends Component {
     });
   };
   deleteSkill = (id) => {
-    this.props
-      .deleteSkill(id)
-      .then((res) => {
-        this.props.getSkills(localStorage.getItem("workerId"));
-      })
+    this.props.deleteSkill(id).then((res) => {
+      this.props.getSkills(localStorage.getItem("workerId"));
+    });
   };
   deleteExp = (event) => {
     event.preventDefault();
