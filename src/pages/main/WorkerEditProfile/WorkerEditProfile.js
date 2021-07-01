@@ -16,13 +16,14 @@ import upload from "../../../assets/img/Vector.png";
 import setImg from "../../../assets/img/Group.png";
 import sizeImg from "../../../assets/img/expand 2.png";
 import NoProfilePicture from "../../../assets/images/defaultprofilepict.png";
-import { Info, PencilSimple, TrashSimple, Upload } from "phosphor-react";
+import { Info, PencilSimple, TrashSimple, Upload, X } from "phosphor-react";
 
 import {
   getWorkerById,
   updateWorkerData,
   updateWorkerImage,
   getWorkers,
+  deleteWorkerImage,
 } from "../../../redux/actions/worker";
 import {
   createSkill,
@@ -43,9 +44,7 @@ import {
   updatePortfolio,
 } from "../../../redux/actions/portfolio";
 import { connect } from "react-redux";
-
-// import CardExperience from "../../../components/CardExperience/CardExperience";
-import CardPort from "../../../components/CardPort/CardPort";
+import { Link } from "react-router-dom";
 
 class WorkerEditProfile extends Component {
   constructor(props) {
@@ -183,7 +182,7 @@ class WorkerEditProfile extends Component {
   };
   getPort = (id) => {
     this.props.getPortfolios(id).then((res) => {
-      this.setState({ dataPort: res.action.payload.data.data });
+      this.setState({ ...this.state, dataPort: res.action.payload.data.data });
     });
   };
   changeText = (event) => {
@@ -308,17 +307,47 @@ class WorkerEditProfile extends Component {
     this.props.history.push("/");
   };
   createPort = (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-    formData.append("workerId", localStorage.getItem("workerId"));
-    formData.append("portfolioName", this.state.formPortofolio.portfolioName);
-    formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
-    formData.append("image", this.state.formPortofolio.image);
-    this.props.createPortfolio(formData).then((res) => {
-      this.setState({ show: true, isCreatePort: true });
-      this.getPort(localStorage.getItem("workerId"));
-      this.resetDataPort(event);
+    const { portfolioName, portfolioLink } = this.state.formPortofolio;
+
+    this.setState({
+      ...this.state,
+      missingRequiredInput: false,
+      errorUploadImage: false,
     });
+
+    if (portfolioName && portfolioLink) {
+      const formData = new FormData();
+      formData.append("workerId", localStorage.getItem("workerId"));
+      formData.append("portfolioName", this.state.formPortofolio.portfolioName);
+      formData.append("portfolioLink", this.state.formPortofolio.portfolioLink);
+      formData.append("image", this.state.formPortofolio.image);
+
+      this.props
+        .createPortfolio(formData)
+        .then((res) => {
+          this.setState({ show: true, isCreatePort: true });
+          this.getPort(localStorage.getItem("workerId"));
+          this.resetDataPort(event);
+        })
+        .catch((err) => {
+          this.setState({
+            ...this.state,
+            formPortofolio: {
+              ...this.state.formPortofolio,
+              image: null,
+            },
+            show: true,
+            errorUploadImage: true,
+            errorMessage: err.response.data.msg,
+          });
+        });
+    } else {
+      this.setState({
+        ...this.state,
+        show: true,
+        missingRequiredInput: true,
+      });
+    }
   };
   updateSkill = (event) => {
     event.preventDefault();
@@ -332,12 +361,36 @@ class WorkerEditProfile extends Component {
     });
   };
   updateExp = (event) => {
-    const { idExp, formExperience } = this.state;
-    this.props.updateExperience(idExp, formExperience).then((res) => {
-      this.setState({ show: true, isUpdateExp2: true, isUpdate: false });
-      this.getExperienceId(localStorage.getItem("workerId"));
-      this.resetDataExp(event);
+    this.setState({
+      ...this.state,
+      missingRequiredInput: false,
     });
+    const {
+      experienceCompany,
+      experiencePosition,
+      experienceDateStart,
+      experienceDateEnd,
+    } = this.state.formExperience;
+
+    if (
+      experienceCompany &&
+      experiencePosition &&
+      experienceDateStart &&
+      experienceDateEnd
+    ) {
+      const { idExp, formExperience } = this.state;
+      this.props.updateExperience(idExp, formExperience).then((res) => {
+        this.setState({ show: true, isUpdateExp2: true, isUpdate: false });
+        this.getExperienceId(localStorage.getItem("workerId"));
+        this.resetDataExp(event);
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        show: true,
+        missingRequiredInput: true,
+      });
+    }
   };
   updatePort = (event) => {
     event.preventDefault();
@@ -373,16 +426,41 @@ class WorkerEditProfile extends Component {
     this.props.deletePortfolio(idPort).then((res) => {
       this.getPort(localStorage.getItem("workerId"));
       this.resetDataPort(event);
-      this.setState({ show: true, isUpdatePort: false, isDeletePort: true });
+      this.setState({
+        ...this.state,
+        show: true,
+        isUpdatePort: false,
+        isDeletePort: true,
+      });
     });
   };
   createExp = () => {
-    const id = localStorage.getItem("workerId");
-    this.props.createExperience(this.state.formExperience).then((res) => {
-      this.setState({ show: true, isCreateExp: true });
-      this.getExperienceId(id);
-      this.resetDataExp();
-    });
+    const {
+      experienceCompany,
+      experiencePosition,
+      experienceDateStart,
+      experienceDateEnd,
+    } = this.state.formExperience;
+
+    if (
+      experienceCompany &&
+      experiencePosition &&
+      experienceDateStart &&
+      experienceDateEnd
+    ) {
+      const id = localStorage.getItem("workerId");
+      this.props.createExperience(this.state.formExperience).then((res) => {
+        this.setState({ show: true, isCreateExp: true });
+        this.getExperienceId(id);
+        this.resetDataExp();
+      });
+    } else {
+      this.setState({
+        ...this.state,
+        show: true,
+        missingRequiredInput: true,
+      });
+    }
   };
   handleClose = () => {
     this.setState({
@@ -398,6 +476,14 @@ class WorkerEditProfile extends Component {
     this.setState({
       ...this.state,
       image: event.target.files[0],
+    });
+  };
+  handleImage2 = (event) => {
+    this.setState({
+      formPortofolio: {
+        ...this.state.formPortofolio,
+        image: event.target.files[0],
+      },
     });
   };
   handleUpdateImage = (id, data) => {
@@ -429,6 +515,12 @@ class WorkerEditProfile extends Component {
         });
       });
   };
+  handleDeleteImage = () => {
+    const id = localStorage.getItem("workerId");
+    this.props.deleteWorkerImage(id).then(() => {
+      this.props.getWorkerById(id);
+    });
+  };
   handleSetUpdate = (data) => {
     this.setState({
       isUpdate: true,
@@ -441,10 +533,12 @@ class WorkerEditProfile extends Component {
   };
   handleSetUpdatePort = (data) => {
     this.setState({
+      ...this.state,
       isUpdatePort: true,
       idPort: data.portfolio_id,
       formPortofolio: {
-        workerId: data.worker_id,
+        ...this.state.formPortofolio,
+        workerId: localStorage.getItem("workerId"),
         portfolioName: data.portfolio_name,
         portfolioLink: data.portfolio_link_repo,
         image: null,
@@ -466,6 +560,7 @@ class WorkerEditProfile extends Component {
     });
   };
   render() {
+    console.log(this.props);
     const { skillName } = this.state.formSkill;
     const { worker_id } = this.props.auth.data;
     const {
@@ -505,6 +600,14 @@ class WorkerEditProfile extends Component {
                     }
                     className={styles.imgCard}
                   />
+                  <div className="d-flex justify-content-center">
+                    <div
+                      className={styles.deleteBtn}
+                      onClick={this.handleDeleteImage}
+                    >
+                      <X weight="bold" className="me-1" /> Remove
+                    </div>
+                  </div>
                   <Card.Body className="d-flex justify-content-center">
                     {!this.state.image ? (
                       <label htmlFor="upload">
@@ -797,7 +900,9 @@ class WorkerEditProfile extends Component {
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          {this.state.isDelete
+                          {this.state.missingRequiredInput
+                            ? "Please fill in the required input"
+                            : this.state.isDelete
                             ? "Success Delete Skill"
                             : this.state.isUpdateWorkerSuccess
                             ? `Success Update Profile, ${worker_name}`
@@ -817,8 +922,6 @@ class WorkerEditProfile extends Component {
                             ? "Success Update Experience Work"
                             : this.state.isUpdatePort2
                             ? "Success Update Portfolio"
-                            : this.state.missingRequiredInput
-                            ? "Please fill in the required input"
                             : this.state.errorUploadImage
                             ? this.state.errorMessage
                             : "Modal is Work"}
@@ -920,6 +1023,17 @@ class WorkerEditProfile extends Component {
                         <Form.Group>
                           <Form.Label className={styles.everyLabelExp}>
                             Nama Perusahaan
+                            <span
+                              style={{
+                                color: "#e83a3a",
+                                fontSize: ".7em",
+                                fontWeight: "600",
+                                paddingLeft: "13px",
+                                paddingBottom: "4px",
+                              }}
+                            >
+                              (Kolom ini wajib diisi)
+                            </span>
                           </Form.Label>
                           <Form.Control
                             type="text"
@@ -933,6 +1047,17 @@ class WorkerEditProfile extends Component {
                         <Form.Group>
                           <Form.Label className={styles.everyLabelExp}>
                             Tanggal Masuk
+                            <span
+                              style={{
+                                color: "#e83a3a",
+                                fontSize: ".7em",
+                                fontWeight: "600",
+                                paddingLeft: "13px",
+                                paddingBottom: "4px",
+                              }}
+                            >
+                              (Kolom ini wajib diisi)
+                            </span>
                           </Form.Label>
                           <Form.Control
                             type="date"
@@ -949,6 +1074,17 @@ class WorkerEditProfile extends Component {
                         <Form.Group>
                           <Form.Label className={styles.everyLabelExp}>
                             Posisi
+                            <span
+                              style={{
+                                color: "#e83a3a",
+                                fontSize: ".7em",
+                                fontWeight: "600",
+                                paddingLeft: "13px",
+                                paddingBottom: "4px",
+                              }}
+                            >
+                              (Kolom ini wajib diisi)
+                            </span>
                           </Form.Label>
                           <Form.Control
                             type="text"
@@ -962,6 +1098,17 @@ class WorkerEditProfile extends Component {
                         <Form.Group>
                           <Form.Label className={styles.everyLabelExp}>
                             Tanggal Keluar
+                            <span
+                              style={{
+                                color: "#e83a3a",
+                                fontSize: ".7em",
+                                fontWeight: "600",
+                                paddingLeft: "13px",
+                                paddingBottom: "4px",
+                              }}
+                            >
+                              (Kolom ini wajib diisi)
+                            </span>
                           </Form.Label>
                           <Form.Control
                             type="date"
@@ -1090,6 +1237,17 @@ class WorkerEditProfile extends Component {
                     <Form.Group>
                       <Form.Label className={styles.everyLabelPort}>
                         Nama aplikasi
+                        <span
+                          style={{
+                            color: "#e83a3a",
+                            fontSize: ".7em",
+                            fontWeight: "600",
+                            paddingLeft: "13px",
+                            paddingBottom: "4px",
+                          }}
+                        >
+                          (Kolom ini wajib diisi)
+                        </span>
                       </Form.Label>
                       <Form.Control
                         type="text"
@@ -1103,6 +1261,17 @@ class WorkerEditProfile extends Component {
                     <Form.Group>
                       <Form.Label className={styles.everyLabelPort}>
                         Link repository
+                        <span
+                          style={{
+                            color: "#e83a3a",
+                            fontSize: ".7em",
+                            fontWeight: "600",
+                            paddingLeft: "13px",
+                            paddingBottom: "4px",
+                          }}
+                        >
+                          (Kolom ini wajib diisi)
+                        </span>
                       </Form.Label>
                       <Form.Control
                         type="text"
@@ -1113,7 +1282,7 @@ class WorkerEditProfile extends Component {
                         onChange={(event) => this.changeTextPort(event)}
                       />
                     </Form.Group>
-                    <Form.Group>
+                    <Form.Group className="d-flex flex-column">
                       <Form.Label className={styles.everyLabelPort}>
                         Upload gambar
                       </Form.Label>
@@ -1155,7 +1324,9 @@ class WorkerEditProfile extends Component {
                                     <img alt="" src={sizeImg} />
                                   </Col>
                                   <Col sm={6} className={styles.col4Upload}>
-                                    <p className={styles.uploadSet2}>
+                                    <p
+                                      className={`text-xs-center text-md-left ${styles.uploadSet2}`}
+                                    >
                                       Size
                                       <br />
                                       1080x1920 or 600x800
@@ -1207,16 +1378,53 @@ class WorkerEditProfile extends Component {
                     </Button>
                   )}
                   <Row className={styles.mainRowPort}>
-                    {this.state.dataPort.map((item, index) => {
-                      return (
-                        <Col key={index} sm={4}>
-                          <CardPort
-                            dataPort={item}
-                            setUpdatePort={this.handleSetUpdatePort.bind(this)}
-                          />
+                    {this.state.dataPort.length > 0 ? (
+                      this.state.dataPort.map((item, index) => (
+                        <Col
+                          xs={10}
+                          md={8}
+                          key={index}
+                          onClick={() => this.handleSetUpdatePort(item)}
+                        >
+                          <div className={styles.portfolioList}>
+                            <img
+                              src={
+                                item.portfolio_image
+                                  ? `http://localhost:3001/api/${item.portfolio_image}`
+                                  : NoProfilePicture
+                              }
+                              alt={item.portfolio_name}
+                              className={styles.portfolioImage}
+                            />
+                            <div>
+                              <h4>{item.portfolio_name}</h4>
+                              <Link
+                                id="RouterNavLink"
+                                target="_blank"
+                                rel="noreferrer"
+                                to={item.portfolio_link_repo}
+                              >
+                                {item.portfolio_link_repo}
+                              </Link>
+                            </div>
+                          </div>
                         </Col>
-                      );
-                    })}
+                      ))
+                    ) : (
+                      <Col>
+                        <div
+                          style={{
+                            border: "1px solid #6f707265",
+                            borderRadius: "5px",
+                            display: "grid",
+                            placeItems: "center",
+                            height: "100%",
+                          }}
+                        >
+                          No Portfolios
+                        </div>
+                      </Col>
+                    )}
                   </Row>
                 </Card>
               </Col>
@@ -1253,5 +1461,6 @@ const mapDispatchToProps = {
   createPortfolio,
   deletePortfolio,
   updatePortfolio,
+  deleteWorkerImage,
 };
 export default connect(mapStateToProps, mapDispatchToProps)(WorkerEditProfile);

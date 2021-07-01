@@ -48,12 +48,18 @@ class Experience extends Component {
       this.setState({ dataSkill: res.action.payload.data.data });
     });
   };
-  handleHire = () => {
+  handleEdit = () => {
     this.props.history.push(
       `/worker/edit?id=${localStorage.getItem("workerId")}`
     );
   };
+  handleHire = () => {
+    this.props.history.push(
+      `/hire?id=${this.props.worker.worker[0].worker_id}`
+    );
+  };
   render() {
+    console.log(this.props);
     return (
       <>
         <NavbarComponent />
@@ -102,12 +108,21 @@ class Experience extends Component {
                         ? this.state.data.worker_description
                         : "Tell about yourself"}
                     </div>
-                    <Button
-                      className={styles.btnHire}
-                      onClick={this.handleHire}
-                    >
-                      Edit Profile
-                    </Button>
+                    {this.props.auth.data.role === "worker" ? (
+                      <Button
+                        className={styles.btnHire}
+                        onClick={this.handleEdit}
+                      >
+                        Edit Profile
+                      </Button>
+                    ) : (
+                      <Button
+                        className={styles.btnHire}
+                        onClick={this.handleHire}
+                      >
+                        Hire
+                      </Button>
+                    )}
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
                       {this.state.dataSkill.map((item, index) => {
@@ -234,6 +249,7 @@ class Experience extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   experience: state.experience,
   worker: state.worker,
   skill: state.skill,
