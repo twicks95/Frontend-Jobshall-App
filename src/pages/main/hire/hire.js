@@ -7,20 +7,19 @@ import {
   Container,
   Row,
   Button,
-  Badge,
   Form,
   Dropdown,
+  Modal,
+  Spinner,
 } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-import email from "../../../assets/img/mail (4).png";
-import ig from "../../../assets/img/instagram.png";
-import github from "../../../assets/img/github.png";
-import gitlab from "../../../assets/img/gitlab.png";
 import { connect } from "react-redux";
 import { getPortfolios } from "../../../redux/actions/portfolio";
 import { getWorkerById } from "../../../redux/actions/worker";
+import { getAllSkills } from "../../../redux/actions/skill";
 import axiosApiInstances from "../../../utils/axios";
+import DefaultImage from "../../../assets/images/defaultprofilepict.png";
 
 class Hire extends Component {
   constructor() {
@@ -28,11 +27,14 @@ class Hire extends Component {
     this.state = {
       data: {},
       form: {
+        subject: "Project",
         message: "",
       },
       dataPort: [],
       isExp: false,
       isPort: true,
+      show: false,
+      sending: false,
     };
   }
   componentDidMount() {
@@ -46,6 +48,7 @@ class Hire extends Component {
   };
   sendEmail = (event) => {
     event.preventDefault();
+    this.setState({ ...this.state, sending: true });
     const { form } = this.state;
     axiosApiInstances
       .post(
@@ -53,10 +56,12 @@ class Hire extends Component {
         form
       )
       .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(err);
+        this.setState({
+          ...this.state,
+          form: { ...this.state.form, subject: "Project", message: "" },
+          show: true,
+          sending: false,
+        });
       });
   };
 
@@ -68,142 +73,137 @@ class Hire extends Component {
       },
     });
   };
+
+  handleSubject = (e) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        subject: e.target.innerText,
+      },
+    });
+  };
   render() {
+    console.log(this.state);
     return (
       <>
         <NavbarComponent />
+        <Modal
+          show={this.state.show}
+          onHide={() => this.setState({ ...this.state.data, show: false })}
+        >
+          <Modal.Header>
+            <Modal.Title className={styles.title}>JobShall</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            Email has sent to {this.state.data.worker_name}
+          </Modal.Body>
+        </Modal>
         <Container fluid className={styles.main}>
-          <Container>
-            <Row>
-              <Col sm={4}>
-                <Card className={styles.cardOne}>
-                  <Card.Img
-                    src={`http://localhost:3001/api/${this.state.data.worker_image}`}
-                    variant="top"
-                    className={styles.ppImg}
-                  />
+          <Row className={styles.container}>
+            <Col xs={12} md={4}>
+              <Card className={styles.cardOne}>
+                <Card.Img
+                  src={
+                    this.state.data.worker_image
+                      ? `http://localhost:3001/api/${this.state.data.worker_image}`
+                      : DefaultImage
+                  }
+                  variant="top"
+                  className={styles.ppImg}
+                />
 
-                  <Card.Body>
-                    <div className={styles.title}>
-                      {this.state.data.worker_name}
-                    </div>
-                    <div className={styles.field}>
-                      {this.state.data.worker_job_desk}
-                    </div>
-                    <div className={styles.type}>
-                      {this.state.data.worker_status}
-                    </div>
-                    <div className={styles.loc}>
-                      {this.state.data.worker_domicile}
-                    </div>
-                    <div className={styles.phone}>
-                      {this.state.data.worker_phone}
-                    </div>
-                    <div className={styles.desc}>
-                      {this.state.data.worker_description}
-                    </div>
-                    <Button className={styles.btnHire}>Hire</Button>
-                    <h1 className={styles.title2}>Skills</h1>
-                    <BadgeSkill data={this.state.data.worker_id} />
-                    <div className={styles.skills}>
-                      {/* {this.state.data.skills.map((item, index) => {
-                        return (
-                          <Badge
-                            variant="primary"
-                            className={styles.badge}
-                            key={index}
-                          >
-                            {item}
-                          </Badge>
-                        );
-                      })} */}
-                      <Badge variant="primary" className={styles.badge}></Badge>{" "}
-                    </div>
-                    <Row>
-                      <Col xs={1}>
-                        <img alt="" src={email} className={styles.imgBottom} />
-                        <img alt="" src={ig} className={styles.imgBottom1} />
-                        <img
-                          alt=""
-                          src={github}
-                          className={styles.imgBottom2}
-                        />
-                        <img
-                          alt=""
-                          src={gitlab}
-                          className={styles.imgBottom3}
-                        />
-                      </Col>
-                      <Col className={styles.colMargin}>
-                        <div className={styles.email}>
-                          {this.state.data.worker_email}
-                        </div>
-                        <div className={styles.ig}>
-                          {this.state.data.worker_instagram}
-                        </div>
-                        <div className={styles.github}>
-                          {this.state.data.worker_github}
-                        </div>
-                        <div className={styles.gitlab}>
-                          {this.state.data.worker_gitlab}
-                        </div>
-                      </Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
-              </Col>
-              <Col sm={8} className={styles.col2}>
-                <h5>Hubungi {this.state.data.worker_name}</h5>
-                <h3>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                  euismod ipsum et dui rhoncus auctor.
-                </h3>
-                <Form onSubmit={this.sendEmail}>
-                  <Form.Label className={styles.label}>
-                    Tujuan tentang pesan ini
-                  </Form.Label>
-                  <Dropdown className={styles.dropdown}>
-                    <Dropdown.Toggle
-                      variant="light"
-                      id="dropdown-basic"
-                      className={styles.dropdownName}
-                    >
-                      Project
-                    </Dropdown.Toggle>
-
-                    <Dropdown.Menu>
-                      <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                      <Dropdown.Item href="#/action-2">
-                        Another action
-                      </Dropdown.Item>
-                      <Dropdown.Item href="#/action-3">
-                        Something else
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                  <Form.Group controlId="exampleForm.ControlTextarea1">
-                    <Form.Label className={styles.label}>Pesan</Form.Label>
-                    <Form.Control
-                      as="textarea"
-                      rows={10}
-                      placeholder="Deskripsikan/jelaskan lebih detail "
-                      name="message"
-                      onChange={(event) => this.changeText(event)}
-                    />
-                  </Form.Group>
-                  <Button
+                <Card.Body>
+                  <div className={styles.title}>
+                    {this.state.data.worker_name}
+                  </div>
+                  <div className={styles.field}>
+                    {this.state.data.worker_job_desk}
+                  </div>
+                  <div className={styles.type}>
+                    {this.state.data.worker_status}
+                  </div>
+                  <div className={styles.loc}>
+                    {this.state.data.worker_domicile}
+                  </div>
+                  <div className={styles.phone}>
+                    {this.state.data.worker_phone}
+                  </div>
+                  <div className={styles.desc}>
+                    {this.state.data.worker_description}
+                  </div>
+                  <h1 className={styles.title2}>Skills</h1>
+                  <BadgeSkill data={localStorage.getItem("workerId")} />
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col xs={12} md={8} className={styles.col2}>
+              <h5>Hubungi {this.state.data.worker_name}</h5>
+              <h3>
+                Kirim tawaran pekerjaan terbaik kepada talent untuk proyek yang
+                anda rencanakan.
+              </h3>
+              <Form onSubmit={this.sendEmail}>
+                <Form.Label className={styles.label}>
+                  Tujuan tentang pesan ini
+                </Form.Label>
+                <Dropdown className={styles.dropdown}>
+                  <Dropdown.Toggle
                     variant="light"
+                    id="dropdown-basic"
+                    className={styles.dropdownName}
+                  >
+                    {this.state.form.subject}
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu>
+                    <Dropdown.Item onClick={(e) => this.handleSubject(e)}>
+                      Project
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={(e) => this.handleSubject(e)}>
+                      Job Offering
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+                <Form.Group controlId="exampleForm.ControlTextarea1">
+                  <Form.Label className={styles.label}>Pesan</Form.Label>
+                  <Form.Control
+                    as="textarea"
+                    rows={10}
+                    placeholder="Deskripsikan/jelaskan lebih detail "
+                    name="message"
+                    onChange={(event) => this.changeText(event)}
+                  />
+                </Form.Group>
+                {this.state.sending ? (
+                  <Button
+                    variant="secondary"
+                    className={styles.button}
+                    disabled
+                  >
+                    <Spinner
+                      as="span"
+                      animation="border"
+                      size="sm"
+                      role="status"
+                      aria-hidden="true"
+                      className="me-2"
+                    />
+                    Sending...
+                  </Button>
+                ) : (
+                  <Button
+                    variant="secondary"
                     type="submit"
                     className={styles.button}
                   >
-                    Kirm
+                    Kirim
                   </Button>
-                </Form>
-              </Col>
-            </Row>
-          </Container>
-          <Footer />
+                )}
+              </Form>
+            </Col>
+          </Row>
         </Container>
+        <Footer />
       </>
     );
   }
@@ -212,6 +212,7 @@ class Hire extends Component {
 const mapStateToProps = (state) => ({
   experience: state.experience,
   worker: state.worker,
+  skill: state.skill,
 });
-const mapDispatchToProps = { getPortfolios, getWorkerById };
+const mapDispatchToProps = { getAllSkills, getPortfolios, getWorkerById };
 export default connect(mapStateToProps, mapDispatchToProps)(Hire);

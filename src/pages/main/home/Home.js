@@ -87,7 +87,7 @@ class Home extends Component {
       <>
         <NavbarComponent image={this.props.auth.data.recruiter_image} />
         <Container fluid className={styles.main}>
-          <Container>
+          <Container style={{ padding: "0 35px" }}>
             <h1 className={styles.mainNav}>Top Jobs</h1>
             <Form>
               <Form.Group>
