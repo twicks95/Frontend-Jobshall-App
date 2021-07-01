@@ -10,8 +10,8 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../../../../assets/img/Group 978 1.png";
-import logo1 from "../../../../assets/img/Group 980 1.png";
+import logo from "../../../../assets/images/Jobshall white.png";
+import logo1 from "../../../../assets/images/Jobshall.png";
 import { connect } from "react-redux";
 import { registerWorker } from "../../../../redux/actions/auth";
 
@@ -40,7 +40,6 @@ class RegisterWorker extends Component {
   };
   handleRegister = (event) => {
     event.preventDefault();
-    console.log(this.state.form);
     if (this.state.form.workerPassword === this.state.form.workerConfirm) {
       this.setState({ samePass: false });
       this.props
@@ -66,7 +65,6 @@ class RegisterWorker extends Component {
   render() {
     const { workerName, workerEmail, workerPhone, workerPassword } =
       this.state.form;
-    console.log(this.props);
 
     return (
       <>
@@ -90,11 +88,12 @@ class RegisterWorker extends Component {
               <h1 className={styles.title}>Halo, Pewpeople</h1>
               <h1 className={styles.title1}>Sign Up</h1>
               <p className={styles.subTitle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                euismod ipsum et dui rhoncus auctor.
+                Daftar dan tampilkan keahlian serta proyek terbaik kamu kepada
+                para rekruter.
               </p>
               <p className={styles.subTitle1}>
-                Lorom ipsum dolor si amet uegas anet.
+                Daftar dan tampilkan keahlian serta proyek terbaik kamu kepada
+                para rekruter.
               </p>
               <Form className={styles.mainForm}>
                 <Form.Group controlId="formBasicName">

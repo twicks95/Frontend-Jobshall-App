@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Badge, Col, Row } from "react-bootstrap";
 import { withRouter } from "react-router-dom";
+
 import editSkill from "../../assets/img/edit 1.png";
 import delSkill from "../../assets/img/delete 1.png";
 
@@ -8,7 +9,6 @@ import styles from "./Skills.module.css";
 
 class Skills extends Component {
   render() {
-    console.log(this.props);
     return (
       <>
         <Badge className={styles.cardSkills}>

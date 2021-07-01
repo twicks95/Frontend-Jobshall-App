@@ -29,7 +29,7 @@ const skill = (state = initialState, action) => {
     case "GET_SKILLS_FULFILLED":
       return {
         ...state,
-        skills: action.payload,
+        skills: action.payload.data.data,
         isGetSkillsLoading: false,
         isGetSkillsError: false,
         getMsg: action.payload.data.data.msg,

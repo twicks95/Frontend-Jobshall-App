@@ -1,12 +1,11 @@
 .detailProfile span,
 .detailProfile p,
 .socialAccount .account {
-  color: #9ea0a5;
+  color: #6f7072;
 }
 
 .container {
-  padding: 70px 120px;
-  border: 1px solid red;
+  padding: 40px 30px;
   background-color: #e5e5e5;
 }
 
@@ -44,8 +43,14 @@
 }
 
 .detailProfile h2 {
-  font-weight: 600;
+  font-weight: 700;
   font-size: 22px;
+  width: 70%;
+  text-align: center;
+}
+
+.detailProfile h3 {
+  font-weight: 600;
 }
 
 .detailProfile span {
@@ -89,7 +94,11 @@
     margin-top: 10px;
   }
 }
-
+@media (min-width: 576px) {
+  .container {
+    padding: 100px;
+  }
+}
 @media (max-width: 576px) {
   .topStripe {
     margin-bottom: 80px;
@@ -103,9 +112,5 @@
 
   .btnEdit {
     font-size: 12px;
-  }
-
-  .container {
-    padding: 42px 5% 70px !important;
   }
 }

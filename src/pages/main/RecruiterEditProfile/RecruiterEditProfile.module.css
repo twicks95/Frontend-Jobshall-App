@@ -4,7 +4,7 @@ input[type="file"] {
 
 .container {
   position: relative;
-  padding: 100px 120px;
+  padding: 40px 30px;
   background-color: #e5e5e5;
 }
 
@@ -37,11 +37,12 @@ input[type="file"] {
 
 .profilePreview span,
 .profilePreview p {
-  color: #9ea0a5;
+  color: #6f7072;
 }
 
 .profilePreview h3 {
   margin-bottom: 10px;
+  font-weight: 600;
 }
 
 .profilePreview p {
@@ -54,7 +55,7 @@ input[type="file"] {
 
 .profilePreview h2 {
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .profilePicture img {
@@ -63,11 +64,22 @@ input[type="file"] {
   border-radius: 50%;
   object-fit: cover;
 }
-
+.title {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  margin-bottom: 8px !important;
+  color: #1f2a36;
+}
 .editPictureButton {
   cursor: pointer;
   text-align: center;
   margin: 25px 0px;
+}
+.changePictureButton {
+  font-size: 14px;
+  margin: 25px 0px;
+  padding: 10px 20px;
 }
 
 .editPictureButton .editIcon {
@@ -100,17 +112,20 @@ input[type="file"] {
 }
 
 .form h3 {
-  font-weight: 600;
-  font-size: 22px;
+  font-weight: 700;
+  font-size: 24px;
 }
-
+.form label {
+  font-size: 14px;
+  font-weight: 600;
+}
 .profilePreview,
 .form {
   border-radius: 8px;
 }
 
-@media (max-width: 576px) {
+@media (min-width: 576px) {
   .container {
-    padding: 100px 5%;
+    padding: 100px;
   }
 }

@@ -3,6 +3,7 @@ import styles from "./Experience.module.css";
 import { Card, Col, Container, Row, Button, Badge, Nav } from "react-bootstrap";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
+import defaultImg from "../../../assets/images/defaultprofilepict.png";
 // import profileImg from "../../../assets/img/Ellipse 326.png";
 import email from "../../../assets/img/mail (4).png";
 import ig from "../../../assets/img/instagram.png";
@@ -33,7 +34,6 @@ class Experience extends Component {
     this.getSkill(id);
   }
   getExp = (id) => {
-    console.log(id);
     this.props.getExperiences(id).then((res) => {
       this.setState({ dataExp: res.action.payload.data.data });
     });
@@ -49,7 +49,9 @@ class Experience extends Component {
     });
   };
   handleHire = () => {
-    this.props.history.push("/hire");
+    this.props.history.push(
+      `/worker/edit?id=${localStorage.getItem("workerId")}`
+    );
   };
   render() {
     return (
@@ -61,34 +63,50 @@ class Experience extends Component {
               <Col sm={4}>
                 <Card className={styles.cardOne}>
                   <Card.Img
-                    src={`http://localhost:3001/api/${this.state.data.worker_image}`}
+                    src={
+                      this.state.data.worker_image
+                        ? `http://localhost:3001/api/${this.state.data.worker_image}`
+                        : defaultImg
+                    }
                     variant="top"
                     className={styles.ppImg}
                   />
                   <Card.Body>
                     <div className={styles.title}>
-                      {this.state.data.worker_name}
+                      {this.state.data.worker_name
+                        ? this.state.data.worker_name
+                        : "Workers"}
                     </div>
                     <div className={styles.field}>
-                      {this.state.data.worker_job_desk}
+                      {this.state.data.worker_job_desk
+                        ? this.state.data.worker_job_desk
+                        : "Searching for job"}
                     </div>
                     <div className={styles.type}>
-                      {this.state.data.worker_status}
+                      {this.state.data.worker_status
+                        ? this.state.data.worker_status
+                        : "Free as a Wind"}
                     </div>
                     <div className={styles.loc}>
-                      {this.state.data.worker_domicile}
+                      {this.state.data.worker_domicile
+                        ? this.state.data.worker_domicile
+                        : "Mars"}
                     </div>
                     <div className={styles.phone}>
-                      {this.state.data.worker_phone}
+                      {this.state.data.worker_phone
+                        ? this.state.data.worker_phone
+                        : "1234567890"}
                     </div>
                     <div className={styles.desc}>
-                      {this.state.data.worker_description}
+                      {this.state.data.worker_description
+                        ? this.state.data.worker_description
+                        : "Tell about yourself"}
                     </div>
                     <Button
                       className={styles.btnHire}
                       onClick={this.handleHire}
                     >
-                      Hire
+                      Edit Profile
                     </Button>
                     <h1 className={styles.title2}>Skills</h1>
                     <div className={styles.skills}>
@@ -167,39 +185,42 @@ class Experience extends Component {
                     </Nav.Item>
                   </Nav>
                   <Card className={styles.cardExpMain}>
-                    {this.state.dataExp.map((item, index) => {
-                      console.log(item);
-                      return (
-                        <Row key={index} className={styles.cardExp}>
-                          <Col sm={2} className={styles.imgExp}>
-                            <img alt="" src={Suit} />
-                          </Col>
-                          <Col sm={9} className={styles.infoExp}>
-                            <h1 className={styles.position}>
-                              {item.experience_position}
-                            </h1>
-                            <p className={styles.name}>
-                              {item.experience_company}
-                            </p>
-                            <Row>
-                              <Col sm={5} className={styles.date}>
-                                {item.experience_date_start.slice(0, 10)} -{" "}
-                                {item.experience_date_end.slice(0, 10)}
+                    {this.state.dataExp.length <= 0
+                      ? "Belum ada data"
+                      : this.state.dataExp.map((item, index) => {
+                          return (
+                            <Row key={index} className={styles.cardExp}>
+                              <Col sm={2} className={styles.imgExp}>
+                                <img alt="" src={Suit} />
                               </Col>
-                              <Col sm={3} className={styles.date}>
-                                {item.experience_date_end.slice(5, 7) -
-                                  item.experience_date_start.slice(5, 7)}{" "}
-                                month
+                              <Col sm={9} className={styles.infoExp}>
+                                <h1 className={styles.position}>
+                                  {item.experience_position}
+                                </h1>
+                                <p className={styles.name}>
+                                  {item.experience_company}
+                                </p>
+                                <Row>
+                                  <Col sm={5} className={styles.date}>
+                                    {item.experience_date_start.slice(0, 10)} -{" "}
+                                    {item.experience_date_end.slice(0, 10)}
+                                  </Col>
+                                  <Col sm={3} className={styles.date}>
+                                    {item.experience_date_end.slice(5, 7) -
+                                      item.experience_date_start.slice(
+                                        5,
+                                        7
+                                      )}{" "}
+                                    month
+                                  </Col>
+                                </Row>
+                                <p className={styles.desc1}>
+                                  {item.experience_desc}
+                                </p>
                               </Col>
                             </Row>
-                            <p className={styles.desc1}>
-                              {item.experience_desc}
-                            </p>
-                          </Col>
-                          <hr />
-                        </Row>
-                      );
-                    })}
+                          );
+                        })}
                   </Card>
                 </Card>
               </Col>

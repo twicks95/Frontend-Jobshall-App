@@ -10,8 +10,8 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import logo from "../../../../assets/img/Group 978 1.png";
-import logo1 from "../../../../assets/img/Group 980 1.png";
+import logo from "../../../../assets/images/Jobshall white.png";
+import logo1 from "../../../../assets/images/Jobshall.png";
 import { connect } from "react-redux";
 import { registerRecruiter } from "../../../../redux/actions/auth";
 
@@ -42,7 +42,6 @@ class RegisterRecruiter extends Component {
   };
   handleRegister = (event) => {
     event.preventDefault();
-    console.log(this.state.form);
     if (
       this.state.form.recruiterPassword === this.state.form.recruiterConPass
     ) {

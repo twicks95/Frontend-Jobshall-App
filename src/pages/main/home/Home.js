@@ -4,42 +4,45 @@ import styles from "./Home.module.css";
 import ReactPaginate from "react-paginate";
 import NavbarComponent from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Footer/Footer";
-import {
-  Container,
-  Form,
-  // NavDropdown,
-  Dropdown,
-  Button,
-  Card,
-  Row,
-  Col,
-} from "react-bootstrap";
+import { Container, Form, Button, Card, Row, Col } from "react-bootstrap";
 import seacrh from "../../../assets/img/search (1) 1.png";
 import BadgeHome from "../../../components/BadgeHome/BadgeHome";
 import { connect } from "react-redux";
-import { getWorkers } from "../../../redux/actions/worker";
+import { getWorkers, getWorkerById } from "../../../redux/actions/worker";
+import { getRecruiterById } from "../../../redux/actions/recruiter";
 import { getAllSkills } from "../../../redux/actions/skill";
+import qs from "query-string";
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    const urlParams = qs.parse(this.props.location.search);
     this.state = {
       data: [],
       dataSkills: [],
-      search: "",
-      sort: "worker_name",
-      page: 1,
-      limit: 5,
+      search: urlParams.search ? urlParams.search : "",
+      sort: urlParams.sort ? urlParams.sort : "worker_name",
+      page: urlParams.page ? urlParams.page : 1,
+      limit: urlParams.limit ? urlParams.limit : 3,
       pagination: {},
       idWorker: "",
     };
   }
   componentDidMount() {
     this.allWorkers();
+    this.props.getRecruiterById(localStorage.getItem("recId"));
     // this.getDataSkills();
   }
 
   allWorkers = () => {
+    let urlParam = `?page=${this.state.page}&limit=${this.state.limit}`;
+    if (this.state.search) {
+      urlParam += `&search=${this.state.search}`;
+    }
+    if (this.state.sort) {
+      urlParam += `&sort=${this.state.sort}`;
+    }
+    this.props.history.push(`/home/${urlParam}`);
     const { search, sort, page, limit } = this.state;
 
     this.props.getWorkers(page, limit, search, sort).then((res) => {
@@ -50,7 +53,6 @@ class Home extends Component {
   };
 
   handlePageClick = (event) => {
-    console.log(event);
     const selectedPage = event.selected + 1;
     this.setState({ page: selectedPage }, () => {
       this.allWorkers();
@@ -66,54 +68,23 @@ class Home extends Component {
     this.setState({ search: "" });
   };
   handleSort = (event) => {
-    console.log(event);
-    switch (event.target.name) {
-      case "sortName":
-        this.allWorkers();
-        this.setState({ sort: "worker_name ASC" });
-
-        break;
-      case "sortSkills":
-        this.allWorkers();
-        this.setState({ sort: `worker_skills ASC` });
-
-        break;
-      case "sortLoc":
-        this.allWorkers();
-        this.setState({ sort: "worker_domicile ASC" });
-
-        break;
-      case "sortType1":
-        this.allWorkers(this.state.sort);
-        this.setState({ sort: "worker_status='freelance'" });
-
-        break;
-      case "sortType2":
-        this.allWorkers(this.state.sort);
-        this.setState({ sort: "worker_status='fulltime'" });
-
-        break;
-      default:
-        break;
-    }
+    console.log(event.target.value);
+    this.setState({ sort: event.target.value });
+    this.allWorkers();
   };
   handleProfile = (id) => {
-    // console.log(id);
     localStorage.setItem("workerId", id);
     this.props.history.push(`/portofolio?id=${id}`);
   };
   handleSearch = (event) => {
-    this.allWorkers();
+    this.allWorkers(this.state.sort);
     this.changeTextSearch(event);
     this.resetSearch(event);
   };
   render() {
-    // console.log(this.state.idWorker);
-
-    // const totalPage = this.props.worker.pagination;
     return (
       <>
-        <NavbarComponent />
+        <NavbarComponent image={this.props.auth.data.recruiter_image} />
         <Container fluid className={styles.main}>
           <Container>
             <h1 className={styles.mainNav}>Top Jobs</h1>
@@ -136,52 +107,35 @@ class Home extends Component {
                   Search
                 </Button>
               </Form.Group>
-              <Dropdown className={styles.dropdownMain}>
-                <Dropdown.Toggle
-                  variant="success"
-                  id="dropdown-basic"
-                  className={styles.dropdown}
+              <select
+                className={styles.dropdownMain}
+                onClick={(event) => this.handleSort(event)}
+              >
+                <option className={styles.listDropdown} value="worker_name ASC">
+                  Sortir berdasarkan Nama
+                </option>
+                <option className={styles.listDropdown} value="skill_name ASC">
+                  Sortir berdasarkan Skill
+                </option>
+                <option
+                  className={styles.listDropdown}
+                  value="worker_domicile ASC"
                 >
-                  Kategori
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item
-                    className={styles.listDropdown}
-                    name="sortName"
-                    onClick={(event) => this.handleSort(event)}
-                  >
-                    Sortir berdasarkan Nama
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className={styles.listDropdown}
-                    name="sortSkills"
-                    onClick={(event) => this.handleSort(event)}
-                  >
-                    Sortir berdasarkan Skill
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className={styles.listDropdown}
-                    name="sortLoc"
-                    onClick={(event) => this.handleSort(event)}
-                  >
-                    Sortir berdasarkan Lokasi
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className={styles.listDropdown}
-                    name="sortType1"
-                    onClick={(event) => this.handleSort(event)}
-                  >
-                    Sortir berdasarkan Fulltime
-                  </Dropdown.Item>
-                  <Dropdown.Item
-                    className={styles.listDropdown}
-                    name="sortType2"
-                    onClick={(event) => this.handleSort(event)}
-                  >
-                    Sortir berdasarkan Freelance
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
+                  Sortir berdasarkan Lokasi
+                </option>
+                <option
+                  className={styles.listDropdown}
+                  value="worker_status='fulltime' DESC"
+                >
+                  Sortir berdasarkan Fulltime
+                </option>
+                <option
+                  className={styles.listDropdown}
+                  value="worker_status='freelance' DESC"
+                >
+                  Sortir berdasarkan Freelance
+                </option>
+              </select>
             </Form>
             <Card className={styles.userCard}>
               {this.state.data.length > 0 ? (
@@ -259,8 +213,15 @@ class Home extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  auth: state.auth,
   worker: state.worker,
+  recruiter: state.recruiter,
   skill: state.skill,
 });
-const mapDispatchToProps = { getWorkers, getAllSkills };
+const mapDispatchToProps = {
+  getWorkerById,
+  getWorkers,
+  getRecruiterById,
+  getAllSkills,
+};
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

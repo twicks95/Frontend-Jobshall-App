@@ -11,6 +11,9 @@
   .cardTwo {
     margin-bottom: 100px;
   }
+  .cardOne {
+    margin-bottom: 20px !important;
+  }
 }
 .main {
   padding: 0px;

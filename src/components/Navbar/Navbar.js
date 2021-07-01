@@ -9,7 +9,7 @@ import { getWorkerById } from "../../redux/actions/worker";
 import styles from "./Navbar.module.css";
 
 import NoProfilePicture from "../../assets/images/defaultprofilepict.png";
-import Logo from "../../assets/images/peworld.png";
+import Logo from "../../assets/images/Jobshall.png";
 import Bell from "../../assets/icons/bell.svg";
 import Mail from "../../assets/icons/mail.svg";
 
@@ -19,29 +19,19 @@ class NavbarComponent extends Component {
 
     this.state = {
       isLoggedIn: localStorage.getItem("token"),
-      // avatar: props.auth.data.role,
     };
   }
 
-  // componentDidMount() {
-  //   this.renderAvatar();
-  // }
-
-  // renderAvatar = () => {
-  //   return this.props.auth.data.role === "worker"
-  //     ? this.props.getWorkerById(this.props.auth.data.worker_id).then(() => {
-  //         return this.props.worker.worker[0].worker_image
-  //           ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
-  //           : NoProfilePicture;
-  //       })
-  //     : this.props
-  //         .getRecruiterById(this.props.auth.data.recruiter_id)
-  //         .then(() => {
-  //           return this.props.recruiter.recruiter[0].recruiter_image
-  //             ? `http://localhost:3001/api/${this.props.recruiter.recruiter[0].recruiter_image}`
-  //             : NoProfilePicture;
-  //         });
-  // };
+  componentDidMount() {
+    const role = localStorage.getItem("role");
+    if (role === "worker") {
+      const workerId = localStorage.getItem("workerId");
+      this.props.getWorkerById(workerId);
+    } else {
+      const recId = localStorage.getItem("recId");
+      this.props.getRecruiterById(recId);
+    }
+  }
 
   renderNav = () => {
     const { isLoggedIn } = this.state;
@@ -74,8 +64,9 @@ class NavbarComponent extends Component {
         </>
       );
     } else if (!isLanding && isLoggedIn) {
-      const { role, worker_image, recruiter_image } = this.props.auth.data;
-
+      const { image } = this.props;
+      const role = localStorage.getItem("role");
+      console.log(image);
       return (
         <>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -101,17 +92,21 @@ class NavbarComponent extends Component {
                     Log Out
                   </NavDropdown.Item>
                 </NavDropdown>
-                {/* <img
+                <img
                   src={
-                    role === "worker"
-                      ? `http://localhost:3001/api/${worker_image}`
-                      : role === "recruiter"
-                      ? `http://localhost:3001/api/${recruiter_image}`
+                    image
+                      ? `http://localhost:3001/api/${image}`
+                      : role === "worker" &&
+                        this.props.worker.worker[0].worker_image
+                      ? `http://localhost:3001/api/${this.props.worker.worker[0].worker_image}`
+                      : role === "recruiter" &&
+                        this.props.auth.data.recruiter_image
+                      ? `http://localhost:3001/api/${this.props.auth.data.recruiter_image}`
                       : NoProfilePicture
                   }
                   alt="avatar"
                   onClick={this.handleClickProfile}
-                /> */}
+                />
               </div>
             </Nav>
           </Navbar.Collapse>
@@ -125,7 +120,7 @@ class NavbarComponent extends Component {
             <Nav className="ms-auto mt-5 mt-lg-0">
               <Button
                 variant="outline-primary"
-                className="me-2 w-100"
+                className="me-2 shadow-none w-100"
                 onClick={this.handleClickLogin}
               >
                 Masuk
@@ -134,12 +129,12 @@ class NavbarComponent extends Component {
                 <Dropdown.Toggle
                   variant="primary"
                   id="dropdown-basic"
-                  className="w-100 mt-2 mt-lg-0"
+                  className="mt-2 mt-lg-0 shadow-none w-100"
                 >
                   Daftar
                 </Dropdown.Toggle>
 
-                <Dropdown.Menu>
+                <Dropdown.Menu align="right">
                   <Dropdown.Item
                     name="worker"
                     onClick={(e) => this.handleClickRegister(e)}
@@ -202,8 +197,6 @@ class NavbarComponent extends Component {
   };
 
   render() {
-    // console.log(this.props.recruiter.recruiter[0].recruiter_image);
-
     return (
       <Navbar
         bg="light"

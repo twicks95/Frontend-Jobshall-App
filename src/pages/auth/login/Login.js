@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styles from "./Login.module.css";
-import logo from "../../../assets/img/Group 978 1.png";
-import logo1 from "../../../assets/img/Group 980 1.png";
+import logo from "../../../assets/images/Jobshall white.png";
+import logo1 from "../../../assets/images/Jobshall.png";
+
 import {
   Container,
   Row,
@@ -16,6 +17,7 @@ import { connect } from "react-redux";
 import { login } from "../../../redux/actions/auth";
 import { getWorkerById } from "../../../redux/actions/worker";
 import { getRecruiterById } from "../../../redux/actions/recruiter";
+import { WarningCircle } from "phosphor-react";
 
 class Login extends Component {
   constructor() {
@@ -49,23 +51,16 @@ class Login extends Component {
         const { getRecruiterById, getWorkerById } = this.props;
 
         if (role === "recruiter") {
+          localStorage.setItem("recId", this.props.auth.data.recruiter_id);
           const { recruiter_id } = this.props.auth.data;
           getRecruiterById(recruiter_id);
-          localStorage.setItem("recId", this.props.auth.data.recruiter_id);
           this.props.history.push("/home");
         } else {
+          localStorage.setItem("workerId", this.props.auth.data.worker_id);
           const { worker_id } = this.props.auth.data;
           getWorkerById(worker_id);
-          localStorage.setItem("workerId", this.props.auth.data.worker_id);
           this.props.history.push(`/portofolio?id=${worker_id}`);
         }
-
-        // localStorage.setItem("userId", this.props.auth.data.recruiter_id);
-        // // localStorage.setItem("userId", this.props.auth.data.user_id);
-        // if (this.props.auth.data.length > 0) {
-        //   alert(`${this.props.auth.msg}`);
-        // } else {
-        // }
       })
       .catch((error) => {
         this.setState({ isError: true });
@@ -100,16 +95,20 @@ class Login extends Component {
               <h1 className={styles.title}>Halo, Pewpeople</h1>
               <h1 className={styles.title1}>Login</h1>
               <p className={styles.subTitle}>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. In
-                euismod ipsum et dui rhoncus auctor.
+                Gunakan akun yang sudah di daftarkan, mulai eksplor perusahaan
+                atau kandidat yang anda inginkan sekarang!.
               </p>
               <p className={styles.subTitle1}>
-                Lorom ipsum dolor si amet uegas anet.
+                Masuk akun yang di telah daftarkan, dan mulailah untuk
+                eksplorasi perusahaan atau kandidat yang anda inginkan sekarang!
               </p>
               <Form className={styles.mainForm}>
                 {this.state.isError && (
-                  <Alert variant="danger" className={styles.mainAlert}>
-                    <p className={styles.alert}>{this.props.auth.msg}</p>
+                  <Alert variant="danger" className="d-flex align-items-center">
+                    <WarningCircle size={24} weight="bold" className="me-2" />
+                    <p className="m-0" style={{ fontWeight: "600" }}>
+                      {this.props.auth.msg}
+                    </p>
                   </Alert>
                 )}
                 <Form.Group controlId="formBasicEmail">
@@ -146,6 +145,7 @@ class Login extends Component {
                     size="sm"
                     role="status"
                     aria-hidden="true"
+                    className="me-2"
                   />
                   <span className="sr-only">Loading...</span>
                 </Button>

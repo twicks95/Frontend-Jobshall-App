@@ -29,7 +29,7 @@ const experience = (state = initialState, action) => {
     case "GET_EXPERIENCES_FULFILLED":
       return {
         ...state,
-        experiences: action.payload,
+        experiences: action.payload.data.data,
         isGetExperiencesLoading: false,
         isGetExperiencesError: false,
         getMsg: action.payload.data.data.msg,
