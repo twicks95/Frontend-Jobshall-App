@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import { Link, withRouter } from "react-router-dom";
 import { Button, Dropdown, Nav, Navbar, NavDropdown } from "react-bootstrap";
-
 import { connect } from "react-redux";
 import { getRecruiterById } from "../../redux/actions/recruiter";
 import { getWorkerById } from "../../redux/actions/worker";
-
 import styles from "./Navbar.module.css";
-
 import NoProfilePicture from "../../assets/images/defaultprofilepict.png";
 import Logo from "../../assets/images/Jobshall.png";
 import Bell from "../../assets/icons/bell.svg";
@@ -66,7 +63,6 @@ class NavbarComponent extends Component {
     } else if (!isLanding && isLoggedIn) {
       const { image } = this.props;
       const role = localStorage.getItem("role");
-      console.log(image);
       return (
         <>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
