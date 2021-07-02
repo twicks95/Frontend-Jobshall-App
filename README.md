@@ -1,6 +1,6 @@
 <h1 align='center'>React JS - JobShall </h1>
   <p align="center">
-    <a href="jobshall.netlify.app">View Demo</a>
+    <a href="https://jobshall.netlify.app">View Demo</a>
     ·
     <a href="https://github.com/twicks95/frontend-jobshall-app/issues">Report Bug</a>
     ·
