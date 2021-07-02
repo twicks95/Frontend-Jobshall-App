@@ -52,6 +52,7 @@ REACT_APP_ENDPOINT = [Backend API]
 - [React](https://reactjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
 - [Bootstrap](https://www.npmjs.com/package/bootstrap)
+- [Phosphor React](https://www.npmjs.com/package/phosphor-react)
 - [Dotenv](https://www.npmjs.com/package/dotenv)
 - [Redux](https://www.npmjs.com/package/redux)
 - [Moment](https://www.npmjs.com/package/moment)
