@@ -25,14 +25,16 @@ A website that is used to accommodate workers for later search by company recrui
 2. Node_modules `npm install` or `yarn install`
 3. Backend API JobShall [`here`](https://github.com/twicks95/backend-jobshall-app.git)
 
-## Feature
+## Features
 
-1. SignIn & SignUp Recruiters & Workers.
-2. Read Profile Recruiters.
-3. Read Profile Workers.
-4. Sorting by name, skill, location, freelance, fulltime.
-5. Recruiters seng message invited hire to Workers via Email.
-6. Reset Password Recruiters & Workers.
+1. Login & register.
+2. Edit personal data (worker / recruiter).
+3. Upload & delete profile picture
+4. Upload portfolio.
+5. Add work experience & list of skills for worker.
+6. Find worker by name, skill, location, freelance, fulltime.
+7. Send direct email to selected worker.
+8. Reset Password.
 
 ## Getting Started
 
