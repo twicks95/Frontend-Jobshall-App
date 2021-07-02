@@ -2,9 +2,9 @@
   <p align="center">
     <a href="jobshall.netlify.app">View Demo</a>
     ·
-    <a href="https://github.com/arkbootcamp/week5-web9-beginerFrontend/issues">Report Bug</a>
+    <a href="https://github.com/twicks95/frontend-jobshall-app/issues">Report Bug</a>
     ·
-    <a href="https://github.com/arkbootcamp/week5-web9-beginerFrontend/pulls">Request Feature</a>
+    <a href="https://github.com/twicks95/frontend-jobshall-app/pulls">Request Feature</a>
   </p>
 
 ![Image Banner](public/jobshall.jpg)
