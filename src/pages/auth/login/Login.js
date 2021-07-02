@@ -99,8 +99,8 @@ class Login extends Component {
                 atau kandidat yang anda inginkan sekarang!.
               </p>
               <p className={styles.subTitle1}>
-                Masuk akun yang di telah daftarkan, dan mulailah untuk
-                eksplorasi perusahaan atau kandidat yang anda inginkan sekarang!
+                Gunakan akun yang sudah di daftarkan, mulai eksplor perusahaan
+                atau kandidat yang anda inginkan sekarang!.
               </p>
               <Form
                 className={styles.mainForm}
