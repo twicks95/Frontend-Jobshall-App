@@ -24,6 +24,14 @@
 2. Node_modules `npm install` or `yarn install`
 3. Backend API JobShall [`here`](https://github.com/twicks95/backend-jobshall-app.git)
 
+## Feature
+1. SignIn & SignUp Recruiters & Workers.
+2. Read Profile Recruiters.
+3. Read Profile Workers.
+4. Sorting by name, skill, location, freelance, fulltime.
+5. Recruiters seng message invited hire to Workers via Email.
+6. Reset Password Recruiters & Workers.
+
 ## Getting Started
 
 1. Download this Project or you can type `git clone https://github.com/twicks95/frontend-jobshall-app.git`
