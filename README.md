@@ -11,7 +11,7 @@
 
 ## About The Project
 
-#background_projek.
+A website that is used to accommodate workers for later search by company recruiters who need it
 
 ## Built With
 
