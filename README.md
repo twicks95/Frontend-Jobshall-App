@@ -1,4 +1,4 @@
-﻿<h1 align='center'>React JS - JobShall </h1>
+﻿<h1 align='center'>React JS - Jobshall </h1>
   <p align="center">
     <a href="https://jobshall.netlify.app">View Demo</a>
     ·
