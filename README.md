@@ -50,6 +50,11 @@ REACT_APP_ENDPOINT = [Backend API]
 - [Axios](https://www.npmjs.com/package/axios)
 - [React](https://reactjs.org/)
 - [React Bootstrap](https://react-bootstrap.github.io/)
+- [Bootstrap](https://www.npmjs.com/package/bootstrap)
+- [Dotenv](https://www.npmjs.com/package/dotenv)
+- [Redux](https://www.npmjs.com/package/redux)
+- [Moment](https://www.npmjs.com/package/moment)
+
 
 ## Team
 
