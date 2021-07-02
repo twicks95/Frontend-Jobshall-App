@@ -21,7 +21,7 @@ A website that is used to accommodate workers for later search by company recrui
 
 ## Requirements
 
-1. <a href="https://nodejs.org/en/download/">Node Js</a>
+1. <a href="https://reactjs.org/docs/getting-started.html">React Js</a>
 2. Node_modules `npm install` or `yarn install`
 3. Backend API JobShall [`here`](https://github.com/twicks95/backend-jobshall-app.git)
 
