@@ -7,7 +7,8 @@
     <a href="https://github.com/twicks95/frontend-jobshall-app/pulls">Request Feature</a>
   </p>
 
-![Image Banner](public/jobshall.jpg)
+![Image Banner](public/landing.jpg)
+![Image Banner](public/worker-profile.jpg)
 
 ## About The Project
 
